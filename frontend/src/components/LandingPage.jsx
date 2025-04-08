@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import useFetchUser from "../hooks/useFetchUser";
 import Globe from "./Globe.jsx";
+import { FaArrowAltCircleDown } from "react-icons/fa";
+
+import img1 from "../assets/img1.png";
 
 export default function LandingPage() {
     const [pfp, setPfp] = useState("");
@@ -72,7 +75,6 @@ export default function LandingPage() {
                         <div className="title">
                             World Info
                         </div>
-                        <div className="despreNoi">Despre Noi</div>
                         <div>
                             <img className="profilePic" src="/anonymous.png" alt="" />
                         </div>
@@ -90,16 +92,24 @@ export default function LandingPage() {
 
             <div className="globeWrapper">
                 <Globe />
-
+                <a href='#gen'><FaArrowAltCircleDown size={50} className="arrowDown" color={'#3feab5'} /></a>
             </div>
 
+
+
             <div className="textInfoWrapper">
+
                 <div className="textInfo1">
                     <h1 className="textInfoTitle">
+
                         Cum să utilizezi aplicația noastră?
                     </h1>
                     <div className="textInfoContent">
-                        Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
+                        <a id='gen' />
+                        <p className="text">
+                            Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
+                        </p>
+                        <img className="textImage" src={img1}/>
                     </div>
                 </div>
                 <div className="textInfo2">
