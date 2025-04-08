@@ -70,7 +70,7 @@ export default function LandingPage() {
 
                     <div className="sections">
                         <div className="title">
-                            Flasher
+                            World Info
                         </div>
                         <div className="despreNoi">Despre Noi</div>
                         <div>
