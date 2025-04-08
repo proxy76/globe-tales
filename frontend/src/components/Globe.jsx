@@ -8,26 +8,25 @@ const Globe = () => {
     useEffect(() => {
         const mount = mountRef.current;
 
-        // Scene setup for the globe
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
-        camera.position.z = 3; // Move the camera back to fit the globe
+        camera.position.z = 3;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(mount.clientWidth, mount.clientHeight);
-        renderer.setClearColor(0x000000, 0); // Set transparent background
+        renderer.setClearColor(0x000000, 0);
         mount.appendChild(renderer.domElement);
 
         const geometry = new THREE.SphereGeometry(1.5, 32, 32);
         const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('/earth.jpg'); // Globe texture
+        const texture = textureLoader.load('/earth.jpg');
         const material = new THREE.MeshBasicMaterial({ map: texture });
         const globe = new THREE.Mesh(geometry, material);
         scene.add(globe);
 
         const animate = () => {
             if (!isSticky) {
-                globe.rotation.y -= 0.001; // Rotate the globe unless sticky
+                globe.rotation.y -= 0.001;
             }
             requestAnimationFrame(animate);
             renderer.render(scene, camera);
@@ -41,7 +40,7 @@ const Globe = () => {
         };
         window.addEventListener('resize', handleResize);
 
-        handleResize(); // Initial resize
+        handleResize();
 
         return () => {
             window.removeEventListener('resize', handleResize);
@@ -49,11 +48,9 @@ const Globe = () => {
         };
     }, [isSticky]);
 
-    // IntersectionObserver to detect when the globe should become sticky
     useEffect(() => {
         const observer = new IntersectionObserver(
             ([entry]) => {
-                // If the globe is not intersecting (i.e., it reaches the top), make it sticky
                 setIsSticky(!entry.isIntersecting);
             },
             { threshold: 0 }
@@ -62,12 +59,12 @@ const Globe = () => {
         const globeElement = mountRef.current;
 
         if (globeElement) {
-            observer.observe(globeElement); // Start observing the globe element
+            observer.observe(globeElement);
         }
 
         return () => {
             if (globeElement) {
-                observer.unobserve(globeElement); // Clean up observer
+                observer.unobserve(globeElement); 
             }
         };
     }, []);
@@ -76,8 +73,11 @@ const Globe = () => {
         <div
             ref={mountRef}
             className={`globe ${isSticky ? 'sticky' : ''}`}
-            style={{ width: '100%', height: '500px' }}
-        />
+            style={{ width: '100%', height: '500px' }}>
+
+            <div className="globeText">Călătorește cu NOI!</div>
+
+        </div>
     );
 };
 

@@ -90,6 +90,13 @@ export default function LandingPage() {
 
             <div className="globeWrapper">
                 <Globe />
+
+            </div>
+
+            <div className="textInfo">
+                <h1 className="textInfoTitle">
+                    Cum să utilizezi aplicația noastră?
+                </h1>
             </div>
         </div >
     );
