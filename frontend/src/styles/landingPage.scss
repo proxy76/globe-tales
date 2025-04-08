@@ -101,6 +101,7 @@
     grid-template-rows: 1fr 1fr;
     gap: 10%;
     width: 100%;
+    overflow: visible;
 
     h1 {
         font-family: 'Poppins', sans-serif;
@@ -115,7 +116,6 @@
         color: black;
         font-weight: 400;
         margin-top: 1rem;
-        overflow: hidden;
     }
 
     .textInfo1 {
@@ -123,8 +123,6 @@
         grid-row: 1;
         grid-column: 1;
         padding-left: 2em;
-
-
     }
 
     .textInfo2 {
