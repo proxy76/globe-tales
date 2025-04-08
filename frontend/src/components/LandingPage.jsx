@@ -93,10 +93,16 @@ export default function LandingPage() {
 
             </div>
 
-            <div className="textInfo">
-                <h1 className="textInfoTitle">
-                    Cum să utilizezi aplicația noastră?
-                </h1>
+            <div className="textInfoWrapper">
+                <div className="textInfo1">
+                    <h1 className="textInfoTitle">
+                        Cum să utilizezi aplicația noastră?
+                    </h1>
+                    <div className="textInfo1Content">
+                        Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
+                    </div>
+                </div>
+
             </div>
         </div >
     );

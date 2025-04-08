@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +6,8 @@
 }
 
 .pageWrapper {
-    min-height: 200vh; /* Increased height to make the page scrollable */
+    min-height: 200vh;
+    /* Increased height to make the page scrollable */
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -20,7 +20,8 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -2; /* Set z-index lower than the gradient overlay */
+    z-index: -2;
+    /* Set z-index lower than the gradient overlay */
 }
 
 .pageWrapper::before {
@@ -31,7 +32,8 @@
     width: 100%;
     height: 100%;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 20%, rgba(255, 255, 255, 1) 60%);
-    z-index: -1; /* Set z-index higher than the video but lower than the content */
+    z-index: -1;
+    /* Set z-index higher than the video but lower than the content */
 }
 
 .contentWrapper {
@@ -48,7 +50,8 @@
 }
 
 .extraContent {
-    height: 100vh; /* Extra content to make the page scrollable */
+    height: 100vh;
+    /* Extra content to make the page scrollable */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -61,15 +64,17 @@
 .globeWrapper {
     .globe {
         width: 100%;
-        height: 500px !important; /* Adjust as needed */
+        height: 500px !important;
+        /* Adjust as needed */
         transition: all 0.3s ease-in-out;
         position: relative;
     }
-    
+
     .globe.sticky {
         position: sticky;
         top: 0;
-        z-index: 10; /* Make sure it's above other content */
+        z-index: 10;
+        /* Make sure it's above other content */
     }
 
     .globeText {
@@ -87,3 +92,32 @@
     }
 }
 
+.textInfoWrapper {
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 8rem;
+
+    .textInfo1 {
+        position: relative;
+
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 30px;
+            color: black;
+            font-weight: 800;
+        }
+
+        .textInfo1Content {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            color: black;
+            font-weight: 400;
+            margin-top: 1rem;
+            line-break: 20ch;
+        }
+    }
+
+}
