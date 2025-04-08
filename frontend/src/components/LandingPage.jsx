@@ -15,7 +15,7 @@ export default function LandingPage() {
     useEffect(() => {
         const loadFinisherHeader = async () => {
             const script = document.createElement("script");
-            script.src = "/finisher-header.es5.min.js"; // Load from public folder
+            script.src = "/finisher-header.es5.min.js";
             script.async = true;
             document.body.appendChild(script);
 
@@ -70,7 +70,7 @@ export default function LandingPage() {
 
                     <div className="sections">
                         <div className="title">
-                            Flasher
+                            World Info
                         </div>
                         <div className="despreNoi">Despre Noi</div>
                         <div>
