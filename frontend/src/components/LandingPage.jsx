@@ -65,18 +65,19 @@ export default function LandingPage() {
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
-                <div className="title">
-                    Flasher
-                </div>
 
-                <div className="sections">
-                    <ul>
-                        <li>Despre Noi</li>
-                        <li>Wishlist</li>
-                        <li>Profil</li>
-                    </ul>
+                <div className="headerText">
+
+                    <div className="sections">
+                        <div className="title">
+                            Flasher
+                        </div>
+                        <div className="despreNoi">Despre Noi</div>
+                        <div>
+                            <img className="profilePic" src="/anonymous.png" alt="" />
+                        </div>
+                    </div>
                 </div>
-                
                 <div
                     ref={headerRef}
                     className="header finisher-header"
@@ -87,7 +88,9 @@ export default function LandingPage() {
             </div>
 
 
-            <Globe />
-        </div>
+            <div className="globeWrapper">
+                <Globe />
+            </div>
+        </div >
     );
 }

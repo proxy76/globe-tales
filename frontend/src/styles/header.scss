@@ -3,32 +3,50 @@
 .headerWrapper {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    gap: 10%;
+
+    .headerText {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10%;
+        padding: 1.2rem;
+    }
 
     .header {
         position: absolute;
         display: flex;
-        justify-content: space-between;   
+        justify-content: space-between;
+        padding: 1.2rem;
+
     }
+
     .title {
-        color: white;
-        font-family: Poppins, sans-serif;
         font-size: 1.5rem;
         font-weight: bolder;
-        padding-left: 4.5rem;
         position: relative;
     }
-    .sections ul{
-        list-style: none;
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-    }
+
     .sections {
+        display: flex;
+        font-family: Poppins, sans-serif;
+        justify-content: space-between;
+        align-items: center;
         width: 100%;
+        padding: 0 1.2rem;
+        color:white;
+
+        .despreNoi {
+            font-weight: bold;
+            font-size:1rem;
+        }
     }
+
+
 }
 
-
-
+.profilePic {
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    width: 50px;
+}
