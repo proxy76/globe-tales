@@ -102,6 +102,9 @@ export default function LandingPage() {
                         Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
                     </div>
                 </div>
+                <div className="textInfo2">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi distinctio animi laudantium ipsa quisquam sint placeat quia nisi unde. Perferendis!
+                </div>
 
             </div>
         </div >
