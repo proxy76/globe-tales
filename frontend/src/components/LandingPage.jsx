@@ -130,6 +130,28 @@ export default function LandingPage() {
 
             </div>
 
+            <div class="footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                <h2>YourBrand</h2>
+                <p>Innovative solutions for a modern world.</p>
+                </div>
+
+                <div class="footer-social">
+                <h4>Follow Us</h4>
+                <ul>
+                    <li><a href="#" class="social-icon facebook">Facebook</a></li>
+                    <li><a href="#" class="social-icon twitter">Twitter</a></li>
+                    <li><a href="#" class="social-icon instagram">Instagram</a></li>
+                    <li><a href="#" class="social-icon linkedin">LinkedIn</a></li>
+                </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 YourBrand. All rights reserved.</p>
+            </div>
+            </div>
         </div >
     );
 }

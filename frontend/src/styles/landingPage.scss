@@ -147,6 +147,79 @@
         }
     }
 
-
-
 }
+
+/* Simple Footer Styles */
+.footer {
+    background-color: rgb(63, 234, 181);
+    color: #000000;
+    padding: 40px 0;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .footer-logo, .footer-social {
+    flex: 1;
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-logo h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-logo p {
+    font-size: 14px;
+  }
+  
+  .footer-social h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .footer-social ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footer-social ul li {
+    margin-bottom: 8px;
+  }
+  
+  .footer-social a {
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .footer-social a:hover {
+    color: #3498db;
+  }
+  
+  .footer-social ul {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .footer-social .social-icon {
+    font-size: 18px;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    position:relative;
+  }
+  
+  .footer-bottom p {
+    font-size: 9px;
+  }
+  
