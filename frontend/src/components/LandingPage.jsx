@@ -74,7 +74,12 @@ export default function LandingPage() {
 
                     <div className="sections">
                         <div className="title">
-                            World Info
+                            <div className="titleLogo">
+                                <img src="/logo.png" alt="" />
+                            </div>
+                            <div className="titleText">
+                                GlobeTales.
+                            </div>
                         </div>
                         <div>
                             <img className="profilePic" src="/anonymous.png" alt="" />
@@ -84,7 +89,7 @@ export default function LandingPage() {
                 <div
                     ref={headerRef}
                     className="header finisher-header"
-                    style={{ width: "150%", height: "700px" }}
+                    style={{ width: "150%", height: "107vh" }}
                 >
 
                 </div>
@@ -93,7 +98,29 @@ export default function LandingPage() {
 
             <div className="globeWrapper">
                 <Globe />
-                <a href='#gen'><FaArrowAltCircleDown size={50} className="arrowDown" color={'#3feab5'} /></a>
+            </div>
+
+            <div className="buttonWrapper">
+
+                <div className="txt">
+                    <h2>Travel. Experience. Find Yourself!</h2>
+                </div>
+
+                <div className="btns">
+                    <button>
+                        World Map
+                    </button>
+
+                    <button>
+                        Travel Journal
+                    </button>
+
+                    <button>
+                        Bucketlist
+                    </button>
+                </div>
+
+
             </div>
 
             <div className="infoWrapper">
@@ -118,7 +145,7 @@ export default function LandingPage() {
                     <div className="img2">
                         <img src={img2} alt="" />
                     </div>
-                    
+
                     <div className="text2">
                         <h1>Lorem, ipsum.</h1>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
@@ -131,26 +158,26 @@ export default function LandingPage() {
             </div>
 
             <div class="footer">
-            <div class="footer-container">
-                <div class="footer-logo">
-                <h2>YourBrand</h2>
-                <p>Innovative solutions for a modern world.</p>
+                <div class="footer-container">
+                    <div class="footer-logo">
+                        <h2>GlobeTales.</h2>
+                        <p>Innovative solutions for a modern world.</p>
+                    </div>
+
+                    <div class="footer-social">
+                        <h4>Follow Us</h4>
+                        <ul>
+                            <li><a href="#" class="social-icon facebook">Facebook</a></li>
+                            <li><a href="#" class="social-icon twitter">Twitter</a></li>
+                            <li><a href="#" class="social-icon instagram">Instagram</a></li>
+                            <li><a href="#" class="social-icon linkedin">LinkedIn</a></li>
+                        </ul>
+                    </div>
                 </div>
 
-                <div class="footer-social">
-                <h4>Follow Us</h4>
-                <ul>
-                    <li><a href="#" class="social-icon facebook">Facebook</a></li>
-                    <li><a href="#" class="social-icon twitter">Twitter</a></li>
-                    <li><a href="#" class="social-icon instagram">Instagram</a></li>
-                    <li><a href="#" class="social-icon linkedin">LinkedIn</a></li>
-                </ul>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 GlobeTales. All rights reserved.</p>
                 </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 YourBrand. All rights reserved.</p>
-            </div>
             </div>
         </div >
     );
