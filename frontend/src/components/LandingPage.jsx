@@ -95,34 +95,40 @@ export default function LandingPage() {
                 <a href='#gen'><FaArrowAltCircleDown size={50} className="arrowDown" color={'#3feab5'} /></a>
             </div>
 
+            <div className="infoWrapper">
 
+                <div className="info1">
 
-            <div className="textInfoWrapper">
-
-                <div className="textInfo1">
-                    <h1 className="textInfoTitle">
-
-                        Cum să utilizezi aplicația noastră?
-                    </h1>
-                    <div className="textInfoContent">
-                        <a id='gen' />
-                        <p className="text">
-                            Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
-                        </p>
-                        <img className="textImage" src={img1}/>
+                    <div className="text1">
+                        <h1>Lorem, ipsum.</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
                     </div>
+
+                    <div className="img1">
+                        <img src={img1} alt="" />
+                    </div>
+
                 </div>
-                <div className="textInfo2">
 
-                    <h1 className="textInfoTitle">                        Cum să utilizezi aplicația noastră?
-                    </h1>
 
-                    <div className="textInfoContent">
-                        Aplicația noastră oferă o interfață prietenoasă și ușor de utilizat. Poți naviga prin diferite secțiuni pentru a descoperi informații despre diverse țări, culturi și atracții turistice. De asemenea, poți salva favoritele tale.
+                <div className="info2">
+
+
+                    <div className="img2">
+                        <img src={img1} alt="" />
                     </div>
+                    
+                    <div className="text2">
+                        <h1>Lorem, ipsum.</h1>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
+                    </div>
+
+
+
                 </div>
 
             </div>
+
         </div >
     );
 }
