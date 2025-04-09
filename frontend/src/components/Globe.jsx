@@ -15,12 +15,14 @@ const Globe = () => {
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setSize(mount.clientWidth, mount.clientHeight);
         renderer.setClearColor(0x000000, 0);
+        renderer.outputEncoding = THREE.sRGBEncoding;
         mount.appendChild(renderer.domElement);
 
         const geometry = new THREE.SphereGeometry(1.5, 32, 32);
         const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('/earth.jpg');
-        const material = new THREE.MeshBasicMaterial({ map: texture });
+        const texture = textureLoader.load('/earth3.png');
+        texture.encoding = THREE.sRGBEncoding;
+        const material = new THREE.MeshBasicMaterial({ map: texture, color: new THREE.Color(1, 1, 1) });
         const globe = new THREE.Mesh(geometry, material);
         scene.add(globe);
 

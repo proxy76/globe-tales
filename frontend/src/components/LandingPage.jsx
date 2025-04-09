@@ -4,6 +4,7 @@ import Globe from "./Globe.jsx";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 
 import img1 from "../assets/img1.png";
+import img2 from "../assets/img2.png";
 
 export default function LandingPage() {
     const [pfp, setPfp] = useState("");
@@ -115,7 +116,7 @@ export default function LandingPage() {
 
 
                     <div className="img2">
-                        <img src={img1} alt="" />
+                        <img src={img2} alt="" />
                     </div>
                     
                     <div className="text2">
