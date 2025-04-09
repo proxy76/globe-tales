@@ -98,7 +98,7 @@ export default function LandingPage() {
             <div className="infoWrapper">
 
                 <div className="info1">
-
+                    <a id="gen"></a>
                     <div className="text1">
                         <h1>Lorem, ipsum.</h1>
                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
