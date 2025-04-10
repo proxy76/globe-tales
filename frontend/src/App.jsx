@@ -37,7 +37,7 @@ function App() {
       <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-       <Route path="/about" element={<MainMap />} />
+        <Route path="/about" element={<MainMap />} />
       </Routes>
     </BrowserRouter>
     { /*<Footer /> */}
