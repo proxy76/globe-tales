@@ -89,7 +89,7 @@ export default function LandingPage() {
                 <div
                     ref={headerRef}
                     className="header finisher-header"
-                    style={{ width: "150%", height: "107vh" }}
+                    style={{ width: "150%", height: "1000px" }}
                 >
 
                 </div>
