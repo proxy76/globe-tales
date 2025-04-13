@@ -10,6 +10,10 @@ import {
   Link
 } from "react-router-dom";
 
+
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
+
 function App() {
   const [isLogged, setIsLogged] = useState(false);
 
@@ -34,15 +38,17 @@ function App() {
   return (
     <div className='container'>
 
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/about" element={<MainMap />} />
-      </Routes>
-    </BrowserRouter>
-    { /*<Footer /> */}
-      
-      
+      <BrowserRouter> 
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/about" element={<MainMap />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      </BrowserRouter>
+      { /*<Footer /> */}
+
+
     </div>
   )
 }
