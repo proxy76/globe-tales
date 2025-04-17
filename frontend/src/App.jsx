@@ -3,6 +3,10 @@ import './styles/main.scss';
 import MainMap from './components/MainMap';
 import LandingPage from './components/LandingPage';
 import React from "react";
+import Profile from './components/Profile';
+import Journal from './components/Journal';
+import Bucketlist from './components/Bucketlist';
+
 import {
   BrowserRouter,
   Route,
@@ -41,9 +45,12 @@ function App() {
       <BrowserRouter> 
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<MainMap />} />
+          <Route path="/map" element={<MainMap />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/journal" element={<Journal />} />
+          <Route path="/bucketlist" element={<Bucketlist />} />
         </Routes>
       </BrowserRouter>
       { /*<Footer /> */}
