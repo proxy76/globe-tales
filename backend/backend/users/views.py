@@ -90,3 +90,35 @@ def check_login_view(request):
             return JsonResponse({"isLogged": False}, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def add_bucketlist(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            data = json.loads(request.body)
+            country = data.get(country)
+            user = request.user
+            user.countriesWishlist.append(country)
+            user.save()
+            return JsonResponse({"isAdded": True}, status=200)
+        else:
+            return JsonResponse({"isAdded": False}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def add_journal(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            data = json.loads(request.body)
+            country = data.get(country)
+            user = request.user
+            user.countriesVisited.append(country)
+            user.save()
+            return JsonResponse({"isAdded": True}, status=200)
+        else:
+            return JsonResponse({"isAdded": False}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
+
