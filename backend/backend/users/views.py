@@ -14,11 +14,7 @@ def register(request):
         username = data.get("username")
         email = data.get("email")
         password = data.get("password")
-        confirmation = data.get("confirmation")
-        
-        if password != confirmation:
-            return JsonResponse({"message": "Passwords don't match", "status":"failed"}, status=403)
-        
+
         try:
             user = User.objects.create_user(username, email, password)
             user.save()
