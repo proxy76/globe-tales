@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 const RegisterPage = () => {
-
+  const navigate = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +24,7 @@ const RegisterPage = () => {
         .then((response) => {
           console.log(response.status);
           setIsLogged(true)
-          useNavigate('/')
+          navigate('/')
         })
         .catch((error) => {
           console.log(error);

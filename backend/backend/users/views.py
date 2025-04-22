@@ -28,26 +28,40 @@ def register(request):
     else:
         return JsonResponse({"message": "Invalid method", "status":"failed"}, status=403)
     
+
 @csrf_exempt
 def login_view(request):
-    if request.user.is_authenticated: 
-        logging.warning(request.user)
-        return JsonResponse({"message": "Already authenticated", "status":"failed"}, status=403)
+    # If the user is already authenticated, return a failure response
+    if request.user.is_authenticated:
+        logging.warning(f"User already authenticated: {request.user}")
+        return JsonResponse({"message": "Already authenticated", "status": "failed"}, status=403)
 
+    # Only handle POST requests for login
     if request.method == "POST":
-        data = json.loads(request.body)
-        username = data.get("username")
-        password = data.get("password")
+        # Parse the JSON data from the request body
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            password = data.get("password")
+        except json.JSONDecodeError:
+            return JsonResponse({"message": "Invalid JSON", "status": "failed"}, status=400)
 
-        logging.warning("incerc sa autentific " + username + password )
+        logging.warning(f"Attempting to authenticate: {username}")
+
+        # Authenticate the user using Django's authenticate function
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
+            # Log the user in
             login(request, user)
-            logging.warning(request.user)
-            return JsonResponse({"message": "Username logged in", "status":"success"}, status=200)
+            logging.warning(f"User logged in successfully: {request.user}")
+            return JsonResponse({"message": "Username logged in", "status": "success"}, status=200)
         else:
-            return JsonResponse({"message": "Username or password incorrect", "status":"failed"}, status=403)
+            logging.warning(f"Authentication failed for: {username}")
+            return JsonResponse({"message": "Username or password incorrect", "status": "failed"}, status=403)
+
+    # If the request method is not POST, return a 405 Method Not Allowed
+    return JsonResponse({"message": "Method not allowed", "status": "failed"}, status=405)
         
 @login_required
 @csrf_exempt
