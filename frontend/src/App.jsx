@@ -43,7 +43,7 @@ function App() {
 
       <BrowserRouter> 
         <Routes>
-          <Route path="/" element={<LandingPage isLogged={isLogged} />} />
+          <Route path="/" element={<LandingPage isLogged={isLogged} setIsLogged={setIsLogged} />} />
           <Route path="/map" element={<MainMap />} />
           <Route path="/login" element={<LoginPage setIsLogged={setIsLogged}/>} />
           <Route path="/register" element={<RegisterPage setIsLogged={setIsLogged} />} />
