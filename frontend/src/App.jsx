@@ -6,6 +6,8 @@ import React from "react";
 import Profile from './components/Profile';
 import Journal from './components/Journal';
 import Bucketlist from './components/Bucketlist';
+import {CHECK_LOGIN_ENDPOINT_URL} from './utils/ApiHost'
+import axios from 'axios';
 
 import {
   BrowserRouter,
@@ -20,31 +22,28 @@ import RegisterPage from './components/RegisterPage';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
-
-  /* useEffect(() => {
+  useEffect(() => {
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(CHECK_LOGIN_ENDPOINT_URL, {
-                withCredentials: true, 
+                withCredentials: true, // Include cookies in the request
             });
             setIsLogged(response.data.isLogged);
         } catch (error) {
             console.error("Error checking login status:", error);
-            setIsLogged(false); 
+            setIsLogged(false); // Default to false if there's an error
         }
     };
 
-
     checkLoginStatus();
-}, []);
- 
-*/
+  }, []);
+
   return (
     <div className='container'>
 
       <BrowserRouter> 
         <Routes>
-          <Route path="/" element={<LandingPage />} />
+          <Route path="/" element={<LandingPage isLogged={isLogged} />} />
           <Route path="/map" element={<MainMap />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />

@@ -5,11 +5,10 @@ import { Link } from 'react-router-dom';
 
 import "../styles/header.scss";
 
-const Header = () => {
+const Header = (isLogged) => {
 
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
-    const [isLogged, setIsLogged] = useState(false);
     const [isOpened, setIsOpened] = useState(false);
 
     // Close dropdown when clicking outside

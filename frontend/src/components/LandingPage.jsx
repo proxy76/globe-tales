@@ -7,12 +7,10 @@ import { Link } from 'react-router-dom';
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
-export default function LandingPage() {
+export default function LandingPage(isLogged) {
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
-    const [isLogged, setIsLogged] = useState(false);
     const [isOpened, setIsOpened] = useState(false);
-
     // Close dropdown when clicking outside
     const dropdownRef = useRef(null);
     useEffect(() => {
