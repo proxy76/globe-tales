@@ -45,13 +45,13 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
 ]
 
@@ -147,11 +147,11 @@ DEBUG=True
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:3000']  # Add your frontend domain here
+CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']  # Add your frontend domain here
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',  # React frontend domain
+    'http://localhost:5173',  # React frontend domain
 ]
 SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
 CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests

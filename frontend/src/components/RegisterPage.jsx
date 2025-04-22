@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 
-const RegisterPage = () => {
+const RegisterPage = ({setIsLogged}) => {
   const navigate = useNavigate();
 
   const [username, setUsername] = useState('');

@@ -4,10 +4,10 @@ import { LOGIN_ENDPOINT_URL } from '../utils/ApiHost';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const LoginPage = () => {
+const LoginPage = ({setIsLogged}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  
+  const navigate = useNavigate();
   const login = (e) => {
     if (e.target.className == 'button') {
       axios.post(LOGIN_ENDPOINT_URL, {
@@ -19,7 +19,7 @@ const LoginPage = () => {
         .then((response) => {
             console.log(response.status);
             setIsLogged(true)
-            useNavigate('/')
+            navigate('/')
         })
         .catch((error) => {
             console.log(error);

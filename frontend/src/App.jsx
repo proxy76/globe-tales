@@ -45,8 +45,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage isLogged={isLogged} />} />
           <Route path="/map" element={<MainMap />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage setIsLogged={setIsLogged}/>} />
+          <Route path="/register" element={<RegisterPage setIsLogged={setIsLogged} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/journal" element={<Journal />} />
           <Route path="/bucketlist" element={<Bucketlist />} />
