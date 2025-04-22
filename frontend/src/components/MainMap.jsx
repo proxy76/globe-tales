@@ -1,44 +1,44 @@
 import React, { useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import Menu from './Menu';
+
 const MainMap = () => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [countryName, setCountryName] = useState('');
+
   return (
     <div>
       <div>
-        {selectedCountry &&
-            <Menu country={countryName} /> 
-        }
+        {selectedCountry && <Menu country={countryName} />}
       </div>
-  
+
       <ComposableMap>
         <Geographies geography="/features.json">
           {({ geographies }) =>
             geographies.map((geo) => {
               const isSelected = selectedCountry === geo.id;
+
               return (
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
                   onClick={() => {
-                    setSelectedCountry(geo.id)
-                    setCountryName(geo.properties.name)
-                  }
-                }
+                    setSelectedCountry(geo.id);
+                    setCountryName(geo.properties.name);
+                  }}
                   style={{
                     default: {
-                      fill: isSelected ? "#FF5733" : "#D6D6DA",
+                      fill: isSelected ? "#FF5733" : "#D6D6DA", // Highlight selected country
                       stroke: "#000",
                       outline: "none",
                     },
                     hover: {
-                      fill: "#A8A8A8",
+                      fill: "#A8A8A8", // Change color on hover
                       stroke: "#000",
                       outline: "none",
                     },
                     pressed: {
-                      fill: "#FF5733",
+                      fill: "#FF5733", // Keep the selected color when pressed
                       stroke: "#000",
                       outline: "none",
                     },
