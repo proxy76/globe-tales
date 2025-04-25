@@ -5,6 +5,9 @@ import { Link } from 'react-router-dom';
 
 import "../styles/header.scss";
 
+import axios from 'axios';
+import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
+
 const Header = (isLogged) => {
 
     const [pfp, setPfp] = useState("");
@@ -25,6 +28,23 @@ const Header = (isLogged) => {
         };
     }, []);
 
+    const handleLogout = async (e) => {
+        e.preventDefault();
+
+        axios.post(LOGOUT_ENDPOINT_URL, {}, { withCredentials: true })
+            .then((response) => {
+                setIsLogged(false); // Update state to indicate user is logged out
+            })
+            .catch((error) => {
+                console.log(error); // Log any errors that occur
+            })
+            .finally(() => {
+                // Optional: Any final cleanup or actions can be placed here
+            });
+        window.location.pathname = '/'; // Redirect to home page after logout
+
+    };
+
     return (
         <>
             <div className="headerWrapper">
@@ -35,7 +55,7 @@ const Header = (isLogged) => {
                                 <img src="/logo.png" alt="" />
                             </div>
                             <div className="titleText" style={{ color: "black" }}>
-                                GlobeTales.
+                                <a href='/'>GlobeTales.</a>
                             </div>
                         </div>
                         <div
@@ -62,11 +82,9 @@ const Header = (isLogged) => {
                                                         </div>
                                                     </Link>
 
-                                                    <Link to='logout'>
-                                                        <div className="dropdownItem">
-                                                            Logout
-                                                        </div>
-                                                    </Link>
+                                                    <div onClick={(e) => handleLogout(e)} className="dropdownItem">
+                                                        Logout
+                                                    </div>
 
                                                 </div>
                                             ) : (

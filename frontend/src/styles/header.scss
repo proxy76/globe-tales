@@ -26,6 +26,12 @@
         font-weight: bolder;
         position: relative;
         padding: 1.2rem;
+
+        .titleText {
+            a {
+                color: #333;
+            }
+        }
     }
 
     .sections {

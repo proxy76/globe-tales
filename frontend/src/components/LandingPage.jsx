@@ -3,13 +3,13 @@ import useFetchUser from "../hooks/useFetchUser";
 import Globe from "./Globe.jsx";
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
-import {LOGOUT_ENDPOINT_URL} from '../utils/ApiHost.js';
-import axios from 'axios'; 
+import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
+import axios from 'axios';
 
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
-export default function LandingPage({isLogged, setIsLogged}) {
+export default function LandingPage({ isLogged, setIsLogged }) {
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
     const [isOpened, setIsOpened] = useState(false);
@@ -31,15 +31,15 @@ export default function LandingPage({isLogged, setIsLogged}) {
         e.preventDefault();
 
         axios.post(LOGOUT_ENDPOINT_URL, {}, { withCredentials: true })
-    .then((response) => {
-        setIsLogged(false); // Update state to indicate user is logged out
-    })
-    .catch((error) => {
-        console.log(error); // Log any errors that occur
-    })
-    .finally(() => {
-        // Optional: Any final cleanup or actions can be placed here
-    });
+            .then((response) => {
+                setIsLogged(false); // Update state to indicate user is logged out
+            })
+            .catch((error) => {
+                console.log(error); // Log any errors that occur
+            })
+            .finally(() => {
+                // Optional: Any final cleanup or actions can be placed here
+            });
         window.location.reload();
 
     };
@@ -130,9 +130,9 @@ export default function LandingPage({isLogged, setIsLogged}) {
                                                         </div>
                                                     </Link>
 
-                                                        <div onClick={(e) => handleLogout(e)} className="dropdownItem">
-                                                            Logout
-                                                        </div>
+                                                    <div onClick={(e) => handleLogout(e)} className="dropdownItem">
+                                                        Logout
+                                                    </div>
 
                                                 </div>
                                             ) : (
