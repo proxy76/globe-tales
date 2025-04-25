@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 import json
 import logging
 
+# Import OpenAI API key from environment variables!!!
 
 @csrf_exempt
 def register(request):
