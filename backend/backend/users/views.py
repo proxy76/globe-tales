@@ -79,7 +79,9 @@ def user_info(request):
         if not request.user:
              return JsonResponse({"message": "Username not logged in", "status":"failed"}, status=403)
     user = request.user
-    return JsonResponse({"username": user.username, "email": user.email, "profile_picture": user.profile_picture, "countriesVisited" : user.countriesVisited, "countriesWishlist": user.countriesWishlist}, status=200)
+    return JsonResponse({"username": user.username, "email": user.email, 
+    #"profile_picture": user.profile_picture,
+    "countriesVisited" : user.countriesVisited, "countriesWishlist": user.countriesWishlist}, status=200)
     
 @csrf_exempt
 def check_login_view(request):
@@ -96,7 +98,7 @@ def add_bucketlist(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             data = json.loads(request.body)
-            country = data.get(country)
+            country = data.get('country')
             user = request.user
             user.countriesWishlist.append(country)
             user.save()
@@ -111,7 +113,7 @@ def add_journal(request):
     if request.method == "POST":
         if request.user.is_authenticated:
             data = json.loads(request.body)
-            country = data.get(country)
+            country = data.get('country')
             user = request.user
             user.countriesVisited.append(country)
             user.save()

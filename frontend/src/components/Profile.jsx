@@ -1,28 +1,52 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/ProfilePage.scss';
+import axios from 'axios';
+import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
+import { useState } from 'react';
+
+import pfp from '../assets/anonymous.png';
+import Header from './Header';
 
 const ProfilePage = () => {
+
+  const [profileInfo, setProfileInfo] = useState([]);
+  const getInfo = () => {
+    axios.get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
+      .then(response => {
+        setProfileInfo(response.data);
+        console.log(response.data.countriesVisited);
+        console.log("Visited countries:", response.data.countriesVisited?.length || 0);
+      })
+      .catch(error => {
+        console.error('Failed to fetch profile info:', error);
+      });
+  };
+  useEffect(() => {
+    getInfo();
+  }
+    , []);
+
   const user = {
-    name: 'Jane Doe',
-    email: 'jane.doe@example.com',
-    countriesVisited: 25,
-    countriesWishlisted: 40,
-    profilePic: '../assets/profile-pic.jpg', // Replace with actual image path
+    name: profileInfo.username,
+    email: profileInfo.email,
+    countriesVisited: profileInfo.countriesVisited,
+    countriesWishlisted: profileInfo.countriesWishlist,
+    // profilePic: profileInfo.profile_picture,
   };
 
   return (
     <>
+      <Header />
       <div className="profile-container">
         <img
-          src={user.profilePic}
-          alt="Profile"
+          src={user.profilePic? user.profilePic : pfp}
           className="profile-picture"
         />
         <div className="profile-details">
           <h2>{user.name}</h2>
           <p>Email: {user.email}</p>
-          <p>Countries Visited: {user.countriesVisited}</p>
-          <p>Wishlist: {user.countriesWishlisted}</p>
+          <p>Countries Visited: {user.countriesVisited?.length || 0}</p>
+          <p>Wishlist: {user.countriesWishlisted?.length || 0}</p>
         </div>
       </div>
 
