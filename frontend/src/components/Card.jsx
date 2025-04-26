@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from 'axios';  
+
+import '../styles/Card.scss'; 
 
 const Card = ({ name }) => {
     const [info, setInfo] = useState(null);  // Changed from [] to null to better handle async data

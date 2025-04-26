@@ -1,0 +1,56 @@
+
+.card {
+    margin: 1rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    max-width: 300px;
+    text-align: center;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+
+    .name, .currencies, .capital, .languages, .population, .continent {
+        margin-bottom: 1rem;
+
+        p {
+            margin: 0.2rem 0;
+            font-size: 14px;
+            color: #555;
+
+            &:first-child {
+                font-weight: bold;
+                color: #333;
+            }
+        }
+    }
+
+    .name p:first-child {
+        font-size: 16px;
+        text-transform: uppercase;
+        color: #4caf50;
+    }
+
+    .currencies p:first-child,
+    .capital p:first-child,
+    .languages p:first-child,
+    .population p:first-child,
+    .continent p:first-child {
+        font-size: 14px;
+        text-transform: uppercase;
+        color: #4caf50;
+    }
+}
+
