@@ -124,28 +124,28 @@ def add_journal(request):
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
-@csrf_exempt
-def generate_country_description(request):
-    if request.method == "POST":
-        try:
-            data = json.loads(request.body)
-            country = data.get("country")
+# @csrf_exempt
+# def generate_country_description(request):
+#     if request.method == "POST":
+#         try:
+#             data = json.loads(request.body)
+#             country = data.get("country")
 
-            if not country:
-                return JsonResponse({"error": "Country name is required"}, status=400)
+#             if not country:
+#                 return JsonResponse({"error": "Country name is required"}, status=400)
 
-            # Generate text using OpenAI
-            response = openai.Completion.create(
-                model="text-davinci-003",
-                prompt=f"Write a short travel description for {country}.",
-                max_tokens=100,
-            )
+#             # Generate text using OpenAI
+#             response = openai.Completion.create(
+#                 model="text-davinci-003",
+#                 prompt=f"Write a short travel description for {country}.",
+#                 max_tokens=100,
+#             )
 
-            generated_text = response.choices[0].text.strip()
-            return JsonResponse({"description": generated_text}, status=200)
+#             generated_text = response.choices[0].text.strip()
+#             return JsonResponse({"description": generated_text}, status=200)
 
-        except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
+#         except Exception as e:
+#             return JsonResponse({"error": str(e)}, status=500)
 
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+#     return JsonResponse({"error": "Invalid request method"}, status=405)
 
