@@ -5,6 +5,7 @@ import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 
 import '../styles/journalPage.scss';
+import ErrorPage from './ErrorPage.jsx';
 
 const Journal = () => {
   const [profileInfo, setProfileInfo] = useState(null); 
@@ -22,7 +23,7 @@ const Journal = () => {
     getInfo();
   }, []);
 
-  if (!profileInfo) return <p>Loading...</p>;
+  if (!profileInfo) return <ErrorPage />;
 
   return (
     <div className="journal-container">
