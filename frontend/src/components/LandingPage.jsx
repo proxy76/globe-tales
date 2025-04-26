@@ -185,8 +185,8 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                 <div className="info1">
                     <a id="gen"></a>
                     <div className="text1">
-                        <h1>Lorem, ipsum.</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
+                        <h1>Alege unde vrei să călătorești</h1>
+                        <p>Cu noi, fiecare călătorie devine mai mult decât o amintire. Îți oferim un spațiu special unde poți să îți setezi obiective de călătorie, să notezi destinațiile deja explorate și să îți planifici următoarele aventuri. E ca un jurnal personalizat, dedicat pasiunii tale pentru descoperirea lumii – un loc unde fiecare țară vizitată capătă un sens mai profund și fiecare experiență se transformă într-o poveste de păstrat și rememorat.</p>
                     </div>
                     <div className="img1">
                         <img src={img1} alt="" />
@@ -197,8 +197,8 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                         <img src={img2} alt="" />
                     </div>
                     <div className="text2">
-                        <h1>Lorem, ipsum.</h1>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque sed mollitia ipsam et asperiores ducimus voluptatibus sunt vel velit molestias doloremque inventore quidem ipsa, in dolore nesciunt alias officia quo praesentium? Quas consequuntur dolor unde natus commodi vitae quo veritatis?</p>
+                        <h1>Folosește-te de ce îți oferim</h1>
+                        <p>Pornește într-o aventură fără sfârșit cu harta noastră interactivă! La fiecare pas, vei descoperi informații fascinante despre țările în care ajungi, povești mai puțin știute și curiozități care îți vor îmbogăți călătoria. Marchează-ți destinațiile, scrie-ți amintirile și lasă fiecare loc vizitat să spună o parte din povestea ta.</p>
                     </div>
                 </div>
             </div>
