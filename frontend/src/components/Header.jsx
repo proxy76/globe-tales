@@ -76,7 +76,7 @@ const Header = (isLogged) => {
                                         {
                                             isLogged ? (
                                                 <div className="dropdown">
-                                                    <Link to='profile'>
+                                                    <Link to='/profile'>
                                                         <div className="dropdownItem">
                                                             Profile
                                                         </div>
@@ -89,13 +89,13 @@ const Header = (isLogged) => {
                                                 </div>
                                             ) : (
                                                 <div className="dropdown">
-                                                    <Link to='login'>
+                                                    <Link to='/login'>
                                                         <div className="dropdownItem">
                                                             Login
                                                         </div>
                                                     </Link>
 
-                                                    <Link to='register'>
+                                                    <Link to='/register'>
                                                         <div className="dropdownItem">
                                                             Register
                                                         </div>

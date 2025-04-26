@@ -4,6 +4,8 @@ import Card from './Card.jsx';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 
+import '../styles/journalPage.scss';
+
 const Journal = () => {
   const [profileInfo, setProfileInfo] = useState(null); // changed from [] to null
 
@@ -26,6 +28,7 @@ const Journal = () => {
   return (
     <>
       <Header />
+      <h1>Your Journal</h1>
       <div className="content">
         {Array.from(new Set(profileInfo.countriesVisited)).map((name, index) => (
           <Card key={index} name={name} />
