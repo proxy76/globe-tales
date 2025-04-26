@@ -52,7 +52,7 @@ const Header = (isLogged) => {
                     <div className="sections">
                         <div className="title">
                             <div className="titleLogo">
-                                <img src="/logo.png" alt="" />
+                                <img src="/vite.png" alt="" />
                             </div>
                             <div className="titleText" style={{ color: "black" }}>
                                 <a href='/'>GlobeTales.</a>
