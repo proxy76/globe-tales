@@ -46,6 +46,7 @@ path {
 
     height: auto;
 
+
     .backgroundMenu {
         z-index: 1;
         width: auto;
@@ -59,12 +60,13 @@ path {
         border-radius: 2rem;
         text-align: center;
         gap: 1rem;
+        margin-top: 7%;
 
         .countryMenu {
             z-index: 2;
             text-align: center;
             width: 400px;
-            height: 400px;
+            height: 500px;
             border: 2px solid black;
             font-size: large;
             color: white;
@@ -196,4 +198,14 @@ path {
         text-decoration: none;
         border-radius: 8px;
         border: 1px solid #4caf50;
+}
+
+.map {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+
+    .mainMap {
+        z-index:999;
+    }
 }

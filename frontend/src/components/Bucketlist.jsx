@@ -11,6 +11,7 @@ const Journal = () => {
     const getInfo = async () => {
       try {
         const response = await axios.get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true });
+        setProfileInfo(response.data);
       } catch (error) {
         console.error('Failed to fetch profile info:', error);
       }
@@ -22,14 +23,14 @@ const Journal = () => {
   if (!profileInfo) return <ErrorPage />;
 
   return (
-    <>
+    <div className="bucketlist-container">
       <Header />
       <div className="content">
         {Array.from(new Set(profileInfo.countriesWishlist)).map((name, index) => (
           <Card key={index} name={name} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 

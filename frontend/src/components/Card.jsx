@@ -7,6 +7,9 @@ const Card = ({ name }) => {
     const [info, setInfo] = useState(null);  // Changed from [] to null to better handle async data
 
     useEffect(() => {
+        if (name == "United States") name = 'usa';
+        if (name == "India") name = 'Republic of India';
+        if (name == "China") name = 'Zhonghua';
         const getInfo = async () => {
             try {
                 const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);

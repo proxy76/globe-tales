@@ -8,7 +8,7 @@ import "../styles/header.scss";
 import axios from 'axios';
 import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
 
-const Header = (isLogged) => {
+const Header = ({isLogged}) => {
 
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);

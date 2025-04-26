@@ -2,16 +2,15 @@ import React, { useState } from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import Menu from './Menu';
 
-const MainMap = () => {
+const MainMap = ({isLogged}) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [countryName, setCountryName] = useState('');
-
+  const [menuOpen, setMenuOpen] = useState(false);
   return (
-    <div>
+    <div className="mainMap">
       <div>
-        {selectedCountry && <Menu country={countryName} />}
+        {selectedCountry && <Menu setMenuOpen={setMenuOpen} menuOpen={menuOpen} country={countryName} isLogged={isLogged}/>}
       </div>
-
       <ComposableMap>
         <Geographies geography="/features.json">
           {({ geographies }) =>
@@ -25,6 +24,7 @@ const MainMap = () => {
                   onClick={() => {
                     setSelectedCountry(geo.id);
                     setCountryName(geo.properties.name);
+                    setMenuOpen(true); 
                   }}
                   style={{
                     default: {
