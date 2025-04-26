@@ -25,7 +25,7 @@ const Journal = () => {
   if (!profileInfo) return <p>Loading...</p>;
 
   return (
-    <>
+    <div className="journal-container">
       <Header />
       <h1>Your Journal</h1>
       <div className="content">
@@ -33,7 +33,7 @@ const Journal = () => {
           <Card key={index} name={name} />
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
