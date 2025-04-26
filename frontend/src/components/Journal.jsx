@@ -5,14 +5,13 @@ import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 
 const Journal = () => {
-  const [profileInfo, setProfileInfo] = useState(null); // changed from [] to null
+  const [profileInfo, setProfileInfo] = useState(null); 
 
   useEffect(() => {
     const getInfo = async () => {
       try {
         const response = await axios.get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true });
         setProfileInfo(response.data);
-        console.log(response.data.countriesVisited);
       } catch (error) {
         console.error('Failed to fetch profile info:', error);
       }

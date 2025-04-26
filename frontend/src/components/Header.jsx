@@ -76,7 +76,7 @@ const Header = (isLogged) => {
                                         {
                                             isLogged ? (
                                                 <div className="dropdown">
-                                                    <Link to='profile'>
+                                                    <Link to='/profile'>
                                                         <div className="dropdownItem">
                                                             Profile
                                                         </div>

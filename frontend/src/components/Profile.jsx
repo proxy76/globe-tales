@@ -6,10 +6,12 @@ import { useState } from 'react';
 
 import pfp from '../assets/anonymous.png';
 import Header from './Header';
+import { useNavigate } from 'react-router-dom';
 
 const ProfilePage = () => {
 
   const [profileInfo, setProfileInfo] = useState([]);
+  const navigate = useNavigate();
   const getInfo = () => {
     axios.get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
       .then(response => {
@@ -25,7 +27,6 @@ const ProfilePage = () => {
     getInfo();
   }
     , []);
-
   const user = {
     name: profileInfo.username,
     email: profileInfo.email,
@@ -33,7 +34,10 @@ const ProfilePage = () => {
     countriesWishlisted: profileInfo.countriesWishlist,
     // profilePic: profileInfo.profile_picture,
   };
-
+  const clickJ = () => {
+    console.log("Navigating to /journal");
+    navigate('/journal');
+  }
   return (
     <>
       <Header />
@@ -52,7 +56,7 @@ const ProfilePage = () => {
 
       <div className="btn-container">
         <div className="btns">
-          <button>Travel Journal</button>
+          <button onClick={clickJ}>Travel Journal</button>
           <button>Bucketlist</button>
         </div>
       </div>
