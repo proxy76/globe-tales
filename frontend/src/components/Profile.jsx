@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import pfp from '../assets/anonymous.png';
 import Header from './Header';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const ProfilePage = () => {
 
@@ -56,8 +56,8 @@ const ProfilePage = () => {
 
       <div className="btn-container">
         <div className="btns">
-          <button onClick={clickJ}>Travel Journal</button>
-          <button>Bucketlist</button>
+          <Link to='/journal'><button onClick={clickJ}>Travel Journal</button></Link>
+          <Link to='/bucketlist'><button>Bucketlist</button></Link>
         </div>
       </div>
     </>
