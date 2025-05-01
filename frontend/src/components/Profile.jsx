@@ -8,7 +8,7 @@ import pfp from '../assets/anonymous.png';
 import Header from './Header';
 import { useNavigate, Link } from 'react-router-dom';
 
-const ProfilePage = () => {
+const ProfilePage = ({ isLogged }) => {
 
   const [profileInfo, setProfileInfo] = useState([]);
   const navigate = useNavigate();
@@ -40,7 +40,7 @@ const ProfilePage = () => {
   }
   return (
     <>
-      <Header />
+      <Header isLogged={isLogged} />
       <div className="profile-container">
         <img
           src={user.profilePic? user.profilePic : pfp}

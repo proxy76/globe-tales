@@ -26,12 +26,12 @@ function App() {
     const checkLoginStatus = async () => {
         try {
             const response = await axios.get(CHECK_LOGIN_ENDPOINT_URL, {
-                withCredentials: true, // Include cookies in the request
+                withCredentials: true, 
             });
             setIsLogged(response.data.isLogged);
         } catch (error) {
             console.error("Error checking login status:", error);
-            setIsLogged(false); // Default to false if there's an error
+            setIsLogged(false); 
         }
     };
 
@@ -46,12 +46,11 @@ function App() {
           <Route path="/map" element={<MapPage isLogged={isLogged} />} />
           <Route path="/login" element={<LoginPage setIsLogged={setIsLogged}/>} />
           <Route path="/register" element={<RegisterPage setIsLogged={setIsLogged} />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/journal" element={<Journal />} />
-          <Route path="/bucketlist" element={<Bucketlist />} />
+          <Route path="/profile" element={<Profile isLogged={isLogged} />} />
+          <Route path="/journal" element={<Journal isLogged={isLogged} />} />
+          <Route path="/bucketlist" element={<Bucketlist isLogged={isLogged} />} />
         </Routes>
       </BrowserRouter>
-      { /*<Footer /> */}
 
 
     </div>

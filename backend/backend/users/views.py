@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
 import logging
+from django.core.cache import cache
 
 # Import OpenAI API key from environment variables!!!
 
@@ -74,16 +75,26 @@ def logout_view(request):
         return JsonResponse({"message": "User not logged in", "status":"failed"}, status=403)
 
 @csrf_exempt
-@login_required
 def user_info(request):
     if request.method == "GET":
-        if not request.user:
-             return JsonResponse({"message": "Username not logged in", "status":"failed"}, status=403)
-    user = request.user
-    return JsonResponse({"username": user.username, "email": user.email, 
-    #"profile_picture": user.profile_picture,
-    "countriesVisited" : user.countriesVisited, "countriesWishlist": user.countriesWishlist}, status=200)
-    
+        user_id = request.user.id
+        cache_key = f"user_info_{user_id}"
+        user_data = cache.get(cache_key)
+
+        if not user_data:
+            # Fetch user data from the database (expensive operation)
+            user_data = {
+                "username": request.user.username,
+                "email": request.user.email,
+                "countriesVisited": request.user.countriesVisited,
+                "countriesWishlist": request.user.countriesWishlist,
+            }
+            cache.set(cache_key, user_data, timeout=60 * 15)  # Cache for 15 minutes
+
+        return JsonResponse(user_data, status=200)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
 @csrf_exempt
 def check_login_view(request):
     if request.method == "GET":
@@ -123,7 +134,7 @@ def add_journal(request):
             return JsonResponse({"isAdded": False}, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
-
+    
 # @csrf_exempt
 # def generate_country_description(request):
 #     if request.method == "POST":

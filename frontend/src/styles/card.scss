@@ -22,6 +22,41 @@
         margin-bottom: 1rem;
     }
 
+    .btns {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+
+        font-size: 15px;
+
+        .remove {
+            background-color: red;
+            color: #fff;
+            border-radius: 3px;
+            width: 30%;
+            font-weight: bold;
+            text-shadow:
+              0 0 5px #fff,
+              0 0 10px #ff5050,
+              0 0 20px #ff0000;
+            cursor: pointer;
+        }
+
+        .review {
+            background-color: rgb(105, 255, 36);
+            color: #fff;
+            border-radius: 3px;
+            width: 30%;
+            font-weight: bold;
+            text-shadow:
+              0 0 5px #fff,
+              0 0 10px #68ff66,
+              0 0 20px #00ff15;
+            cursor: pointer;
+        }
+    }
+
     .name, .currencies, .capital, .languages, .population, .continent {
         margin-bottom: 1rem;
 

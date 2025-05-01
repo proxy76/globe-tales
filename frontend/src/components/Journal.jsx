@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import Card from './Card.jsx';
+import CardWithReview from './CardWithReview.jsx';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 
 import '../styles/journalPage.scss';
 import ErrorPage from './ErrorPage.jsx';
 
-const Journal = () => {
+const Journal = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null); 
 
   useEffect(() => {
@@ -27,11 +28,11 @@ const Journal = () => {
 
   return (
     <div className="journal-container">
-      <Header />
+      <Header isLogged={isLogged} />
       <h1>Your Journal</h1>
       <div className="content">
         {Array.from(new Set(profileInfo.countriesVisited)).map((name, index) => (
-          <Card key={index} name={name} />
+          <CardWithReview key={index} name={name} />
         ))}
       </div>
     </div>
