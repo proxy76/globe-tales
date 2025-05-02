@@ -9,5 +9,6 @@ urlpatterns = [
     path("check_login", views.check_login_view, name="check_login"),
     path("add_wishlist", views.add_bucketlist, name="add_wishlist"),
     path("add_journal", views.add_journal, name="add_journal"),
-    # path("generate_description/", views.generate_country_description),
+    path("remove_bucketlist", views.remove_bucketlist, name="remove_bucketlist"),
+    path("remove_journal", views.remove_journal, name="remove_journal"),
 ]

@@ -112,11 +112,54 @@ def add_bucketlist(request):
             data = json.loads(request.body)
             country = data.get('country')
             user = request.user
-            user.countriesWishlist.append(country)
-            user.save()
+
+            # Add the country to the user's wishlist
+            if country not in user.countriesWishlist:
+                user.countriesWishlist.append(country)
+                user.save()
+
+                # Update the cache
+                cache_key = f"user_info_{user.id}"
+                user_data = {
+                    "username": user.username,
+                    "email": user.email,
+                    "countriesVisited": user.countriesVisited,
+                    "countriesWishlist": user.countriesWishlist,
+                }
+                cache.set(cache_key, user_data, timeout=60 * 15)  # Cache for 15 minutes
+
             return JsonResponse({"isAdded": True}, status=200)
         else:
             return JsonResponse({"isAdded": False}, status=200)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def remove_bucketlist(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            data = json.loads(request.body)
+            country = data.get('country')
+            user = request.user
+
+            # Remove the country from the user's wishlist
+            if country in user.countriesWishlist:
+                user.countriesWishlist.remove(country)
+                user.save()
+
+                # Update the cache
+                cache_key = f"user_info_{user.id}"
+                user_data = {
+                    "username": user.username,
+                    "email": user.email,
+                    "countriesVisited": user.countriesVisited,
+                    "countriesWishlist": user.countriesWishlist,
+                }
+                cache.set(cache_key, user_data, timeout=60 * 15)  # Cache for 15 minutes
+
+            return JsonResponse({"isRemoved": True}, status=200)
+        else:
+            return JsonResponse({"isRemoved": False}, status=403)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
@@ -127,14 +170,59 @@ def add_journal(request):
             data = json.loads(request.body)
             country = data.get('country')
             user = request.user
-            user.countriesVisited.append(country)
-            user.save()
+
+            # Add the country to the user's visited list
+            if country not in user.countriesVisited:
+                user.countriesVisited.append(country)
+                user.save()
+
+                # Update the cache
+                cache_key = f"user_info_{user.id}"
+                user_data = {
+                    "username": user.username,
+                    "email": user.email,
+                    "countriesVisited": user.countriesVisited,
+                    "countriesWishlist": user.countriesWishlist,
+                }
+                cache.set(cache_key, user_data, timeout=60 * 15)  # Cache for 15 minutes
+
             return JsonResponse({"isAdded": True}, status=200)
         else:
             return JsonResponse({"isAdded": False}, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
+@csrf_exempt
+def remove_journal(request):
+    if request.method == "POST":
+        if request.user.is_authenticated:
+            data = json.loads(request.body)
+            country = data.get('country')
+            user = request.user
+
+            # Remove the country from the user's visited list
+            if country in user.countriesVisited:
+                user.countriesVisited.remove(country)
+                user.save()
+
+                # Update the cache
+                cache_key = f"user_info_{user.id}"
+                user_data = {
+                    "username": user.username,
+                    "email": user.email,
+                    "countriesVisited": user.countriesVisited,
+                    "countriesWishlist": user.countriesWishlist,
+                }
+                cache.set(cache_key, user_data, timeout=60 * 15)  # Cache for 15 minutes
+
+            return JsonResponse({"isRemoved": True}, status=200)
+        else:
+            return JsonResponse({"isRemoved": False}, status=403)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
     
+        
+
 # @csrf_exempt
 # def generate_country_description(request):
 #     if request.method == "POST":
