@@ -114,7 +114,7 @@ export default function LandingPage({ isLogged, setIsLogged }) {
             s.parentNode.insertBefore(v, s);
         })(document, 'script');
     }, []);
-
+//  ceva
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
