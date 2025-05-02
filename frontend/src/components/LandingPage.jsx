@@ -13,17 +13,18 @@ export default function LandingPage({ isLogged, setIsLogged }) {
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
     const [isOpened, setIsOpened] = useState(false);
-    // Close dropdown when clicking outside
     const dropdownRef = useRef(null);
+
+    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (e.target.className != 'dropdownWrapper' || e.target.className != 'profilePic') {
+            if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {
                 setIsOpened(false);
             }
         };
-        document.addEventListener("onclick", handleClickOutside);
+        document.addEventListener("click", handleClickOutside);
         return () => {
-            document.removeEventListener("onclick", handleClickOutside);
+            document.removeEventListener("click", handleClickOutside);
         };
     }, []);
 
@@ -41,8 +42,8 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                 // Optional: Any final cleanup or actions can be placed here
             });
         window.location.reload();
-
     };
+
     useEffect(() => {
         const loadFinisherHeader = async () => {
             const script = document.createElement("script");
@@ -93,6 +94,27 @@ export default function LandingPage({ isLogged, setIsLogged }) {
         loadFinisherHeader();
     }, []);
 
+    // Insert the Voiceflow chat widget
+    useEffect(() => {
+        (function (d, t) {
+            const v = d.createElement(t);
+            const s = d.getElementsByTagName(t)[0];
+            v.onload = function () {
+                window.voiceflow.chat.load({
+                    verify: { projectID: '664913a0c40987a6e3806d50' },
+                    url: 'https://general-runtime.voiceflow.com',
+                    versionID: 'production',
+                    voice: {
+                        url: "https://runtime-api.voiceflow.com"
+                    }
+                });
+            };
+            v.src = "https://cdn.voiceflow.com/widget-next/bundle.mjs";
+            v.type = "text/javascript";
+            s.parentNode.insertBefore(v, s);
+        })(document, 'script');
+    }, []);
+
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
@@ -116,7 +138,6 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                                 className="profilePic"
                                 src="/anonymous.png"
                                 alt=""
-
                             />
                             {
                                 isOpened && (
