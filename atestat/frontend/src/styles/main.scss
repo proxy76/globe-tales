@@ -1,0 +1,211 @@
+@import "variables.scss";
+
+@import "header.scss";
+@import "landingPage.scss";
+@import "errorPage.scss";
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    font-family: system-ui, sans-serif;
+    font-size: 1.25rem;
+}
+
+body {
+    margin: 0;
+}
+
+svg {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+path {
+    .focused {
+        fill: pink;
+        stroke: black;
+    }
+
+    z-index: 1;
+}
+
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+::-webkit-scrollbar {
+    width: 0;
+}
+
+
+.menus {
+
+    height: auto;
+
+
+    .backgroundMenu {
+        z-index: 1;
+        width: auto;
+        height: 1000px;
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        border-radius: 2rem;
+        text-align: center;
+        gap: 1rem;
+        margin-top: 7%;
+
+        .countryMenu {
+            z-index: 2;
+            text-align: center;
+            width: 400px;
+            height: 500px;
+            border: 2px solid black;
+            font-size: large;
+            color: white;
+            stroke-width: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+            background: linear-gradient(#8987ff75, #b8cfff);
+            border-radius: 2rem;
+            padding: 20px;
+
+            h1 {
+                margin-bottom: 1.2rem;
+                text-align: center;
+            }
+
+            button {
+                align-items: center;
+                background-color: #FFFFFF;
+                border: 1px solid rgba(0, 0, 0, 0.1);
+                border-radius: .25rem;
+                box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+                box-sizing: border-box;
+                color: rgba(0, 0, 0, 0.85);
+                cursor: pointer;
+                display: inline-flex;
+                font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+                font-size: 16px;
+                font-weight: 600;
+                justify-content: center;
+                line-height: 1.25;
+                margin: 10px;
+                min-height: 3rem;
+                padding: calc(.5rem - 1px) calc(1rem - 1px);
+                position: relative;
+                text-decoration: none;
+                transition: all 250ms;
+                user-select: none;
+                -webkit-user-select: none;
+                touch-action: manipulation;
+                vertical-align: baseline;
+                width: auto;
+            }
+
+            button:hover,
+            button:focus {
+                border-color: rgba(0, 0, 0, 0.15);
+                box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+                color: rgb(255, 255, 255);
+                background-color: #324dff;
+            }
+
+            button:hover {
+                transform: translateY(-1px);
+            }
+
+            button:active {
+                background-color: #F0F0F1;
+                border-color: rgba(0, 0, 0, 0.15);
+                box-shadow: rgba(0, 0, 0, 0.06) 0 2px 4px;
+                color: rgba(0, 0, 0, 0.65);
+                transform: translateY(0);
+            }
+        }
+    }
+}
+
+.button {
+    align-items: center;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: .25rem;
+        box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, 0.85);
+        cursor: pointer;
+        display: inline-flex;
+        font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 1.25;
+        margin: 10px;
+        min-height: 3rem;
+        padding: calc(.5rem - 1px) calc(1rem - 1px);
+        position: relative;
+        text-decoration: none;
+        transition: all 250ms;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        width: auto;
+        color: #4caf50;
+        text-decoration: none;
+        border-radius: 8px;
+        border: 1px solid #4caf50;
+}
+
+.button {
+    align-items: center;
+        background-color: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: .25rem;
+        box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, 0.85);
+        cursor: pointer;
+        display: inline-flex;
+        font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 1.25;
+        margin: 10px;
+        min-height: 3rem;
+        padding: calc(.5rem - 1px) calc(1rem - 1px);
+        position: relative;
+        text-decoration: none;
+        transition: all 250ms;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        width: auto;
+        color: #4caf50;
+        text-decoration: none;
+        border-radius: 8px;
+        border: 1px solid #4caf50;
+}
+
+.map {
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+
+    .mainMap {
+        z-index:999;
+    }
+}
