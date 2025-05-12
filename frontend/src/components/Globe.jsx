@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
+
 const Globe = () => {
     const mountRef = useRef(null);
     const [isSticky, setIsSticky] = useState(false);
@@ -70,6 +71,8 @@ const Globe = () => {
             }
         };
     }, []);
+
+
 
     return (
         <div

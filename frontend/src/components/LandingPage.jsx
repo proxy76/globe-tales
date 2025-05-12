@@ -9,6 +9,8 @@ import axios from 'axios';
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
+import { animate } from "animejs"
+
 export default function LandingPage({ isLogged, setIsLogged }) {
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
@@ -114,6 +116,19 @@ export default function LandingPage({ isLogged, setIsLogged }) {
             s.parentNode.insertBefore(v, s);
         })(document, 'script');
     }, []);
+
+    animate('.txt', {
+        // Property keyframes
+        y: [
+            { from: '-2.50rem', ease: 'inOutBounce' },
+          { to: 0, ease: 'outBounce', duration: 800, delay: 100 }
+        ],
+        ease: 'inBounce',
+        loopDelay: 1000,
+        loop: false
+      });
+
+
 //  ceva
     return (
         <div className="pageWrapper">
