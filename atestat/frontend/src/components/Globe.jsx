@@ -1,86 +1,91 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 
+const preloadTexture = new THREE.TextureLoader().load('/earth3.png');
+
+// Optional: force early decoding to reduce first interaction delay
+preloadTexture.encoding = THREE.sRGBEncoding;
+preloadTexture.anisotropy = 8;
+
 const Globe = () => {
-    const mountRef = useRef(null);
-    const [isSticky, setIsSticky] = useState(false);
+    const containerRef = useRef(null);
+    const rendererRef = useRef(null);
+    const globeRef = useRef(null);
+    const cameraRef = useRef(null);
 
     useEffect(() => {
-        const mount = mountRef.current;
+        const container = containerRef.current;
+        if (!container) return;
 
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, mount.clientWidth / mount.clientHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
         camera.position.z = 3;
+        cameraRef.current = camera;
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setSize(mount.clientWidth, mount.clientHeight);
-        renderer.setClearColor(0x000000, 0);
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
         renderer.outputEncoding = THREE.sRGBEncoding;
-        mount.appendChild(renderer.domElement);
+        container.appendChild(renderer.domElement);
+        rendererRef.current = renderer;
 
-        const geometry = new THREE.SphereGeometry(1.5, 32, 32);
-        const textureLoader = new THREE.TextureLoader();
-        const texture = textureLoader.load('/earth3.png');
-        texture.encoding = THREE.sRGBEncoding;
-        const material = new THREE.MeshBasicMaterial({ map: texture, color: new THREE.Color(1, 1, 1) });
+        // Low-poly sphere for perf, preloaded texture
+        const geometry = new THREE.SphereGeometry(1.5, 24, 24);
+        const material = new THREE.MeshBasicMaterial({ map: preloadTexture });
         const globe = new THREE.Mesh(geometry, material);
+        globeRef.current = globe;
         scene.add(globe);
 
-        const animate = () => {
-            if (!isSticky) {
-                globe.rotation.y -= 0.001;
+        // GPU-optimal animation loop
+        renderer.setAnimationLoop((time) => {
+            if (globeRef.current) {
+                globeRef.current.rotation.y = time * 0.0001;
+                renderer.render(scene, camera);
             }
-            requestAnimationFrame(animate);
-            renderer.render(scene, camera);
-        };
-        animate();
+        });
 
         const handleResize = () => {
-            camera.aspect = mount.clientWidth / mount.clientHeight;
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
             camera.updateProjectionMatrix();
-            renderer.setSize(mount.clientWidth, mount.clientHeight);
+            renderer.setSize(width, height);
         };
-        window.addEventListener('resize', handleResize);
 
+        window.addEventListener('resize', handleResize, { passive: true });
         handleResize();
 
         return () => {
+            renderer.setAnimationLoop(null);
             window.removeEventListener('resize', handleResize);
-            mount.removeChild(renderer.domElement);
-        };
-    }, [isSticky]);
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setIsSticky(!entry.isIntersecting);
-            },
-            { threshold: 0 }
-        );
-
-        const globeElement = mountRef.current;
-
-        if (globeElement) {
-            observer.observe(globeElement);
-        }
-
-        return () => {
-            if (globeElement) {
-                observer.unobserve(globeElement); 
+            if (globeRef.current) {
+                globeRef.current.geometry.dispose();
+                if (globeRef.current.material.map) globeRef.current.material.map.dispose();
+                globeRef.current.material.dispose();
+            }
+            if (rendererRef.current) {
+                rendererRef.current.dispose();
+                container.removeChild(renderer.domElement);
             }
         };
     }, []);
 
     return (
         <div
-            ref={mountRef}
-            className={`globe ${isSticky ? 'sticky' : ''}`}
-            style={{ width: '100%', height: '500px' }}>
-
-            <div className="globeText">Călătorește cu NOI!</div>
-
+            ref={containerRef}
+            style={{
+                width: '100%',
+                height: '500px',
+                position: 'relative',
+                overflow: 'hidden',
+            }}
+        >
+            <div className='globeText'>
+                Călătorește cu NOI!
+            </div>
         </div>
     );
 };
 
-export default Globe;
+// Prevents unnecessary re-renders
+export default React.memo(Globe);
