@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
-from .models import User
+from .models import User, Review
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
@@ -221,30 +221,64 @@ def remove_journal(request):
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
     
+@login_required
+def add_review(request):
+    if request.method == "POST":
+        data = json.loads(request.body)  
+
+        country_name = data.get('country_name') 
+        review_text = data.get('review_text')  
+        user = request.user  
         
+        # Check if the user has already reviewed this country
+        if Review.objects.filter(user_id=user, country_name=country_name).exists():
+            return JsonResponse({"error": "You have already reviewed this country"}, status=400)
 
-# @csrf_exempt
-# def generate_country_description(request):
-#     if request.method == "POST":
-#         try:
-#             data = json.loads(request.body)
-#             country = data.get("country")
+        # Create and save the review
+        review = Review(
+            user_id=user,
+            country_name=country_name,
+            review_text=review_text
+        )
+        review.save()
 
-#             if not country:
-#                 return JsonResponse({"error": "Country name is required"}, status=400)
+        return JsonResponse({"isAdded": True, "review": review.serializer()}, status=200)
 
-#             # Generate text using OpenAI
-#             response = openai.Completion.create(
-#                 model="text-davinci-003",
-#                 prompt=f"Write a short travel description for {country}.",
-#                 max_tokens=100,
-#             )
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+    
+    
+def view_reviews(request):
+    if request.method == "POST":
+        data = json.loads(request.body)  # Parse the incoming JSON data
+        country_name = data.get('country_name')  # Country name to fetch all reviews for
+        
+        # Get all reviews for the given country
+        reviews = Review.objects.filter(country_name=country_name)
+        
+        if not reviews.exists():
+            return JsonResponse({"error": "No reviews found for this country."}, status=404)
+        
+        # Return the reviews as a JSON response
+        reviews_data = [review.serializer() for review in reviews]
+        return JsonResponse({"reviews": reviews_data}, status=200)
+    
+    return JsonResponse({"error": "Invalid request method"}, status=405)
 
-#             generated_text = response.choices[0].text.strip()
-#             return JsonResponse({"description": generated_text}, status=200)
-
-#         except Exception as e:
-#             return JsonResponse({"error": str(e)}, status=500)
-
-#     return JsonResponse({"error": "Invalid request method"}, status=405)
-
+@login_required
+def view_self_reviews(request):
+    if request.method == "POST":
+        data = json.loads(request.body)  # Parse the incoming JSON data
+        country_name = data.get('country_name')  # Country name to fetch reviews for
+        
+        # Get reviews made by the authenticated user for the given country
+        reviews = Review.objects.filter(user_id=request.user, country_name=country_name)
+        
+        if not reviews.exists():
+            return JsonResponse({"error": "No reviews found for this country."}, status=404)
+        
+        # Return the reviews as a JSON response
+        reviews_data = [review.serializer() for review in reviews]
+        return JsonResponse({"reviews": reviews_data}, status=200)
+    
+    return JsonResponse({"error": "Invalid request method"}, status=405)

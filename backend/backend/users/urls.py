@@ -11,4 +11,7 @@ urlpatterns = [
     path("add_journal", views.add_journal, name="add_journal"),
     path("remove_bucketlist", views.remove_bucketlist, name="remove_bucketlist"),
     path("remove_journal", views.remove_journal, name="remove_journal"),
+    path("add_review", views.add_review, name="add_review"),
+    path("view_reviews", views.view_reviews, name="view_reviews"),
+    path("view_self_reviews", views.view_self_reviews, name="view_self_reviews"),
 ]

@@ -30,3 +30,18 @@ class User(AbstractUser):
             "countriesVisited": self.countriesVisited,
             "countriesWishlist": self.countriesWishlist
         }
+
+class Review(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    country_name = models.CharField(max_length=255)
+    review_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def serializer(self):
+        return {
+            "user_id": self.user_id,
+            "country_name": self.country_name,
+            "review_text": self.review_text,  
+            "created_at": self.created_at,
+        }
+
