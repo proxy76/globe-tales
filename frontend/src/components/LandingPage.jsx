@@ -9,7 +9,7 @@ import axios from 'axios';
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
-import { animate } from "animejs"
+// import { animate } from "animejs"
 
 export default function LandingPage({ isLogged, setIsLogged }) {
     const [pfp, setPfp] = useState("");
@@ -117,16 +117,16 @@ export default function LandingPage({ isLogged, setIsLogged }) {
         })(document, 'script');
     }, []);
 
-    animate('.txt', {
-        // Property keyframes
-        y: [
-            { from: '-2.50rem', ease: 'inOutBounce' },
-          { to: 0, ease: 'outBounce', duration: 800, delay: 100 }
-        ],
-        ease: 'inBounce',
-        loopDelay: 1000,
-        loop: false
-      });
+    // animate('.txt', {
+    //     // Property keyframes
+    //     y: [
+    //         { from: '-2.50rem', ease: 'inOutBounce' },
+    //       { to: 0, ease: 'outBounce', duration: 800, delay: 100 }
+    //     ],
+    //     ease: 'inBounce',
+    //     loopDelay: 1000,
+    //     loop: false
+    //   });
 
 
 //  ceva
