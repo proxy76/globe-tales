@@ -1,7 +1,6 @@
 
 .card {
     margin: 1rem;
-    padding: 1.5rem;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -25,10 +24,13 @@
     .btns {
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
+        justify-content: center;
         align-items: center;
-
+        gap: 5%;
         font-size: 15px;
+        position: absolute;
+        bottom: 5px;
+        width: 85%;
 
         .remove {
             background-color: red;
@@ -89,3 +91,9 @@
     }
 }
 
+.cardContainer {
+    padding: 1.5rem;
+    width: 100%;
+    height: 700px;
+    position: relative;
+}
