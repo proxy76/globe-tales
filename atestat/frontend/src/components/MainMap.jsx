@@ -1,7 +1,12 @@
-import React, { useState, lazy, Suspense, useMemo, useCallback } from "react";
+import React, {
+  useState,
+  lazy,
+  Suspense,
+  useMemo,
+  useCallback,
+} from "react";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
-// Lazy load the menu only when it's needed
 const Menu = lazy(() => import("./Menu"));
 
 const GEO_URL = "/features.json";
@@ -11,7 +16,6 @@ const MainMap = ({ isLogged }) => {
   const [countryName, setCountryName] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Memoize styles once
   const styles = useMemo(() => ({
     default: { fill: "#D6D6DA", stroke: "#000", outline: "none" },
     hover: { fill: "#A8A8A8", stroke: "#000", outline: "none" },
@@ -19,16 +23,15 @@ const MainMap = ({ isLogged }) => {
     selected: { fill: "#FF5733", stroke: "#000", outline: "none" },
   }), []);
 
-  // Stable click handler to prevent unnecessary re-renders
-  const handleCountryClick = useCallback((geo) => {
-    setSelectedCountry(geo.id);
-    setCountryName(geo.properties.name);
-    setMenuOpen(true);
+  const handleClick = useCallback((geo) => {
+    // All state updates together = better INP
+    setSelectedCountry(() => geo.id);
+    setCountryName(() => geo.properties.name);
+    setMenuOpen(() => true);
   }, []);
 
   return (
     <div className="mainMap" style={{ minHeight: "500px", position: "relative" }}>
-      {/* Lazy-load Menu only when a country is selected */}
       <Suspense fallback={null}>
         {selectedCountry && (
           <Menu
@@ -40,7 +43,6 @@ const MainMap = ({ isLogged }) => {
         )}
       </Suspense>
 
-      {/* Main map */}
       <ComposableMap>
         <Geographies geography={GEO_URL}>
           {({ geographies }) =>
@@ -50,7 +52,7 @@ const MainMap = ({ isLogged }) => {
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  onClick={() => handleCountryClick(geo)}
+                  onClick={() => handleClick(geo)}
                   style={{
                     default: isSelected ? styles.selected : styles.default,
                     hover: styles.hover,
