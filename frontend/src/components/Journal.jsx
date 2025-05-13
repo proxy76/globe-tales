@@ -9,6 +9,7 @@ import ErrorPage from './ErrorPage.jsx';
 
 const Journal = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
+  const [reviewsOpened, setReviewsOpened] = useState(false);
 
   useEffect(() => {
     const getInfo = async () => {
@@ -37,8 +38,12 @@ const Journal = ({ isLogged }) => {
       <Header isLogged={isLogged} />
       <h1>Your Journal</h1>
       <div className="content">
+        { reviewsOpened &&
+        // PUN NUMELE TARII CU CARE E DESCHIS MODALU CA VARIABILA IN LOC DE TRUE!
+          <ReviewModal countryName />
+        }
         {Array.from(new Set(profileInfo.countriesVisited)).map((name, index) => (
-          <CardWithReview key={index} name={name} page={"journal"} onRemove={handleRemoveFromJournal} />
+          <CardWithReview key={index} name={name} setReviewsOpened={setReviewsOpened} page={"journal"} onRemove={handleRemoveFromJournal} />
         ))}
       </div>
     </div>
