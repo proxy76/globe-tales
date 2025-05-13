@@ -8,7 +8,6 @@ import React, {
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 
 const Menu = lazy(() => import("./Menu"));
-
 const GEO_URL = "/features.json";
 
 const MainMap = ({ isLogged }) => {
@@ -24,7 +23,6 @@ const MainMap = ({ isLogged }) => {
   }), []);
 
   const handleClick = useCallback((geo) => {
-    // All state updates together = better INP
     setSelectedCountry(() => geo.id);
     setCountryName(() => geo.properties.name);
     setMenuOpen(() => true);
@@ -32,7 +30,7 @@ const MainMap = ({ isLogged }) => {
 
   return (
     <div className="mainMap" style={{ minHeight: "500px", position: "relative" }}>
-      <Suspense fallback={null}>
+      <Suspense fallback={<div className="menu-fallback">Loading menu…</div>}>
         {selectedCountry && (
           <Menu
             setMenuOpen={setMenuOpen}
