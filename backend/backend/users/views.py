@@ -248,36 +248,18 @@ def add_review(request):
 @csrf_exempt
 def view_reviews(request):
     if request.method == "POST":
-        data = json.loads(request.body)  # Parse the incoming JSON data
-        country_name = data.get('country_name')  # Country name to fetch all reviews for
-        
-        # Get all reviews for the given country
+        data = json.loads(request.body)
+        country_name = data.get('country_name')
         reviews = Review.objects.filter(country_name=country_name)
-        
-        if not reviews.exists():
-            return JsonResponse({"error": "No reviews found for this country."}, status=404)
-        
-        # Return the reviews as a JSON response
-        reviews_data = [review.serializer() for review in reviews]
-        return JsonResponse({"reviews": reviews_data}, status=200)
-    
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+        return JsonResponse({"reviews": [r.serializer() for r in reviews]}, status=200)
+    return JsonResponse({"error": "Invalid method"}, status=405)
 
 @csrf_exempt
 @login_required
 def view_self_reviews(request):
     if request.method == "POST":
-        data = json.loads(request.body)  # Parse the incoming JSON data
-        country_name = data.get('country_name')  # Country name to fetch reviews for
-        
-        # Get reviews made by the authenticated user for the given country
+        data = json.loads(request.body)
+        country_name = data.get('country_name')
         reviews = Review.objects.filter(user_id=request.user.id, country_name=country_name)
-        
-        if not reviews.exists():
-            return JsonResponse({"error": "No reviews found for this country."}, status=404)
-        
-        # Return the reviews as a JSON response
-        reviews_data = [review.serializer() for review in reviews]
-        return JsonResponse({"reviews": reviews_data}, status=200)
-    
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+        return JsonResponse({"reviews": [r.serializer() for r in reviews]}, status=200)
+    return JsonResponse({"error": "Invalid method"}, status=405)

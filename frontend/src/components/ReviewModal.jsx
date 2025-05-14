@@ -7,31 +7,40 @@ const ReviewModal = ({ reviewsOpened, setReviewsOpened, isLogged }) => {
   const [myReviews, setMyReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('all'); // 'all' or 'my'
+  const [activeTab, setActiveTab] = useState('all');
   const [showAddReviewForm, setShowAddReviewForm] = useState(false);
+
   const fetchReviews = async () => {
-      setIsLoading(true);
-      try {
-        const allReviewsResponse = await axios.post(ALL_REVIEWS_ENDPOINT_URL, {
-          country_name: reviewsOpened,
-        }, {withCredentials: true});
-  
-        const myReviewsResponse = await axios.post(MY_REVIEWS_ENDPOINT_URL, {
-          country_name: reviewsOpened,
-        },   {withCredentials: true});
+    setIsLoading(true);
+    try {
+      const allReviewsResponse = await axios.post(ALL_REVIEWS_ENDPOINT_URL, {
+        country_name: reviewsOpened,
+      }, { withCredentials: true });
 
-        setAllReviews(allReviewsResponse.data.reviews || []);
-        setMyReviews(myReviewsResponse.data.reviews || []);
-      } catch (error) {
-        console.error('Error fetching reviews:', error);
-      } finally {
-        setIsLoading(false);
+      let myReviewsResponse = { data: { reviews: [] } };
+      if (isLogged) {
+        try {
+          myReviewsResponse = await axios.post(MY_REVIEWS_ENDPOINT_URL, {
+            country_name: reviewsOpened,
+          }, { withCredentials: true });
+        } catch (error) {
+          console.warn('Could not fetch personal reviews:', error);
+        }
       }
-    };
-  useEffect(() => {
-    
 
-    fetchReviews();
+      setAllReviews(allReviewsResponse.data.reviews || []);
+      setMyReviews(myReviewsResponse.data.reviews || []);
+    } catch (error) {
+      console.error('Error fetching reviews:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (reviewsOpened) {
+      fetchReviews();
+    }
   }, [reviewsOpened, showAddReviewForm]);
 
   const addReview = async () => {
@@ -39,7 +48,7 @@ const ReviewModal = ({ reviewsOpened, setReviewsOpened, isLogged }) => {
       await axios.post(ADD_REVIEW_ENDPOINT_URL, {
         country_name: reviewsOpened,
         review_text: reviewText,
-      }, {withCredentials: true});
+      }, { withCredentials: true });
       setReviewText('');
       setShowAddReviewForm(false);
       fetchReviews();
@@ -55,9 +64,7 @@ const ReviewModal = ({ reviewsOpened, setReviewsOpened, isLogged }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
-        <button className="close-modal" onClick={closeModal}>
-          X
-        </button>
+        <button className="close-modal" onClick={closeModal}>X</button>
 
         <h2>Reviews for {reviewsOpened}</h2>
 
@@ -86,7 +93,7 @@ const ReviewModal = ({ reviewsOpened, setReviewsOpened, isLogged }) => {
                 {allReviews.length > 0 ? (
                   allReviews.map((review, index) => (
                     <div key={index} className="review">
-                      <strong>{review.user_id.username}</strong> - 
+                      <strong>{review.username}</strong> 
                       <p>{review.review_text}</p>
                       <small>Reviewed on {new Date(review.created_at).toLocaleString()}</small>
                     </div>
@@ -109,7 +116,7 @@ const ReviewModal = ({ reviewsOpened, setReviewsOpened, isLogged }) => {
                 {myReviews.length > 0 ? (
                   myReviews.map((review, index) => (
                     <div key={index} className="review">
-                      <strong>{review.user_id.username}</strong> - 
+                      <strong>{review.username}</strong>
                       <p>{review.review_text}</p>
                       <small>Reviewed on {new Date(review.created_at).toLocaleString()}</small>
                     </div>
