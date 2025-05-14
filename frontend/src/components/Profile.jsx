@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import pfp from '../assets/anonymous.png';
-import Header from './Header';
+import GlobalHeader from './GlobalHeader';
 
 const ProfilePage = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState({});
@@ -36,7 +36,7 @@ const ProfilePage = ({ isLogged }) => {
 
   return (
     <>
-      <Header isLogged={isLogged} />
+      <GlobalHeader isLogged={isLogged} />
       <div style={styles.container}>
         <div style={styles.card}>
           <img
@@ -57,12 +57,20 @@ const ProfilePage = ({ isLogged }) => {
             </div>
           </div>
           <div style={styles.buttons}>
-            <Link to="/journal">
-              <Button label="Travel Journal" />
-            </Link>
-            <Link to="/bucketlist">
-              <Button label="Bucketlist" />
-            </Link>
+            <Button
+              label="Travel Journal"
+              onClick={() => {
+                console.log('Travel Journal clicked');
+                navigate('/journal');
+              }}
+            />
+            <Button
+              label="Bucketlist"
+              onClick={() => {
+                console.log('Bucketlist clicked');
+                navigate('/bucketlist');
+              }}
+            />
           </div>
         </div>
       </div>
@@ -70,7 +78,7 @@ const ProfilePage = ({ isLogged }) => {
   );
 };
 
-const Button = ({ label }) => {
+const Button = ({ label, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
@@ -82,11 +90,13 @@ const Button = ({ label }) => {
 
   return (
     <button
+      className="profileButton"
       style={getButtonStyle()}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
+      onClick={onClick}
     >
       {label}
     </button>
@@ -97,21 +107,21 @@ const styles = {
   container: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'flex-start', // Align items closer to the top
+    alignItems: 'flex-start',
     height: '100vh',
-    background: 'linear-gradient(135deg, #a8e6cf, #dcedf7)', // Light green and light blue gradient
-    paddingTop: '50px', // Add padding to push the card down slightly
+    background: 'linear-gradient(135deg, #a8e6cf, #dcedf7)',
+    paddingTop: '50px',
   },
   card: {
-    backgroundColor: '#ffffff', // White background
+    backgroundColor: '#ffffff',
     padding: '30px',
     borderRadius: '15px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Subtle shadow for a professional look
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     textAlign: 'center',
     width: '400px',
     display: 'flex',
-    flexDirection: 'column', // Ensure all elements are stacked vertically
-    alignItems: 'center', // Center all elements horizontally
+    flexDirection: 'column',
+    alignItems: 'center',
   },
   profilePicture: {
     width: '120px',
@@ -119,23 +129,23 @@ const styles = {
     borderRadius: '50%',
     objectFit: 'cover',
     marginBottom: '20px',
-    border: '3px solid #4caf50', // Light green border
+    border: '3px solid #4caf50',
   },
   name: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#4caf50', // Light green
+    color: '#4caf50',
     marginBottom: '10px',
   },
   email: {
     fontSize: '16px',
-    color: '#555', // Subtle gray for email
+    color: '#555',
     marginBottom: '20px',
   },
   stats: {
     display: 'flex',
     justifyContent: 'space-around',
-    width: '100%', // Ensure stats take up full width
+    width: '100%',
     marginBottom: '20px',
   },
   statItem: {
@@ -144,40 +154,40 @@ const styles = {
   statNumber: {
     fontSize: '20px',
     fontWeight: 'bold',
-    color: '#4caf50', // Light green
+    color: '#4caf50',
   },
   statLabel: {
     fontSize: '14px',
-    color: '#555', // Subtle gray for labels
+    color: '#555',
   },
   buttons: {
     display: 'flex',
     justifyContent: 'space-between',
     gap: '10px',
-    width: '100%', // Ensure buttons take up full width
+    width: '100%',
   },
   button: {
-    backgroundColor: '#4caf50', // Light green
-    color: '#ffffff', // White text
+    backgroundColor: '#4caf50',
+    color: '#ffffff',
     border: 'none',
     borderRadius: '8px',
     padding: '10px 15px',
     fontSize: '14px',
     fontWeight: 'bold',
     cursor: 'pointer',
-    transition: 'all 0.3s ease', // Smooth transition for hover and press effects
+    transition: 'all 0.3s ease',
     flex: 1,
-    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)', // Subtle shadow for a raised effect
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
   },
   buttonHover: {
-    backgroundColor: '#43a047', // Slightly darker green on hover
-    transform: 'translateY(-2px)', // Lift the button slightly on hover
-    boxShadow: '0 6px 8px rgba(0, 0, 0, 0.15)', // Stronger shadow on hover
+    backgroundColor: '#43a047',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 6px 8px rgba(0, 0, 0, 0.15)',
   },
   buttonActive: {
-    backgroundColor: '#388e3c', // Even darker green on press
-    transform: 'translateY(2px)', // Push the button down on press
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', // Subtle shadow on press
+    backgroundColor: '#388e3c',
+    transform: 'translateY(2px)',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
   },
 };
 
