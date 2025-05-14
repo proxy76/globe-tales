@@ -1,10 +1,10 @@
-import Header from "./Header";
+import GlobalHeader from "./GlobalHeader";
 import MainMap from "./MainMap";
 
 const MapPage = ({isLogged}) => {
     return (
         <div className="map">
-            <Header isLogged={isLogged}/>
+            <GlobalHeader isLogged={isLogged}/>
             <MainMap isLogged = {isLogged}/>
         </div>
     )
