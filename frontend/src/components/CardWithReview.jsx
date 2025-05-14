@@ -4,14 +4,14 @@ import axios from 'axios';
 import '../styles/Card.scss';
 import { REMOVE_JOURNAL_ENDPOINT_URL, REMOVE_BUCKETLIST_ENDPOINT_URL, ADD_JOURNAL_ENDPOINT_URL } from '../utils/ApiHost';
 
-const CardWithReview = ({ name, refreshData, onRemove, page }) => {
+const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page }) => {
     const [info, setInfo] = useState(null);
 
     useEffect(() => {
         const getInfo = async () => {
             try {
                 const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);
-                setInfo(response.data[0]); // Set the country info
+                setInfo(response.data[0]);
             } catch (error) {
                 console.error('Failed to fetch country info:', error);
             }
@@ -59,6 +59,9 @@ const CardWithReview = ({ name, refreshData, onRemove, page }) => {
             console.error('Failed to add to journal:', error);
         }
     };
+    const openReviews = () => {
+        setReviewsOpened(name);
+    }
 
     return (
         <div className='card'>
@@ -93,12 +96,11 @@ const CardWithReview = ({ name, refreshData, onRemove, page }) => {
                         <>
                             <div className="remove" onClick={handleRemoveFromBucketlist}>REMOVE</div>
                             <div className="remove" onClick={() => { handleAddToJournal(); handleRemoveFromBucketlist(); }}>VISITED</div>
-                            <div className="review">REVIEW</div>
                         </>
                     ) : (
                         <>
                             <div className="remove" onClick={handleRemoveFromJournal}>REMOVE</div>
-                            <div className="review">REVIEW</div>
+                            <div className="review" onClick={() => openReviews()}>REVIEW</div>
                         </>
                     )}
                 </div>

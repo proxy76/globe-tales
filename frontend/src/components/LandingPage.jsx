@@ -15,7 +15,6 @@ export default function LandingPage({ isLogged, setIsLogged }) {
     const [isOpened, setIsOpened] = useState(false);
     const dropdownRef = useRef(null);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {

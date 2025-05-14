@@ -222,6 +222,7 @@ def remove_journal(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
     
 @login_required
+@csrf_exempt
 def add_review(request):
     if request.method == "POST":
         data = json.loads(request.body)  
@@ -229,10 +230,7 @@ def add_review(request):
         country_name = data.get('country_name') 
         review_text = data.get('review_text')  
         user = request.user  
-        
-        # Check if the user has already reviewed this country
-        if Review.objects.filter(user_id=user, country_name=country_name).exists():
-            return JsonResponse({"error": "You have already reviewed this country"}, status=400)
+    
 
         # Create and save the review
         review = Review(
@@ -247,7 +245,7 @@ def add_review(request):
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
     
-    
+@csrf_exempt
 def view_reviews(request):
     if request.method == "POST":
         data = json.loads(request.body)  # Parse the incoming JSON data
@@ -265,6 +263,7 @@ def view_reviews(request):
     
     return JsonResponse({"error": "Invalid request method"}, status=405)
 
+@csrf_exempt
 @login_required
 def view_self_reviews(request):
     if request.method == "POST":
@@ -272,7 +271,7 @@ def view_self_reviews(request):
         country_name = data.get('country_name')  # Country name to fetch reviews for
         
         # Get reviews made by the authenticated user for the given country
-        reviews = Review.objects.filter(user_id=request.user, country_name=country_name)
+        reviews = Review.objects.filter(user_id=request.user.id, country_name=country_name)
         
         if not reviews.exists():
             return JsonResponse({"error": "No reviews found for this country."}, status=404)

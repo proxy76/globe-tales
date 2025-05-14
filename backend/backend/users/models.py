@@ -39,7 +39,8 @@ class Review(models.Model):
 
     def serializer(self):
         return {
-            "user_id": self.user_id,
+            "user_id": self.user_id.id,
+            "username": self.user_id.username,
             "country_name": self.country_name,
             "review_text": self.review_text,  
             "created_at": self.created_at,

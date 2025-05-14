@@ -6,9 +6,10 @@ import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 
 import '../styles/journalPage.scss';
 import ErrorPage from './ErrorPage.jsx';
-
+import ReviewModal from './ReviewModal.jsx'
 const Journal = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
+  const [reviewsOpened, setReviewsOpened] = useState('');
 
   useEffect(() => {
     const getInfo = async () => {
@@ -37,8 +38,12 @@ const Journal = ({ isLogged }) => {
       <Header isLogged={isLogged} />
       <h1>Your Journal</h1>
       <div className="content">
+        { reviewsOpened &&
+        // PUN NUMELE TARII CU CARE E DESCHIS MODALU CA VARIABILA IN LOC DE TRUE!
+          <ReviewModal reviewsOpened={reviewsOpened} setReviewsOpened={setReviewsOpened} isLogged={isLogged} />
+        }
         {Array.from(new Set(profileInfo.countriesVisited)).map((name, index) => (
-          <CardWithReview key={index} name={name} page={"journal"} onRemove={handleRemoveFromJournal} />
+          <CardWithReview key={index} name={name} setReviewsOpened={setReviewsOpened} page={"journal"} onRemove={handleRemoveFromJournal} />
         ))}
       </div>
     </div>
