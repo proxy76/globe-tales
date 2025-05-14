@@ -13,3 +13,6 @@ export const COUNTRY_INFO_ENDPOINT_URL = `https://restcountries.com/v3.1/name`
 export const REMOVE_JOURNAL_ENDPOINT_URL = `${BASE_API_HOST}/remove_journal`
 
 export const REMOVE_BUCKETLIST_ENDPOINT_URL = `${BASE_API_HOST}/remove_bucketlist`
+export const ALL_REVIEWS_ENDPOINT_URL = `${BASE_API_HOST}/view_reviews`
+export const MY_REVIEWS_ENDPOINT_URL = `${BASE_API_HOST}/view_self_reviews`
+export const ADD_REVIEW_ENDPOINT_URL = `${BASE_API_HOST}/add_review`

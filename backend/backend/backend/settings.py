@@ -183,3 +183,5 @@ SESSION_CACHE_ALIAS = 'default'
 
 # Optional: Use Redis for Django's default message framework
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
+
+LOGIN_URL = '/login'

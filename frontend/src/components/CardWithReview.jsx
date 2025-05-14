@@ -11,7 +11,7 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
         const getInfo = async () => {
             try {
                 const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);
-                setInfo(response.data[0]); // Set the country info
+                setInfo(response.data[0]);
             } catch (error) {
                 console.error('Failed to fetch country info:', error);
             }
@@ -60,7 +60,7 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
         }
     };
     const openReviews = () => {
-        setReviewsOpened(true);
+        setReviewsOpened(name);
     }
 
     return (
