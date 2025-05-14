@@ -45,13 +45,14 @@ path {
 .menus {
 
     height: auto;
+    position: fixed;
 
 
     .backgroundMenu {
         z-index: 1;
         width: auto;
         height: 1000px;
-        position: absolute;
+        position: fixed;
         left: 1rem;
         top: 1rem;
         display: flex;
