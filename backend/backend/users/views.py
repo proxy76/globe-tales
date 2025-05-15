@@ -11,6 +11,8 @@ def register(request):
     if request.method == "POST":
         try:
             data = json.loads(request.body)
+            print("Received registration data:", data)  # DEBUG LINE
+
             username = data.get("username")
             email = data.get("email")
             password = data.get("password")
@@ -18,18 +20,19 @@ def register(request):
             if not all([username, email, password]):
                 return JsonResponse({"message": "Missing fields", "status": "failed"}, status=400)
 
-            # Check if username is already taken
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"message": "Username already taken", "status": "failed"}, status=403)
 
             user = User.objects.create_user(username=username, email=email, password=password)
-            user.save()
+            print("User created:", user)  # DEBUG LINE
 
-            login(request, user)  # Log in the newly registered user
+            login(request, user)
+            print("User logged in")  # DEBUG LINE
 
             return JsonResponse({"message": "User registered and logged in", "status": "success"}, status=200)
 
         except Exception as e:
+            print("Registration error:", str(e))  # This will print the exact error
             return JsonResponse({"message": f"Error: {str(e)}", "status": "failed"}, status=500)
 
     return JsonResponse({"message": "Invalid request method", "status": "failed"}, status=405)
