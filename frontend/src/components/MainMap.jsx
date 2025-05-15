@@ -11,17 +11,31 @@ import "../styles/map.scss";
 const Menu = lazy(() => import("./Menu"));
 const GEO_URL = "/features.json";
 
+// ISO A3 codes for the 10 largest countries by area
+const largestCountries = [
+  "RUS", // Russia
+  "CAN", // Canada
+  "USA", // United States
+  "CHN", // China
+  "BRA", // Brazil
+  "AUS", // Australia
+  "IND", // India
+  "ARG", // Argentina
+  "KAZ", // Kazakhstan
+  "DZA", // Algeria
+];
+
+const LIGHT_GREEN = "#b6f5c6";
+const LIGHTER_GREEN = "#e3fbe9";
+const HOVER_LIGHT = "#f8fff9";
+const DARKER_GREEN = "#3eb262"; 
+
+
+
 const MainMap = ({ isLogged }) => {
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [countryName, setCountryName] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const styles = useMemo(() => ({
-    default: { fill: "#D6D6DA", stroke: "#000", outline: "none" },
-    hover: { fill: "#A8A8A8", stroke: "#000", outline: "none" },
-    pressed: { fill: "#FF5733", stroke: "#000", outline: "none" },
-    selected: { fill: "#FF5733", stroke: "#000", outline: "none" },
-  }), []);
 
   const handleClick = useCallback((geo) => {
     setSelectedCountry(() => geo.id);
@@ -35,8 +49,8 @@ const MainMap = ({ isLogged }) => {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center", // Center the map vertically
-        overflow: "hidden", // Prevent scrolling
+        alignItems: "center",
+        overflow: "hidden",
       }}
     >
       <Suspense fallback={<div className="menu-fallback">Loading menu…</div>}>
@@ -50,13 +64,14 @@ const MainMap = ({ isLogged }) => {
         )}
       </Suspense>
 
-      {/* Adjust the width and height of the map */}
       <div className="mapContainer">
         <ComposableMap className="map">
           <ZoomableGroup center={[0, 20]} zoom={1}>
             <Geographies geography={GEO_URL}>
               {({ geographies }) =>
                 geographies.map((geo) => {
+                  const isLargest = largestCountries.includes(geo.id);
+                  const baseColor = isLargest ? LIGHT_GREEN : LIGHTER_GREEN;
                   const isSelected = selectedCountry === geo.id;
                   return (
                     <Geography
@@ -64,9 +79,23 @@ const MainMap = ({ isLogged }) => {
                       geography={geo}
                       onClick={() => handleClick(geo)}
                       style={{
-                        default: isSelected ? styles.selected : styles.default,
-                        hover: styles.hover,
-                        pressed: styles.pressed,
+                        default: {
+                          fill: isSelected ? DARKER_GREEN : baseColor,
+                          stroke: "#000",
+                          outline: "none",
+                          transition: "fill 0.2s",
+                        },
+                        hover: {
+                          fill: HOVER_LIGHT,
+                          stroke: "#000",
+                          outline: "none",
+                          cursor: "pointer",
+                        },
+                        pressed: {
+                          fill: DARKER_GREEN,
+                          stroke: "#000",
+                          outline: "none",
+                        },
                       }}
                       onFocus={(e) => e.target.blur()}
                     />
@@ -76,7 +105,7 @@ const MainMap = ({ isLogged }) => {
             </Geographies>
           </ZoomableGroup>
         </ComposableMap>
-        </div>
+      </div>
     </div>
   );
 };
