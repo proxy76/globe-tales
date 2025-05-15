@@ -324,3 +324,102 @@
   }
 
 }
+
+/* ...existing styles... */
+
+/* Responsive styles for LandingPage */
+
+@media (max-width: 1100px) {
+  .info1, .info2 {
+    flex-direction: column !important;
+    gap: 2rem !important;
+    align-items: center !important;
+    .img1 img, .img2 img {
+      width: 300px !important;
+      max-width: 90vw !important;
+    }
+    .text1, .text2 {
+      width: 90vw !important;
+      text-align: center !important;
+    }
+  }
+  .globeWrapper .globe {
+    height: 350px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .headerText {
+    flex-direction: column !important;
+    gap: 1rem !important;
+  }
+  .sections {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    align-items: flex-start !important;
+  }
+  .title {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    .titleLogo img {
+      width: 40px !important;
+    }
+    .titleText {
+      font-size: 1.1rem !important;
+    }
+  }
+  .globeWrapper .globe {
+    height: 220px !important;
+  }
+  .buttonWrapper {
+    margin-bottom: 2rem !important;
+    .btns {
+      flex-direction: column !important;
+      gap: 1rem !important;
+      button {
+        width: 100% !important;
+      }
+    }
+  }
+  .footer-container {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1rem !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .pageWrapper {
+    padding: 0 !important;
+  }
+  .headerWrapper {
+    padding: 0.5rem !important;
+  }
+  .globeWrapper .globe {
+    height: 120px !important;
+  }
+  .info1 .img1 img,
+  .info2 .img2 img {
+    width: 90vw !important;
+    min-width: 0 !important;
+  }
+  .info1 .text1,
+  .info2 .text2 {
+    font-size: 0.95rem !important;
+    width: 98vw !important;
+    padding: 0 0.5rem !important;
+  }
+  .footer {
+    padding: 20px 0 !important;
+    font-size: 0.9rem !important;
+  }
+  .footer-logo h2 {
+    font-size: 1.1rem !important;
+  }
+  .footer-social h4 {
+    font-size: 1rem !important;
+  }
+  .footer-bottom p {
+    font-size: 8px !important;
+  }
+}
