@@ -194,7 +194,7 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                 <div className="txt">
                     <h2>Travel. Experience. Find Yourself!</h2>
                 </div>
-                <div className="btns">
+                <div className="btns btnsLanding">
                     <Link to='map'><button>World Map</button></Link>
                     <Link to='journal'><button>Travel Journal</button></Link>
                     <Link to='bucketlist'><button>Bucketlist</button></Link>

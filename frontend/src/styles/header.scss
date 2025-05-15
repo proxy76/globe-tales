@@ -114,3 +114,32 @@ a {
         transform: translateY(0);
     }
 }
+
+@media (max-width:700px) {
+    .header {
+        padding: 0;
+    }
+    .title {
+        padding: 0;
+    }
+    .sections {
+        padding: 0;
+    }
+
+    .finisher-header {
+    width: 200% !important;   /* or 100%, depending on your layout */
+    height: 1200px !important; /* increase height for mobile */
+  }
+  .btns {
+    padding: 0.3rem;
+  }
+
+  .txt {
+    text-align: center;
+  }
+
+  .content {
+    margin-left: 0 !important;
+  }
+
+}

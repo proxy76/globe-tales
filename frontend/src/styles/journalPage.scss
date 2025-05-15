@@ -20,3 +20,13 @@
     justify-content: center;
     align-items: flex-start;
 }
+
+@media (max-width: 500px) {
+    .journal-container h1{
+        font-size: 1.6rem;
+    }
+
+    .modal-content {
+        width: 95%;
+    }
+}
