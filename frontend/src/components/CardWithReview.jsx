@@ -56,7 +56,8 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
         try {
             const response = await axios.post(ADD_JOURNAL_ENDPOINT_URL, { country: name }, { withCredentials: true });
             if (response.data.isAdded) {
-                if (refreshData) refreshData(); // Refresh parent data if provided
+                if (refreshData) refreshData(); 
+                console.log('added');// Refresh parent data if provided
             }
         } catch (error) {
             console.error('Failed to add to journal:', error);
