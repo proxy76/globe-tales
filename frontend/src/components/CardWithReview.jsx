@@ -8,6 +8,9 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
     const [info, setInfo] = useState(null);
 
     useEffect(() => {
+        if (name == "United States") name = 'usa';
+        if (name == "India") name = 'Republic of India';
+        if (name == "China") name = 'Zhonghua';
         const getInfo = async () => {
             try {
                 const response = await axios.get(`https://restcountries.com/v3.1/name/${name}`);
