@@ -163,19 +163,6 @@ CSRF_COOKIE_SECURE = 'False'     # Should be True in production with HTTPS
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Redis Caching Configuration
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',  # Redis database 1 for caching
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'SOCKET_CONNECT_TIMEOUT': 5,  # Timeout for connecting to Redis
-            'SOCKET_TIMEOUT': 5,  # Timeout for Redis operations
-        },
-        'KEY_PREFIX': 'worldmap'  # Prefix for cache keys
-    }
-}
 
 # Use Redis for session storage
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
