@@ -9,23 +9,30 @@ import logging
 @csrf_exempt
 def register(request):
     if request.method == "POST":
-        data = json.loads(request.body)
-        username = data.get("username")
-        email = data.get("email")
-        password = data.get("password")
+        try:
+            data = json.loads(request.body)
+            username = data.get("username")
+            email = data.get("email")
+            password = data.get("password")
 
-        try:
-            user = User.objects.create_user(username, email, password)
+            if not all([username, email, password]):
+                return JsonResponse({"message": "Missing fields", "status": "failed"}, status=400)
+
+            # Check if username is already taken
+            if User.objects.filter(username=username).exists():
+                return JsonResponse({"message": "Username already taken", "status": "failed"}, status=403)
+
+            user = User.objects.create_user(username=username, email=email, password=password)
             user.save()
-        except:
-            return JsonResponse({"message": "Username already taken", "status": "failed"}, status=403)
-        try:
-            login(request, user)
-            return JsonResponse({"message": "Username logged in", "status": "success"}, status=200)
-        except:
-            return JsonResponse({"message": "Couldn't log in", "status": "failed"}, status=403)
-    else:
-        return JsonResponse({"message": "Invalid method", "status": "failed"}, status=403)
+
+            login(request, user)  # Log in the newly registered user
+
+            return JsonResponse({"message": "User registered and logged in", "status": "success"}, status=200)
+
+        except Exception as e:
+            return JsonResponse({"message": f"Error: {str(e)}", "status": "failed"}, status=500)
+
+    return JsonResponse({"message": "Invalid request method", "status": "failed"}, status=405)
 
 @csrf_exempt
 def login_view(request):
