@@ -9,7 +9,7 @@ import axios from 'axios';
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
-export default function LandingPage({ isLogged, setIsLogged }) {
+export default function LandingPage({profilePic, isLogged, setIsLogged }) {
     const [pfp, setPfp] = useState("");
     const headerRef = useRef(null);
     const [isOpened, setIsOpened] = useState(false);
@@ -135,7 +135,7 @@ export default function LandingPage({ isLogged, setIsLogged }) {
                             ref={dropdownRef} className="dropdownWrapper" >
                             <img
                                 className="profilePic"
-                                src="/anonymous.png"
+                                src={profilePic}
                                 alt=""
                             />
                             {

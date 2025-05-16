@@ -8,6 +8,7 @@ import Bucketlist from './components/Bucketlist';
 import {CHECK_LOGIN_ENDPOINT_URL} from './utils/ApiHost'
 import axios from 'axios';
 import MapPage from './components/MapPage';
+ import { getProfileInfo } from './utils/profileInfo';
 
 import {
   BrowserRouter,
@@ -22,6 +23,14 @@ import RegisterPage from './components/RegisterPage';
 
 function App() {
   const [isLogged, setIsLogged] = useState(false);
+  const [profile, setProfile] = useState(null);
+  const [profilePic, setProfilePic] = useState('')
+
+  useEffect(() => {
+    getProfileInfo()
+      .then(data => setProfilePic(data.profilePic))
+      .catch((e) => setProfilePic('./assets/anonymous.png'))
+  }, []);
   useEffect(() => {
     const checkLoginStatus = async () => {
         try {
@@ -37,12 +46,13 @@ function App() {
 
     checkLoginStatus();
   }, []);
+
   return (
     <div className='container'>
 
       <BrowserRouter> 
         <Routes>
-          <Route path="/" element={<LandingPage isLogged={isLogged} setIsLogged={setIsLogged} />} />
+          <Route path="/" element={<LandingPage profilePic={profilePic} isLogged={isLogged} setIsLogged={setIsLogged} />} />
           <Route path="/map" element={<MapPage isLogged={isLogged} />} />
           <Route path="/login" element={<LoginPage setIsLogged={setIsLogged}/>} />
           <Route path="/register" element={<RegisterPage setIsLogged={setIsLogged} />} />
