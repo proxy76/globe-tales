@@ -5,6 +5,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
 import logging
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 
 @csrf_exempt
 def register(request):
@@ -85,6 +87,7 @@ def user_info(request):
             "email": user.email,
             "countriesVisited": user.countriesVisited,
             "countriesWishlist": user.countriesWishlist,
+            "profile_picture": user.profile_picture.url if user.profile_picture else None
         }
         return JsonResponse(user_data, status=200)
     else:
@@ -220,3 +223,33 @@ def view_self_reviews(request):
         reviews = Review.objects.filter(user_id=request.user.id, country_name=country_name)
         return JsonResponse({"reviews": [r.serializer() for r in reviews]}, status=200)
     return JsonResponse({"error": "Invalid method"}, status=405)
+
+@csrf_exempt
+def update_profile_picture(request):
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            try:
+                if 'profile_picture' not in request.FILES:
+                    return JsonResponse({"error": "No image uploaded"}, status=400)
+
+                file = request.FILES['profile_picture']
+                user = request.user
+
+                # Optionally delete old picture if not default
+                if user.profile_picture and user.profile_picture.name != 'user_images/anonymous.png':
+                    user.profile_picture.delete(save=False)
+
+                user.profile_picture.save(file.name, file)
+                user.save()
+
+                return JsonResponse({
+                    "message": "Profile picture updated",
+                    "profile_picture": user.profile_picture.url
+                }, status=200)
+
+            except Exception as e:
+                return JsonResponse({"error": str(e)}, status=500)
+        else:
+            return JsonResponse({"error": "Not authenticated"}, status=403)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
+import { PROFILE_INFO_ENDPOINT_URL, PFP_UPDATE_ENDPOINT_URL } from '../utils/ApiHost';
 import { useNavigate } from 'react-router-dom';
 
 import pfp from '../assets/anonymous.png';
@@ -8,15 +8,16 @@ import GlobalHeader from './GlobalHeader';
 
 const ProfilePage = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState({});
+  const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+const BACKEND_URL = 'http://localhost:8000';
 
   const getInfo = () => {
     axios
       .get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
       .then((response) => {
         setProfileInfo(response.data);
-        console.log("Profile info fetched:", response.data);
-      })
+        console.log("Profile info fetched:", response.data);      })
       .catch((error) => {
         console.error('Failed to fetch profile info:', error);
       });
@@ -26,12 +27,38 @@ const ProfilePage = ({ isLogged }) => {
     getInfo();
   }, []);
 
+  const handleImageChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+
+  const uploadImage = () => {
+    if (!selectedImage) return;
+
+    const formData = new FormData();
+    formData.append('profile_picture', selectedImage);
+
+    axios
+      .post(PFP_UPDATE_ENDPOINT_URL, formData, {
+        withCredentials: true,
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+      .then((response) => {
+        console.log('Profile picture updated:', response.data);
+        setSelectedImage(null);
+        getInfo(); // refresh updated image
+      })
+      .catch((error) => {
+        console.error('Error uploading image:', error);
+      });
+  };
   const user = {
     name: profileInfo.username || 'Guest',
     email: profileInfo.email || 'Not provided',
     countriesVisited: profileInfo.countriesVisited || [],
     countriesWishlisted: profileInfo.countriesWishlist || [],
-    profilePic: profileInfo.profile_picture || pfp,
+    profilePic: `${BACKEND_URL}${profileInfo.profile_picture}` || pfp,
   };
 
   return (
@@ -56,20 +83,29 @@ const ProfilePage = ({ isLogged }) => {
               <p style={styles.statLabel}>Wishlist</p>
             </div>
           </div>
+
+          <div style={styles.uploadContainer}>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              style={styles.fileInput}
+            />
+            <Button
+              label="Upload Profile Picture"
+              onClick={uploadImage}
+              disabled={!selectedImage}
+            />
+          </div>
+
           <div style={styles.buttons}>
             <Button
               label="Travel Journal"
-              onClick={() => {
-                console.log('Travel Journal clicked');
-                navigate('/journal');
-              }}
+              onClick={() => navigate('/journal')}
             />
             <Button
               label="Bucketlist"
-              onClick={() => {
-                console.log('Bucketlist clicked');
-                navigate('/bucketlist');
-              }}
+              onClick={() => navigate('/bucketlist')}
             />
           </div>
         </div>
@@ -78,25 +114,26 @@ const ProfilePage = ({ isLogged }) => {
   );
 };
 
-const Button = ({ label, onClick }) => {
+const Button = ({ label, onClick, disabled = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
   const getButtonStyle = () => {
-    if (isPressed) return { ...styles.button, ...styles.buttonActive };
-    if (isHovered) return { ...styles.button, ...styles.buttonHover };
-    return styles.button;
+    let base = disabled ? styles.buttonDisabled : styles.button;
+    if (isPressed && !disabled) return { ...base, ...styles.buttonActive };
+    if (isHovered && !disabled) return { ...base, ...styles.buttonHover };
+    return base;
   };
 
   return (
     <button
-      className="profileButton"
       style={getButtonStyle()}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onMouseDown={() => setIsPressed(true)}
       onMouseUp={() => setIsPressed(false)}
-      onClick={onClick}
+      onClick={!disabled ? onClick : undefined}
+      disabled={disabled}
     >
       {label}
     </button>
@@ -165,6 +202,7 @@ const styles = {
     justifyContent: 'space-between',
     gap: '10px',
     width: '100%',
+    marginTop: '10px',
   },
   button: {
     backgroundColor: '#4caf50',
@@ -188,6 +226,28 @@ const styles = {
     backgroundColor: '#388e3c',
     transform: 'translateY(2px)',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+  },
+  buttonDisabled: {
+    backgroundColor: '#cccccc',
+    color: '#666',
+    cursor: 'not-allowed',
+    flex: 1,
+    borderRadius: '8px',
+    padding: '10px 15px',
+    fontWeight: 'bold',
+  },
+  uploadContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '10px',
+    marginBottom: '20px',
+    width: '100%',
+  },
+  fileInput: {
+    border: '1px solid #ddd',
+    padding: '8px',
+    borderRadius: '6px',
+    fontSize: '14px',
   },
 };
 

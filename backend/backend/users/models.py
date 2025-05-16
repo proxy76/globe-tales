@@ -8,7 +8,7 @@ class User(AbstractUser):
     profile_picture = models.ImageField(
         upload_to='user_images/',
         default='user_images/anonymous.png'
-    )        
+    )   
     
     groups = models.ManyToManyField(
         'auth.Group',
