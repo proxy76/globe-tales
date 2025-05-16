@@ -55,6 +55,13 @@
   width: 100%; // Full width for consistency
 }
 
+.login-error {
+  color: #e53935;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
 /* Responsive styles - only reaction to window resize, not look */
 @media (max-width: 500px) {
   .login-card {

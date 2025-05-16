@@ -10,8 +10,10 @@ const RegisterPage = ({ setIsLogged }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
+  const [error, setError] = useState(''); // Add error state
 
   const register = (e) => {
+    setError('');
     if (e.target.className === 'button') {
       axios
         .post(
@@ -26,12 +28,25 @@ const RegisterPage = ({ setIsLogged }) => {
           }
         )
         .then((response) => {
-          console.log(response.status);
           setIsLogged(true);
           navigate('/');
         })
         .catch((error) => {
-          console.log(error);
+          if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message === 'Username already taken'
+          ) {
+            setError('Username already taken!');
+          } else if (
+            error.response &&
+            error.response.data &&
+            error.response.data.message === 'Invalid email format'
+          ) {
+            setError('Invalid email format!');
+          } else {
+            setError('Registration failed!');
+          }
         });
     }
   };
@@ -65,6 +80,7 @@ const RegisterPage = ({ setIsLogged }) => {
         <button onClick={(e) => register(e)} className="button" style={styles.button}>
           Register
         </button>
+        {error && <div style={styles.error}>{error}</div>}
       </div>
     </div>
   );
@@ -121,6 +137,12 @@ const styles = {
     margin: '20px auto 0', // Center the button horizontally
     display: 'block', // Ensure the button is treated as a block element
     width: '100%', // Full width for consistency
+  },
+  error: {
+    color: '#e53935',
+    marginTop: '1rem',
+    textAlign: 'center',
+    fontWeight: 'bold',
   },
 };
 

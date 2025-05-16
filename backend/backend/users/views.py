@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 import json
 import logging
+import re
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 
@@ -19,8 +20,12 @@ def register(request):
             email = data.get("email")
             password = data.get("password")
 
+            # Email validation
+            email_regex = r"[^@]+@[^@]+\.[^@]+"
             if not all([username, email, password]):
                 return JsonResponse({"message": "Missing fields", "status": "failed"}, status=400)
+            if not re.match(email_regex, email):
+                return JsonResponse({"message": "Invalid email format", "status": "failed"}, status=400)
 
             if User.objects.filter(username=username).exists():
                 return JsonResponse({"message": "Username already taken", "status": "failed"}, status=403)
@@ -149,6 +154,7 @@ def remove_bucketlist(request):
             return JsonResponse({"isRemoved": False, "reason": "Not authenticated"}, status=403)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
+
 @csrf_exempt
 def add_journal(request):
     if request.method == "POST":

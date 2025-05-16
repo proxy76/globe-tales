@@ -7,9 +7,11 @@ import '../styles/LoginPage.scss';
 const LoginPage = ({ setIsLogged }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); // Add error state
   const navigate = useNavigate();
 
   const login = (e) => {
+    setError(''); // Clear previous error
     if (e.target.className.includes('login-button')) {
       axios
         .post(
@@ -27,7 +29,8 @@ const LoginPage = ({ setIsLogged }) => {
           navigate('/');
         })
         .catch((error) => {
-          console.log(error);
+          // Show error message for incorrect credentials
+          setError('Incorrect credentials!');
         });
     }
   };
@@ -54,6 +57,7 @@ const LoginPage = ({ setIsLogged }) => {
         <button onClick={login} className="button login-button">
           Login
         </button>
+        {error && <div className="login-error">{error}</div>}
       </div>
     </div>
   );
