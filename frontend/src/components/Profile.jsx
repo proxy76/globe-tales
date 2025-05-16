@@ -48,6 +48,7 @@ const BACKEND_URL = 'http://localhost:8000';
         console.log('Profile picture updated:', response.data);
         setSelectedImage(null);
         getInfo(); // refresh updated image
+        window.location.reload()
       })
       .catch((error) => {
         console.error('Error uploading image:', error);
@@ -58,7 +59,7 @@ const BACKEND_URL = 'http://localhost:8000';
     email: profileInfo.email || 'Not provided',
     countriesVisited: profileInfo.countriesVisited || [],
     countriesWishlisted: profileInfo.countriesWishlist || [],
-    profilePic: `${BACKEND_URL}${profileInfo.profile_picture}` || pfp,
+    profilePic: `${BACKEND_URL}${profileInfo.profile_picture}`,
   };
 
   return (
@@ -70,6 +71,10 @@ const BACKEND_URL = 'http://localhost:8000';
             src={user.profilePic}
             alt="Profile"
             style={styles.profilePicture}
+            onError = {(e) => {
+              e.target.onerror = null;
+              e.target.src = pfp
+            }}
           />
           <h2 style={styles.name}>{user.name}</h2>
           <p style={styles.email}>Email: {user.email}</p>

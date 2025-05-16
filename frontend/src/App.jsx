@@ -29,7 +29,7 @@ function App() {
   useEffect(() => {
     getProfileInfo()
       .then(data => setProfilePic(data.profilePic))
-      .catch((e) => setProfilePic('./assets/anonymous.png'))
+      .catch((e) => setProfilePic('/anonymous.png'))
   }, []);
   useEffect(() => {
     const checkLoginStatus = async () => {

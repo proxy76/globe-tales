@@ -9,8 +9,9 @@ import axios from 'axios';
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
-export default function LandingPage({profilePic, isLogged, setIsLogged }) {
-    const [pfp, setPfp] = useState("");
+import pfp from '../assets/anonymous.png';
+
+export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
     const headerRef = useRef(null);
     const [isOpened, setIsOpened] = useState(false);
     const dropdownRef = useRef(null);
@@ -113,7 +114,7 @@ export default function LandingPage({profilePic, isLogged, setIsLogged }) {
             s.parentNode.insertBefore(v, s);
         })(document, 'script');
     }, []);
-//  ceva
+    //  ceva
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
@@ -137,6 +138,10 @@ export default function LandingPage({profilePic, isLogged, setIsLogged }) {
                                 className="profilePic"
                                 src={profilePic}
                                 alt=""
+                                onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = pfp
+                                }}
                             />
                             {
                                 isOpened && (
