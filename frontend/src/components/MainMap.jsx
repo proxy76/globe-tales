@@ -42,7 +42,7 @@ const MainMap = ({ isLogged }) => {
     setCountryName(() => geo.properties.name);
     setMenuOpen(() => true);
   }, []);
-
+  
   return (
     <div
       className="mainMap"

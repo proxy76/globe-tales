@@ -5,6 +5,7 @@ import { FaArrowAltCircleDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
 import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
 import axios from 'axios';
+import { useLocation } from "react-router-dom";
 
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
@@ -19,7 +20,15 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
     const [isOpened, setIsOpened] = useState(false);
     const dropdownRef = useRef(null);
     const { lang } = useLanguage();
-
+    const location = useLocation();
+    useEffect(() => {
+        if (!location.search.includes("reloaded=1")) {
+            window.location.replace(location.pathname + "?reloaded=1");
+        } else {
+            // Ascunde parametru după reload
+            window.history.replaceState({}, "", location.pathname);
+        }
+    }, [location]);
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {
