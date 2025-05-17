@@ -47,7 +47,7 @@ const GlobalHeader = ({ isLogged }) => {
         <div className="sections">
           <div className="title">
             <div className="titleLogo">
-              <img src="/logo.png" alt="" />
+              <img src="/vite.png" alt="" />
             </div>
             <div className="titleText">
               <a href='/'>GlobeTales.</a>

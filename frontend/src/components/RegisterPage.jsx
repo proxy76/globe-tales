@@ -16,7 +16,10 @@ const RegisterPage = ({ setIsLogged }) => {
 
   const register = (e) => {
     setError('');
-    if (e.target.className === 'button') {
+    if (
+      (e.target.className === 'button') ||
+      (e.type === "keydown" && (e.code === "Space" || e.key === " "))
+    ) {
       axios
         .post(
           REGISTER_ENDPOINT_URL,
@@ -72,6 +75,7 @@ const RegisterPage = ({ setIsLogged }) => {
           value={password}
           placeholder="Password"
           style={styles.input}
+          onKeyDown={register}
         />
         <button onClick={register} className="button" style={styles.button}>
           {translations[lang].register}

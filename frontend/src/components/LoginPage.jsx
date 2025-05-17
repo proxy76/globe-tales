@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 import { LOGIN_ENDPOINT_URL } from '../utils/ApiHost';
@@ -12,10 +12,15 @@ const LoginPage = ({ setIsLogged }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const passwordRef = useRef(null);
 
   const login = (e) => {
     setError('');
-    if (e.target.className.includes('login-button')) {
+    // Permite submit atât la click cât și la Enter
+    if (
+      (e.target.className && e.target.className.includes('login-button')) ||
+      (e.type === "keydown" && (e.code === "Enter" || e.key === "Enter"))
+    ) {
       axios
         .post(
           LOGIN_ENDPOINT_URL,
@@ -43,13 +48,25 @@ const LoginPage = ({ setIsLogged }) => {
           value={username}
           placeholder="Username"
           className="login-input"
+          onKeyDown={(e) => {
+            if (e.code === "Enter" || e.key === "Enter") {
+              e.preventDefault();
+              passwordRef.current && passwordRef.current.focus();
+            }
+          }}
         />
         <input
           type="password"
+          ref={passwordRef}
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           placeholder="Password"
           className="login-input"
+          onKeyDown={(e) => {
+            if (e.code === "Enter" || e.key === "Enter") {
+              login(e);
+            }
+          }}
         />
         <button onClick={login} className="button login-button">
           {translations[lang].login}
