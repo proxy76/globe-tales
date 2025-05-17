@@ -164,12 +164,12 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                                                 <div className="dropdown">
                                                     <Link to='profile'>
                                                         <div className="dropdownItem">
-                                                            Profile
+                                                        {translations[lang].profile}
                                                         </div>
                                                     </Link>
 
                                                     <div onClick={(e) => handleLogout(e)} className="dropdownItem">
-                                                        Logout
+                                                        {translations[lang].logout}
                                                     </div>
 
                                                 </div>
@@ -177,13 +177,13 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                                                 <div className="dropdown">
                                                     <Link to='login'>
                                                         <div className="dropdownItem">
-                                                            Login
+                                                        {translations[lang].login}
                                                         </div>
                                                     </Link>
 
                                                     <Link to='register'>
                                                         <div className="dropdownItem">
-                                                            Register
+                                                        {translations[lang].register}
                                                         </div>
                                                     </Link>
 
