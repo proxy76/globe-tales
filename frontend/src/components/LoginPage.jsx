@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 import { LOGIN_ENDPOINT_URL } from '../utils/ApiHost';
@@ -12,7 +12,12 @@ const LoginPage = ({ setIsLogged }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const usernameRef = useRef(null);
   const passwordRef = useRef(null);
+
+  useEffect(() => {
+    usernameRef.current && usernameRef.current.focus();
+  }, []);
 
   const login = (e) => {
     setError('');
@@ -44,6 +49,7 @@ const LoginPage = ({ setIsLogged }) => {
         <p className="login-subtitle">{translations[lang].login}</p>
         <input
           type="text"
+          ref={usernameRef}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           placeholder="Username"

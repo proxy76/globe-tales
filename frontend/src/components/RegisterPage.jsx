@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { REGISTER_ENDPOINT_URL } from '../utils/ApiHost';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,8 +14,13 @@ const RegisterPage = ({ setIsLogged }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
+  const usernameRef = useRef(null);
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  useEffect(() => {
+    usernameRef.current && usernameRef.current.focus();
+  }, []);
 
   const register = (e) => {
     setError('');
@@ -60,6 +65,7 @@ const RegisterPage = ({ setIsLogged }) => {
         <p style={styles.subtitle}>{translations[lang].welcome}</p>
         <input
           type="text"
+          ref={usernameRef}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
           placeholder="Username"
