@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { REGISTER_ENDPOINT_URL } from '../utils/ApiHost';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,11 +14,14 @@ const RegisterPage = ({ setIsLogged }) => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
 
+  const emailRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const register = (e) => {
     setError('');
     if (
       (e.target.className === 'button') ||
-      (e.type === "keydown" && (e.code === "Space" || e.key === " "))
+      (e.type === "keydown" && (e.code === "Enter" || e.key === "Enter"))
     ) {
       axios
         .post(
@@ -61,21 +64,39 @@ const RegisterPage = ({ setIsLogged }) => {
           value={username}
           placeholder="Username"
           style={styles.input}
+          onKeyDown={(e) => {
+            if (e.code === "Enter" || e.key === "Enter") {
+              e.preventDefault();
+              emailRef.current && emailRef.current.focus();
+            }
+          }}
         />
         <input
           type="email"
+          ref={emailRef}
           onChange={(e) => setEmail(e.target.value)}
           value={email}
           placeholder="Email"
           style={styles.input}
+          onKeyDown={(e) => {
+            if (e.code === "Enter" || e.key === "Enter") {
+              e.preventDefault();
+              passwordRef.current && passwordRef.current.focus();
+            }
+          }}
         />
         <input
           type="password"
+          ref={passwordRef}
           onChange={(e) => setPassword(e.target.value)}
           value={password}
           placeholder="Password"
           style={styles.input}
-          onKeyDown={register}
+          onKeyDown={(e) => {
+            if (e.code === "Enter" || e.key === "Enter") {
+              register(e);
+            }
+          }}
         />
         <button onClick={register} className="button" style={styles.button}>
           {translations[lang].register}
