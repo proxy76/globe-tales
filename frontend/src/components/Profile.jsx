@@ -7,7 +7,7 @@ import translations from "../utils/translations";
 import pfp from '../assets/anonymous.png';
 import GlobalHeader from './GlobalHeader';
 import { FaWindows } from 'react-icons/fa';
-
+import ErrorPage from './ErrorPage';
 const ProfilePage = ({ isLogged }) => {
   const { lang, setLang } = useLanguage();
   const [profileInfo, setProfileInfo] = useState({});
@@ -15,7 +15,7 @@ const ProfilePage = ({ isLogged }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const BACKEND_BASE_URL = 'http://localhost:8000';
-
+ // Dacă nu e logat, arată ErrorPage
     useEffect(() => {
         if (!location.search.includes("reloaded=1")) {
             window.location.replace(location.pathname + "?reloaded=1");
@@ -34,7 +34,8 @@ const ProfilePage = ({ isLogged }) => {
   useEffect(() => {
     getInfo();
   }, []);
-
+ if (isLogged === false) return <ErrorPage />;
+  else if (isLogged === undefined || isLogged === null) return null; 
   const handleImageChange = (e) => {
     setSelectedImage(e.target.files[0]);
   };

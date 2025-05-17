@@ -34,6 +34,7 @@ const translations = {
     usernameTaken: "Numele de utilizator este deja folosit!",
     invalidEmail: "Email invalid!",
     registrationFailed: "Înregistrarea a eșuat!",
+    unloggedMessage: "Autentificați-vă pentru a adăuga țara în jurnal sau în lista de dorințe",
     // Profile
     profile: "Profilul meu",
     changePic: "Schimbă poza de profil",
@@ -103,6 +104,8 @@ const translations = {
     usernameTaken: "Username already taken!",
     invalidEmail: "Invalid email!",
     registrationFailed: "Registration failed!",
+    unloggedMessage: "Log in to add country to journal or bucketlist",
+
     // Profile
     profile: "My Profile",
     changePic: "Change Profile Picture",

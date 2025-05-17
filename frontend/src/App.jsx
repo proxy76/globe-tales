@@ -22,7 +22,7 @@ import LoginPage from './components/LoginPage';
 import RegisterPage from './components/RegisterPage';
 
 function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState();
   const [profile, setProfile] = useState(null);
   const [profilePic, setProfilePic] = useState('')
 

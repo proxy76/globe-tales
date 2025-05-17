@@ -32,7 +32,7 @@ export default function Menu({ setMenuOpen, menuOpen, country, isLogged }) {
                 <button onClick={add_journal}>{translations[lang].add} {translations[lang].travelJournal}</button>
               </>
             ) : (
-              <p>{translations[lang].login} {translations[lang].add} {translations[lang].bucketlist.toLowerCase()} / {translations[lang].travelJournal.toLowerCase()}.</p>
+              <p>{translations[lang].unloggedMessage}.</p>
             )}
             <button onClick={toggleCard}>{translations[lang].showCard}</button>
             <button onClick={toggleMenu}>{translations[lang].close}</button>
