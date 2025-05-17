@@ -6,11 +6,19 @@ import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 import ErrorPage from './ErrorPage.jsx';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
-
+import { useLocation } from 'react-router-dom';
 const Bucketlist = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
   const { lang } = useLanguage();
-
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.search.includes("reloaded=1")) {
+      window.location.replace(location.pathname + "?reloaded=1");
+    } else {
+      // Ascunde parametru după reload
+      window.history.replaceState({}, "", location.pathname);
+    }
+  }, [location]);
   useEffect(() => {
     const getInfo = async () => {
       try {

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 import { LOGIN_ENDPOINT_URL } from '../utils/ApiHost';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/LoginPage.scss';
 
@@ -14,7 +14,15 @@ const LoginPage = ({ setIsLogged }) => {
   const navigate = useNavigate();
   const usernameRef = useRef(null);
   const passwordRef = useRef(null);
-
+  const location = useLocation()
+    useEffect(() => {
+        if (!location.search.includes("reloaded=1")) {
+            window.location.replace(location.pathname + "?reloaded=1");
+        } else {
+            // Ascunde parametru după reload
+            window.history.replaceState({}, "", location.pathname);
+        }
+    }, [location]);
   useEffect(() => {
     usernameRef.current && usernameRef.current.focus();
   }, []);

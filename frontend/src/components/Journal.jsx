@@ -8,12 +8,21 @@ import ErrorPage from './ErrorPage.jsx';
 import ReviewModal from './ReviewModal.jsx';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
+import { useLocation } from 'react-router-dom';
 
 const Journal = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
   const [reviewsOpened, setReviewsOpened] = useState('');
   const { lang } = useLanguage();
-
+  const location = useLocation();
+  useEffect(() => {
+    if (!location.search.includes("reloaded=1")) {
+      window.location.replace(location.pathname + "?reloaded=1");
+    } else {
+      // Ascunde parametru după reload
+      window.history.replaceState({}, "", location.pathname);
+    }
+  }, [location]);
   useEffect(() => {
     const getInfo = async () => {
       try {

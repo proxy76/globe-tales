@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL, PFP_UPDATE_ENDPOINT_URL } from '../utils/ApiHost';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 import pfp from '../assets/anonymous.png';
@@ -13,8 +13,17 @@ const ProfilePage = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const BACKEND_BASE_URL = 'http://localhost:8000';
 
+    useEffect(() => {
+        if (!location.search.includes("reloaded=1")) {
+            window.location.replace(location.pathname + "?reloaded=1");
+        } else {
+            // Ascunde parametru după reload
+            window.history.replaceState({}, "", location.pathname);
+        }
+    }, [location]);
   const getInfo = () => {
     axios
       .get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })

@@ -1,14 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { REGISTER_ENDPOINT_URL } from '../utils/ApiHost';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 
 const RegisterPage = ({ setIsLogged }) => {
   const navigate = useNavigate();
   const { lang } = useLanguage();
-
+ const location = useLocation();
+    useEffect(() => {
+        if (!location.search.includes("reloaded=1")) {
+            window.location.replace(location.pathname + "?reloaded=1");
+        } else {
+            // Ascunde parametru după reload
+            window.history.replaceState({}, "", location.pathname);
+        }
+    }, [location]);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
