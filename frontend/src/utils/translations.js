@@ -15,6 +15,7 @@ const translations = {
     cancel: "Anulează",
     submit: "Trimite",
     add: "Adaugă",
+    showCard: "Detalii",
     remove: "Șterge",
     review: "Recenzie",
     reviews: "Recenzii",
@@ -35,7 +36,7 @@ const translations = {
     registrationFailed: "Înregistrarea a eșuat!",
     // Profile
     profile: "Profilul meu",
-    changePic: "Schimbă poza",
+    changePic: "Schimbă poza de profil",
     visited: "Țări vizitate",
     wishlist: "Țări de pe wishlist",
     // Card
@@ -83,6 +84,7 @@ const translations = {
     cancel: "Cancel",
     submit: "Submit",
     add: "Add",
+    showCard: "Show Card",
     remove: "Remove",
     review: "Review",
     reviews: "Reviews",
@@ -103,7 +105,7 @@ const translations = {
     registrationFailed: "Registration failed!",
     // Profile
     profile: "My Profile",
-    changePic: "Change Picture",
+    changePic: "Change Profile Picture",
     visited: "Visited Countries",
     wishlist: "Wishlist Countries",
     // Card

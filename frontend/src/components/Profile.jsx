@@ -6,6 +6,7 @@ import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 import pfp from '../assets/anonymous.png';
 import GlobalHeader from './GlobalHeader';
+import { FaWindows } from 'react-icons/fa';
 
 const ProfilePage = ({ isLogged }) => {
   const { lang, setLang } = useLanguage();
@@ -35,7 +36,7 @@ const ProfilePage = ({ isLogged }) => {
     formData.append('profile_picture', selectedImage);
     axios
       .post(PFP_UPDATE_ENDPOINT_URL, formData, { withCredentials: true })
-      .then(() => getInfo());
+      .then(() => {getInfo(); window.location.reload()});
   };
 
   // Toggle Button

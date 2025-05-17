@@ -34,7 +34,7 @@ export default function Menu({ setMenuOpen, menuOpen, country, isLogged }) {
             ) : (
               <p>{translations[lang].login} {translations[lang].add} {translations[lang].bucketlist.toLowerCase()} / {translations[lang].travelJournal.toLowerCase()}.</p>
             )}
-            <button onClick={toggleCard}>{translations[lang].reviewBtn} {translations[lang].review}</button>
+            <button onClick={toggleCard}>{translations[lang].showCard}</button>
             <button onClick={toggleMenu}>{translations[lang].close}</button>
           </div>
           {cardOpened && <Card name={country} />}
