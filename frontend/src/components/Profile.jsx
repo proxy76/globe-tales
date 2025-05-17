@@ -12,6 +12,7 @@ const ProfilePage = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
+  const BACKEND_BASE_URL = 'http://localhost:8000';
 
   const getInfo = () => {
     axios
@@ -37,19 +38,42 @@ const ProfilePage = ({ isLogged }) => {
       .then(() => getInfo());
   };
 
+  // Toggle Button
+  const toggleLang = () => setLang(lang === "ro" ? "en" : "ro");
+
   return (
     <>
       <GlobalHeader isLogged={isLogged} />
       <div style={styles.container}>
         <div style={styles.card}>
           <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-            <select value={lang} onChange={e => setLang(e.target.value)} style={{ marginBottom: 16 }}>
-              <option value="ro">Română</option>
-              <option value="en">English</option>
-            </select>
+            <button
+              onClick={toggleLang}
+              style={{
+                ...styles.toggleBtn,
+                background: lang === "ro"
+                  ? "linear-gradient(90deg, #4caf50 60%, #e0e0e0 100%)"
+                  : "linear-gradient(90deg, #e0e0e0 0%, #4caf50 40%)",
+                color: "#222",
+              }}
+              aria-label="Schimbă limba"
+            >
+              <span style={{
+                fontWeight: lang === "ro" ? "bold" : "normal",
+                color: lang === "ro" ? "#fff" : "#222"
+              }}>RO</span>
+              <span style={{
+                margin: "0 8px",
+                color: "#888"
+              }}>|</span>
+              <span style={{
+                fontWeight: lang === "en" ? "bold" : "normal",
+                color: lang === "en" ? "#fff" : "#222"
+              }}>EN</span>
+            </button>
           </div>
           <img
-            src={profileInfo.profile_picture || pfp}
+            src={ BACKEND_BASE_URL + profileInfo.profile_picture}
             alt="Profile"
             style={styles.profilePicture}
             onError={e => { e.target.onerror = null; e.target.src = pfp }}
@@ -229,6 +253,23 @@ const styles = {
     padding: '8px',
     borderRadius: '6px',
     fontSize: '14px',
+  },
+  toggleBtn: {
+    border: 'none',
+    borderRadius: '20px',
+    padding: '6px 18px',
+    fontWeight: 'bold',
+    fontSize: '15px',
+    cursor: 'pointer',
+    marginBottom: 16,
+    marginTop: 8,
+    marginRight: 0,
+    outline: 'none',
+    transition: 'background 0.3s',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '2px',
+    boxShadow: '0 2px 8px rgba(76,175,80,0.08)',
   },
 };
 

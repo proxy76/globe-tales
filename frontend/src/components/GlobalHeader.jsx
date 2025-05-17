@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
+import pfp from '../assets/anonymous.png';
+import { getProfileInfo } from '../utils/profileInfo.js';
+import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
+import axios from 'axios';
 
 import "../styles/header.scss";
 
-import axios from 'axios';
-import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
-import { getProfileInfo } from '../utils/profileInfo.js';
-import pfp from '../assets/anonymous.png';
-import { useLanguage } from "../context/LanguageContext";
-import translations from "../utils/translations";
-
 const GlobalHeader = ({ isLogged }) => {
-  const headerRef = useRef(null);
-  const [isOpened, setIsOpened] = useState(false);
+  const { lang } = useLanguage();
   const [profilePic, setProfilePic] = useState('');
-  const { lang, setLang } = useLanguage();
+  const [isOpened, setIsOpened] = useState(false);
+  const dropdownRef = useRef(null);
+  const location = useLocation();
 
   useEffect(() => {
     getProfileInfo()
@@ -23,7 +23,6 @@ const GlobalHeader = ({ isLogged }) => {
   }, []);
 
   // Close dropdown when clicking outside
-  const dropdownRef = useRef(null);
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {
@@ -39,7 +38,7 @@ const GlobalHeader = ({ isLogged }) => {
   const handleLogout = async (e) => {
     e.preventDefault();
     axios.post(LOGOUT_ENDPOINT_URL, {}, { withCredentials: true })
-      .then(() => window.location.pathname = '/');
+      .then(() => window.location.reload());
   };
 
   return (
@@ -54,12 +53,12 @@ const GlobalHeader = ({ isLogged }) => {
               <a href='/'>GlobeTales.</a>
             </div>
           </div>
-          <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
-            <select value={lang} onChange={e => setLang(e.target.value)}>
-              <option value="ro">Română</option>
-              <option value="en">English</option>
-            </select>
-          </div>
+          {/* NU mai afișați selectorul de limbă aici pe pagina de profil */}
+          {location.pathname !== "/profile" && (
+            <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
+              {/* Dacă vrei selector global pe alte pagini, îl poți lăsa aici */}
+            </div>
+          )}
           <div
             onClick={() => setIsOpened(!isOpened)}
             ref={dropdownRef}
@@ -97,7 +96,6 @@ const GlobalHeader = ({ isLogged }) => {
           </div>
         </div>
       </div>
-      <div ref={headerRef} className="header finisher-header" style={{ width: "150%", height: "1000px" }}></div>
     </div>
   );
 };
