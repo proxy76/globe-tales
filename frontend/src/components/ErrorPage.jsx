@@ -1,20 +1,22 @@
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 
 const ErrorPage = () => {
-    return (
-        <div className="errorPage">
-            <b>
-                <p>You need to be logged in to proceed.</p>
-            </b>
-
-            <Link to='/login'>
-                <button>Login</button>
-            </Link>
-            <Link to='/register'>
-                <button>Register</button>
-            </Link>
-        </div>
-    )
-}
+  const { lang } = useLanguage();
+  return (
+    <div className="errorPage">
+      <b>
+        <p>{translations[lang].error || "You need to be logged in to proceed."}</p>
+      </b>
+      <Link to='/login'>
+        <button>{translations[lang].login}</button>
+      </Link>
+      <Link to='/register'>
+        <button>{translations[lang].register}</button>
+      </Link>
+    </div>
+  );
+};
 
 export default ErrorPage;

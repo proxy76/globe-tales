@@ -2,25 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL, PFP_UPDATE_ENDPOINT_URL } from '../utils/ApiHost';
 import { useNavigate } from 'react-router-dom';
-
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 import pfp from '../assets/anonymous.png';
 import GlobalHeader from './GlobalHeader';
 
 const ProfilePage = ({ isLogged }) => {
+  const { lang, setLang } = useLanguage();
   const [profileInfo, setProfileInfo] = useState({});
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
-const BACKEND_URL = 'http://localhost:8000';
 
   const getInfo = () => {
     axios
       .get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
-      .then((response) => {
-        setProfileInfo(response.data);
-        console.log("Profile info fetched:", response.data);      })
-      .catch((error) => {
-        console.error('Failed to fetch profile info:', error);
-      });
+      .then((response) => setProfileInfo(response.data))
+      .catch((error) => console.error('Failed to fetch profile info:', error));
   };
 
   useEffect(() => {
@@ -28,38 +25,16 @@ const BACKEND_URL = 'http://localhost:8000';
   }, []);
 
   const handleImageChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedImage(e.target.files[0]);
-    }
+    setSelectedImage(e.target.files[0]);
   };
 
   const uploadImage = () => {
     if (!selectedImage) return;
-
     const formData = new FormData();
     formData.append('profile_picture', selectedImage);
-
     axios
-      .post(PFP_UPDATE_ENDPOINT_URL, formData, {
-        withCredentials: true,
-        headers: { 'Content-Type': 'multipart/form-data' },
-      })
-      .then((response) => {
-        console.log('Profile picture updated:', response.data);
-        setSelectedImage(null);
-        getInfo(); // refresh updated image
-        window.location.reload()
-      })
-      .catch((error) => {
-        console.error('Error uploading image:', error);
-      });
-  };
-  const user = {
-    name: profileInfo.username || 'Guest',
-    email: profileInfo.email || 'Not provided',
-    countriesVisited: profileInfo.countriesVisited || [],
-    countriesWishlisted: profileInfo.countriesWishlist || [],
-    profilePic: `${BACKEND_URL}${profileInfo.profile_picture}`,
+      .post(PFP_UPDATE_ENDPOINT_URL, formData, { withCredentials: true })
+      .then(() => getInfo());
   };
 
   return (
@@ -67,28 +42,30 @@ const BACKEND_URL = 'http://localhost:8000';
       <GlobalHeader isLogged={isLogged} />
       <div style={styles.container}>
         <div style={styles.card}>
+          <div style={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
+            <select value={lang} onChange={e => setLang(e.target.value)} style={{ marginBottom: 16 }}>
+              <option value="ro">Română</option>
+              <option value="en">English</option>
+            </select>
+          </div>
           <img
-            src={user.profilePic}
+            src={profileInfo.profile_picture || pfp}
             alt="Profile"
             style={styles.profilePicture}
-            onError = {(e) => {
-              e.target.onerror = null;
-              e.target.src = pfp
-            }}
+            onError={e => { e.target.onerror = null; e.target.src = pfp }}
           />
-          <h2 style={styles.name}>{user.name}</h2>
-          <p style={styles.email}>Email: {user.email}</p>
+          <h2 style={styles.name}>{profileInfo.username}</h2>
+          <p style={styles.email}>Email: {profileInfo.email}</p>
           <div style={styles.stats}>
             <div style={styles.statItem}>
-              <h3 style={styles.statNumber}>{user.countriesVisited.length}</h3>
-              <p style={styles.statLabel}>Countries Visited</p>
+              <h3 style={styles.statNumber}>{profileInfo.countriesVisited?.length || 0}</h3>
+              <p style={styles.statLabel}>{translations[lang].visited}</p>
             </div>
             <div style={styles.statItem}>
-              <h3 style={styles.statNumber}>{user.countriesWishlisted.length}</h3>
-              <p style={styles.statLabel}>Wishlist</p>
+              <h3 style={styles.statNumber}>{profileInfo.countriesWishlist?.length || 0}</h3>
+              <p style={styles.statLabel}>{translations[lang].wishlist}</p>
             </div>
           </div>
-
           <div style={styles.uploadContainer}>
             <input
               type="file"
@@ -97,19 +74,18 @@ const BACKEND_URL = 'http://localhost:8000';
               style={styles.fileInput}
             />
             <Button
-              label="Upload Profile Picture"
+              label={translations[lang].changePic}
               onClick={uploadImage}
               disabled={!selectedImage}
             />
           </div>
-
           <div style={styles.buttons}>
             <Button
-              label="Travel Journal"
+              label={translations[lang].travelJournal}
               onClick={() => navigate('/journal')}
             />
             <Button
-              label="Bucketlist"
+              label={translations[lang].bucketlist}
               onClick={() => navigate('/bucketlist')}
             />
           </div>

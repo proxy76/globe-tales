@@ -10,11 +10,15 @@ import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
 
 import pfp from '../assets/anonymous.png';
+import React from "react";
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 
 export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
     const headerRef = useRef(null);
     const [isOpened, setIsOpened] = useState(false);
     const dropdownRef = useRef(null);
+    const { lang } = useLanguage();
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -197,21 +201,20 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
 
             <div className="buttonWrapper">
                 <div className="txt">
-                    <h2>Travel. Experience. Find Yourself!</h2>
+                    <h2>{translations[lang].travelExperience}</h2>
                 </div>
                 <div className="btns btnsLanding">
-                    <Link to='map'><button>World Map</button></Link>
-                    <Link to='journal'><button>Travel Journal</button></Link>
-                    <Link to='bucketlist'><button>Bucketlist</button></Link>
+                    <Link to='map'><button>{translations[lang].worldMap}</button></Link>
+                    <Link to='journal'><button>{translations[lang].travelJournal}</button></Link>
+                    <Link to='bucketlist'><button>{translations[lang].bucketlist}</button></Link>
                 </div>
             </div>
-
             <div className="infoWrapper">
                 <div className="info1">
                     <a id="gen"></a>
                     <div className="text1">
-                        <h1>Alege unde vrei să călătorești</h1>
-                        <p>Cu noi, fiecare călătorie devine mai mult decât o amintire. Îți oferim un spațiu special unde poți să îți setezi obiective de călătorie, să notezi destinațiile deja explorate și să îți planifici următoarele aventuri. E ca un jurnal personalizat, dedicat pasiunii tale pentru descoperirea lumii – un loc unde fiecare țară vizitată capătă un sens mai profund și fiecare experiență se transformă într-o poveste de păstrat și rememorat.</p>
+                        <h1>{translations[lang].chooseWhere}</h1>
+                        <p>{translations[lang].chooseWhereDesc}</p>
                     </div>
                     <div className="img1">
                         <img src={img1} alt="" />
@@ -222,8 +225,8 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                         <img src={img2} alt="" />
                     </div>
                     <div className="text2">
-                        <h1>Folosește-te de ce îți oferim</h1>
-                        <p>Pornește într-o aventură fără sfârșit cu harta noastră interactivă! La fiecare pas, vei descoperi informații fascinante despre țările în care ajungi, povești mai puțin știute și curiozități care îți vor îmbogăți călătoria. Marchează-ți destinațiile, scrie-ți amintirile și lasă fiecare loc vizitat să spună o parte din povestea ta.</p>
+                        <h1>{translations[lang].useWhatWeOffer}</h1>
+                        <p>{translations[lang].useWhatWeOfferDesc}</p>
                     </div>
                 </div>
             </div>

@@ -63,8 +63,7 @@ const MainMap = ({ isLogged }) => {
           />
         )}
       </Suspense>
-{/* uhew */}
-      {/* Adjust the width and height of the map */}
+
       <div className="mapContainer">
         <ComposableMap className="map">
           <ZoomableGroup center={[0, 20]} zoom={1}>

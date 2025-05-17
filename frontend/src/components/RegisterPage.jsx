@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { REGISTER_ENDPOINT_URL } from '../utils/ApiHost';
-import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 
 const RegisterPage = ({ setIsLogged }) => {
   const navigate = useNavigate();
+  const { lang } = useLanguage();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [error, setError] = useState(''); // Add error state
+  const [error, setError] = useState('');
 
   const register = (e) => {
     setError('');
@@ -18,16 +20,10 @@ const RegisterPage = ({ setIsLogged }) => {
       axios
         .post(
           REGISTER_ENDPOINT_URL,
-          {
-            username: username,
-            password: password,
-            email: email,
-          },
-          {
-            withCredentials: true,
-          }
+          { username, password, email },
+          { withCredentials: true }
         )
-        .then((response) => {
+        .then(() => {
           setIsLogged(true);
           navigate('/');
         })
@@ -37,15 +33,15 @@ const RegisterPage = ({ setIsLogged }) => {
             error.response.data &&
             error.response.data.message === 'Username already taken'
           ) {
-            setError('Username already taken!');
+            setError(translations[lang].usernameTaken);
           } else if (
             error.response &&
             error.response.data &&
             error.response.data.message === 'Invalid email format'
           ) {
-            setError('Invalid email format!');
+            setError(translations[lang].invalidEmail);
           } else {
-            setError('Registration failed!');
+            setError(translations[lang].registrationFailed);
           }
         });
     }
@@ -54,8 +50,8 @@ const RegisterPage = ({ setIsLogged }) => {
   return (
     <div style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.title}>Create an Account</h2>
-        <p style={styles.subtitle}>Join GlobeTales and start your journey!</p>
+        <h2 style={styles.title}>{translations[lang].register}</h2>
+        <p style={styles.subtitle}>{translations[lang].welcome}</p>
         <input
           type="text"
           onChange={(e) => setUsername(e.target.value)}
@@ -77,8 +73,8 @@ const RegisterPage = ({ setIsLogged }) => {
           placeholder="Password"
           style={styles.input}
         />
-        <button onClick={(e) => register(e)} className="button" style={styles.button}>
-          Register
+        <button onClick={register} className="button" style={styles.button}>
+          {translations[lang].register}
         </button>
         {error && <div style={styles.error}>{error}</div>}
       </div>
@@ -92,25 +88,25 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    background: 'linear-gradient(135deg, #a8e6cf, #dcedf7)', // Light green and light blue gradient
+    background: 'linear-gradient(135deg, #a8e6cf, #dcedf7)',
   },
   card: {
-    backgroundColor: '#ffffff', // White background
+    backgroundColor: '#ffffff',
     padding: '30px',
     borderRadius: '15px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Subtle shadow for a professional look
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
     textAlign: 'center',
     width: '350px',
   },
   title: {
     fontSize: '24px',
     fontWeight: 'bold',
-    color: '#4caf50', // Light green
+    color: '#4caf50',
     marginBottom: '10px',
   },
   subtitle: {
     fontSize: '16px',
-    color: '#000', // Light green
+    color: '#000',
     marginBottom: '20px',
   },
   input: {
@@ -118,15 +114,15 @@ const styles = {
     margin: '10px auto',
     padding: '12px',
     borderRadius: '8px',
-    border: '1px solid #dcedf7', // Light blue border
+    border: '1px solid #dcedf7',
     width: '100%',
     fontSize: '14px',
     outline: 'none',
-    backgroundColor: '#f9f9f9', // Subtle background for inputs
+    backgroundColor: '#f9f9f9',
   },
   button: {
-    backgroundColor: '#4caf50', // Light green
-    color: '#ffffff', // White text
+    backgroundColor: '#4caf50',
+    color: '#ffffff',
     border: 'none',
     borderRadius: '8px',
     padding: '12px 20px',
@@ -134,9 +130,9 @@ const styles = {
     fontWeight: 'bold',
     cursor: 'pointer',
     transition: 'background-color 0.3s ease',
-    margin: '20px auto 0', // Center the button horizontally
-    display: 'block', // Ensure the button is treated as a block element
-    width: '100%', // Full width for consistency
+    margin: '20px auto 0',
+    display: 'block',
+    width: '100%',
   },
   error: {
     color: '#e53935',

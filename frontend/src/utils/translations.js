@@ -1,0 +1,140 @@
+const translations = {
+  ro: {
+    // General
+    save: "Salvează",
+    logout: "Deconectare",
+    login: "Autentificare",
+    register: "Înregistrare",
+    welcome: "Bine ai venit!",
+    worldMap: "Harta lumii",
+    travelJournal: "Jurnal de călătorie",
+    bucketlist: "Bucketlist",
+    loading: "Se încarcă...",
+    error: "Eroare",
+    close: "Închide",
+    cancel: "Anulează",
+    submit: "Trimite",
+    add: "Adaugă",
+    remove: "Șterge",
+    review: "Recenzie",
+    reviews: "Recenzii",
+    noReviews: "Nu există recenzii.",
+    myReviews: "Recenziile mele",
+    allReviews: "Toate recenziile",
+    addReview: "Adaugă recenzie",
+    writeReview: "Scrie recenzia ta...",
+    submitReview: "Trimite recenzia",
+    loadingReviews: "Se încarcă recenziile...",
+    loadingYourReviews: "Se încarcă recenziile tale...",
+    noMyReviews: "Nu ai recenzii pentru această țară.",
+    noVisited: "Nu ai vizitat încă nicio țară.",
+    noWishlist: "Nu ai nicio țară în wishlist.",
+    incorrectCredentials: "Date de autentificare incorecte",
+    usernameTaken: "Numele de utilizator este deja folosit!",
+    invalidEmail: "Email invalid!",
+    registrationFailed: "Înregistrarea a eșuat!",
+    // Profile
+    profile: "Profilul meu",
+    changePic: "Schimbă poza",
+    visited: "Țări vizitate",
+    wishlist: "Țări de pe wishlist",
+    // Card
+    name: "Nume",
+    currency: "Monedă",
+    capital: "Capitală",
+    officialLanguage: "Limbă oficială",
+    population: "Populație",
+    continent: "Continent",
+    // Landing
+    travelExperience: "Călătorește. Experimentează. Descoperă-te!",
+    chooseWhere: "Alege unde vrei să călătorești",
+    chooseWhereDesc: "Cu noi, fiecare călătorie devine mai mult decât o amintire. Îți oferim un spațiu special unde poți să îți setezi obiective de călătorie, să notezi destinațiile deja explorate și să îți planifici următoarele aventuri. E ca un jurnal personalizat, dedicat pasiunii tale pentru descoperirea lumii – un loc unde fiecare țară vizitată capătă un sens mai profund și fiecare experiență se transformă într-o poveste de păstrat și rememorat.",
+    useWhatWeOffer: "Folosește-te de ce îți oferim",
+    useWhatWeOfferDesc: "Pornește într-o aventură fără sfârșit cu harta noastră interactivă! La fiecare pas, vei descoperi informații fascinante despre țările în care ajungi, povești mai puțin știute și curiozități care îți vor îmbogăți călătoria. Marchează-ți destinațiile, scrie-ți amintirile și lasă fiecare loc vizitat să spună o parte din povestea ta.",
+    // Footer
+    followUs: "Urmărește-ne",
+    allRights: "Toate drepturile rezervate.",
+    // Globe
+    globeText: "Călătorește cu NOI!",
+    // Journal
+    yourJournal: "Jurnalul tău",
+    // Buttons
+    visitedBtn: "VIZITATĂ",
+    removeBtn: "ȘTERGE",
+    reviewBtn: "RECENZIE",
+    // Others
+    profilePictureUpdated: "Poza de profil a fost actualizată",
+    noImageUploaded: "Nu a fost încărcată nicio imagine",
+    // etc.
+  },
+  en: {
+    // General
+    save: "Save",
+    logout: "Logout",
+    login: "Login",
+    register: "Register",
+    welcome: "Welcome!",
+    worldMap: "World Map",
+    travelJournal: "Travel Journal",
+    bucketlist: "Bucketlist",
+    loading: "Loading...",
+    error: "Error",
+    close: "Close",
+    cancel: "Cancel",
+    submit: "Submit",
+    add: "Add",
+    remove: "Remove",
+    review: "Review",
+    reviews: "Reviews",
+    noReviews: "No reviews yet.",
+    myReviews: "My Reviews",
+    allReviews: "All Reviews",
+    addReview: "Add Review",
+    writeReview: "Write your review...",
+    submitReview: "Submit Review",
+    loadingReviews: "Loading reviews...",
+    loadingYourReviews: "Loading your reviews...",
+    noMyReviews: "You haven't reviewed this country yet.",
+    noVisited: "You haven't visited any country yet.",
+    noWishlist: "You have no countries in your wishlist.",
+    incorrectCredentials: "Incorrect credentials",
+    usernameTaken: "Username already taken!",
+    invalidEmail: "Invalid email!",
+    registrationFailed: "Registration failed!",
+    // Profile
+    profile: "My Profile",
+    changePic: "Change Picture",
+    visited: "Visited Countries",
+    wishlist: "Wishlist Countries",
+    // Card
+    name: "Name",
+    currency: "Currency",
+    capital: "Capital",
+    officialLanguage: "Official Language",
+    population: "Population",
+    continent: "Continent",
+    // Landing
+    travelExperience: "Travel. Experience. Find Yourself!",
+    chooseWhere: "Choose where you want to travel",
+    chooseWhereDesc: "With us, every journey becomes more than a memory. We offer you a special space where you can set travel goals, note destinations already explored, and plan your next adventures. It's like a personalized journal dedicated to your passion for discovering the world – a place where every country visited gains deeper meaning and every experience becomes a story to keep and remember.",
+    useWhatWeOffer: "Use what we offer",
+    useWhatWeOfferDesc: "Start an endless adventure with our interactive map! At every step, you'll discover fascinating information about the countries you reach, lesser-known stories, and curiosities that will enrich your journey. Mark your destinations, write your memories, and let every place you visit tell a part of your story.",
+    // Footer
+    followUs: "Follow Us",
+    allRights: "All rights reserved.",
+    // Globe
+    globeText: "Travel with US!",
+    // Journal
+    yourJournal: "Your Journal",
+    // Buttons
+    visitedBtn: "VISITED",
+    removeBtn: "REMOVE",
+    reviewBtn: "REVIEW",
+    // Others
+    profilePictureUpdated: "Profile picture updated",
+    noImageUploaded: "No image uploaded",
+    // etc.
+  }
+};
+
+export default translations;

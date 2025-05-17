@@ -1,36 +1,33 @@
 import React, { useState } from 'react';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 import { LOGIN_ENDPOINT_URL } from '../utils/ApiHost';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/LoginPage.scss';
 
 const LoginPage = ({ setIsLogged }) => {
+  const { lang } = useLanguage();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(''); // Add error state
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const login = (e) => {
-    setError(''); // Clear previous error
+    setError('');
     if (e.target.className.includes('login-button')) {
       axios
         .post(
           LOGIN_ENDPOINT_URL,
-          {
-            username: username,
-            password: password,
-          },
-          {
-            withCredentials: true,
-          }
+          { username, password },
+          { withCredentials: true }
         )
-        .then((response) => {
+        .then(() => {
           setIsLogged(true);
           navigate('/');
         })
-        .catch((error) => {
-          // Show error message for incorrect credentials
-          setError('Incorrect credentials!');
+        .catch(() => {
+          setError(translations[lang].incorrectCredentials);
         });
     }
   };
@@ -38,8 +35,8 @@ const LoginPage = ({ setIsLogged }) => {
   return (
     <div className="login-container">
       <div className="login-card">
-        <h2 className="login-title">Welcome to GlobeTales</h2>
-        <p className="login-subtitle">Login to explore the world with us!</p>
+        <h2 className="login-title">{translations[lang].welcome}</h2>
+        <p className="login-subtitle">{translations[lang].login}</p>
         <input
           type="text"
           onChange={(e) => setUsername(e.target.value)}
@@ -55,7 +52,7 @@ const LoginPage = ({ setIsLogged }) => {
           className="login-input"
         />
         <button onClick={login} className="button login-button">
-          Login
+          {translations[lang].login}
         </button>
         {error && <div className="login-error">{error}</div>}
       </div>

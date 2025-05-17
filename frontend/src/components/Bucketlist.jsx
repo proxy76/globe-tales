@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
+import GlobalHeader from './GlobalHeader';
 import CardWithReview from './CardWithReview.jsx';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
 import ErrorPage from './ErrorPage.jsx';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
 
 const Bucketlist = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const getInfo = async () => {
@@ -17,7 +20,6 @@ const Bucketlist = ({ isLogged }) => {
         console.error('Failed to fetch profile info:', error);
       }
     };
-
     getInfo();
   }, []);
 
@@ -32,8 +34,8 @@ const Bucketlist = ({ isLogged }) => {
 
   return (
     <div className="journal-container">
-      <Header isLogged={isLogged} />
-      <h1>Your Bucketlist</h1>
+      <GlobalHeader isLogged={isLogged} />
+      <h1>{translations[lang].bucketlist}</h1>
       <div className="content">
         {Array.from(new Set(profileInfo.countriesWishlist)).map((name, index) => (
           <CardWithReview key={index} name={name} page={"bucketlist"} onRemove={handleRemoveFromWishlist} />

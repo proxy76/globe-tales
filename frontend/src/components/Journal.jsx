@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Header from './Header';
+import GlobalHeader from './GlobalHeader';
 import CardWithReview from './CardWithReview.jsx';
 import axios from 'axios';
 import { PROFILE_INFO_ENDPOINT_URL } from '../utils/ApiHost';
-
 import '../styles/journalPage.scss';
 import ErrorPage from './ErrorPage.jsx';
-import ReviewModal from './ReviewModal.jsx'
+import ReviewModal from './ReviewModal.jsx';
+import { useLanguage } from "../context/LanguageContext";
+import translations from "../utils/translations";
+
 const Journal = ({ isLogged }) => {
   const [profileInfo, setProfileInfo] = useState(null);
   const [reviewsOpened, setReviewsOpened] = useState('');
+  const { lang } = useLanguage();
 
   useEffect(() => {
     const getInfo = async () => {
@@ -20,7 +23,6 @@ const Journal = ({ isLogged }) => {
         console.error('Failed to fetch profile info:', error);
       }
     };
-
     getInfo();
   }, []);
 
@@ -35,11 +37,10 @@ const Journal = ({ isLogged }) => {
 
   return (
     <div className="journal-container">
-      <Header isLogged={isLogged} />
-      <h1>Your Journal</h1>
+      <GlobalHeader isLogged={isLogged} />
+      <h1>{translations[lang].yourJournal}</h1>
       <div className="content">
-        { reviewsOpened &&
-        // PUN NUMELE TARII CU CARE E DESCHIS MODALU CA VARIABILA IN LOC DE TRUE!
+        {reviewsOpened &&
           <ReviewModal reviewsOpened={reviewsOpened} setReviewsOpened={setReviewsOpened} isLogged={isLogged} />
         }
         {Array.from(new Set(profileInfo.countriesVisited)).map((name, index) => (
