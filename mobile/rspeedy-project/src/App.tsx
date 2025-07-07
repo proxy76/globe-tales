@@ -35,7 +35,7 @@ export function App(props: {
         </view>
         <view className='Content'>
           <image src={arrow} className='Arrow' />
-          <text className='Description'>Tap the logo and have fun!</text>
+          <text className='Description'>Tap the logo!</text>
           <text className='Hint'>
             Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
             to see updates!
