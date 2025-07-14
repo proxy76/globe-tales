@@ -156,11 +156,11 @@ DEBUG=True
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_TRUSTED_ORIGINS = ['https://cf6e8dee-91b7-4dc9-8edf-b104e35a144e.e1-eu-west-cdp.choreoapps.dev']  # Add your frontend domain here
+CSRF_TRUSTED_ORIGINS = ['https://globe-tales-frontend.onrender.com']  # Add your frontend domain here
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 CORS_ALLOWED_ORIGINS = [
-    'https://cf6e8dee-91b7-4dc9-8edf-b104e35a144e.e1-eu-west-cdp.choreoapps.dev',  # React frontend domain
+    'https://globe-tales-frontend.onrender.com',  # React frontend domain
 ]
 SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
 CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests
