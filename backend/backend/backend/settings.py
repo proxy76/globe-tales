@@ -156,18 +156,18 @@ DEBUG=True
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_TRUSTED_ORIGINS = ['http://localhost:5173']  # Add your frontend domain here
+CSRF_TRUSTED_ORIGINS = ['https://cf6e8dee-91b7-4dc9-8edf-b104e35a144e.e1-eu-west-cdp.choreoapps.dev']  # Add your frontend domain here
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',  # React frontend domain
+    'https://cf6e8dee-91b7-4dc9-8edf-b104e35a144e.e1-eu-west-cdp.choreoapps.dev',  # React frontend domain
 ]
 SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
 CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests
 
 # Ensure these settings only apply to HTTPS in production
-SESSION_COOKIE_SECURE = 'False'  # Should be True in production with HTTPS
-CSRF_COOKIE_SECURE = 'False'     # Should be True in production with HTTPS
+SESSION_COOKIE_SECURE = 'True'  # Should be True in production with HTTPS
+CSRF_COOKIE_SECURE = 'True'     # Should be True in production with HTTPS
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
