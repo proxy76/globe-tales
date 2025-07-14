@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/Card.scss';
+import '../styles/card.scss';
 import {
   REMOVE_JOURNAL_ENDPOINT_URL,
   REMOVE_BUCKETLIST_ENDPOINT_URL,
