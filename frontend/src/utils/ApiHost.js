@@ -1,4 +1,4 @@
-export const BASE_API_HOST = '/choreo-apis/globetales/backend/v1';
+export const BASE_API_HOST = 'http://backend-1318044531:8000/';
 
 export const USER_INFO_ENDPOINT_URL = `${BASE_API_HOST}/user_info`
 export const CHECK_LOGIN_ENDPOINT_URL= `${BASE_API_HOST}/check_login`
