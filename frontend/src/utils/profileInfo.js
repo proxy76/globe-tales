@@ -5,7 +5,7 @@ import { USER_INFO_ENDPOINT_URL } from './ApiHost';
 export async function getProfileInfo() {
 
   try {
-    const BACKEND_BASE_URL = 'http://localhost:8000';
+    const BACKEND_BASE_URL = '/choreo-apis/globetales/backend/v1';
 
     const response = await axios.get(USER_INFO_ENDPOINT_URL, {
       withCredentials: true, // send cookies/session
