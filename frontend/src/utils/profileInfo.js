@@ -5,7 +5,7 @@ import { USER_INFO_ENDPOINT_URL } from './ApiHost';
 export async function getProfileInfo() {
 
   try {
-    const BACKEND_BASE_URL = 'http://backend-1318044531:8000/';
+    const BACKEND_BASE_URL = 'https://globe-tales-backend.onrender.com/';
 
     const response = await axios.get(USER_INFO_ENDPOINT_URL, {
       withCredentials: true, // send cookies/session

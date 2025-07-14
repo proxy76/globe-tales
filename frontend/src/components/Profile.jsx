@@ -14,7 +14,7 @@ const ProfilePage = ({ isLogged }) => {
   const [selectedImage, setSelectedImage] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
-  const BACKEND_BASE_URL = 'http://localhost:8000';
+  const BACKEND_BASE_URL = 'https://globe-tales-backend.onrender.com';
  // Dacă nu e logat, arată ErrorPage
     useEffect(() => {
         if (!location.search.includes("reloaded=1")) {
