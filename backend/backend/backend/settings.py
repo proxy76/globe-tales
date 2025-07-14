@@ -32,7 +32,7 @@ SECRET_KEY = 'django-insecure-bsi)fd*6p#(1(=n9ckp%5)-d&$mmfzrp$ph42rm5joylet=(2b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['backend-1318044531.dp-development-globetales-96-2566074605']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
