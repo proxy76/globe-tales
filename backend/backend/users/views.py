@@ -8,7 +8,7 @@ import logging
 import re
 from django.core.cache import cache
 
-
+@csrf_exempt
 def register(request):
     if request.method == "POST":
         try:
@@ -38,7 +38,7 @@ def register(request):
     return JsonResponse({"message": "Invalid request method", "status": "failed"}, status=405)
 
 
-
+@csrf_exempt
 def login_view(request):
     if request.user.is_authenticated:
         return JsonResponse({"message": "Already authenticated", "status": "failed"}, status=403)
@@ -63,12 +63,13 @@ def login_view(request):
 
 
 @login_required
+@csrf_exempt
 def logout_view(request):
     logout(request)
     return JsonResponse({"message": "Username logged out", "status": "success"}, status=200)
 
 
-
+@csrf_exempt
 def user_info(request):
     if request.method == "GET":
         user = request.user
@@ -95,6 +96,7 @@ def user_info(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def check_login_view(request):
     if request.method == "GET":
         # short-term caching based on session key
@@ -111,6 +113,7 @@ def check_login_view(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def add_bucketlist(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -132,6 +135,7 @@ def add_bucketlist(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def remove_bucketlist(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -163,6 +167,7 @@ def remove_bucketlist(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def add_journal(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -182,6 +187,7 @@ def add_journal(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def remove_journal(request):
     if request.method == "POST":
         if request.user.is_authenticated:
@@ -202,6 +208,7 @@ def remove_journal(request):
 
 
 @login_required
+@csrf_exempt
 def add_review(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -225,6 +232,7 @@ def add_review(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
+@csrf_exempt
 def view_reviews(request):
     if request.method == "POST":
         data = json.loads(request.body)
@@ -242,6 +250,7 @@ def view_reviews(request):
     return JsonResponse({"error": "Invalid method"}, status=405)
 
 
+@csrf_exempt
 @login_required
 def view_self_reviews(request):
     if request.method == "POST":
@@ -261,7 +270,7 @@ def view_self_reviews(request):
     return JsonResponse({"error": "Invalid method"}, status=405)
 
 
-
+@csrf_exempt
 def update_profile_picture(request):
     if request.method == 'POST':
         if request.user.is_authenticated:
