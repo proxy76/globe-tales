@@ -50,13 +50,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -165,11 +165,10 @@ CORS_ALLOWED_ORIGINS = [
 SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
 CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests
 
-ACCESS_CONTROL_ALLOW_CREDENTIALS = True # added 14/07
 
 # Ensure these settings only apply to HTTPS in production
-SESSION_COOKIE_SECURE = 'True'  # Should be True in production with HTTPS
-CSRF_COOKIE_SECURE = 'True'     # Should be True in production with HTTPS
+SESSION_COOKIE_SECURE = True  # Should be True in production with HTTPS
+CSRF_COOKIE_SECURE = True     # Should be True in production with HTTPS
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
