@@ -165,6 +165,8 @@ CORS_ALLOWED_ORIGINS = [
 SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
 CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests
 
+ACCESS_CONTROL_ALLOW_CREDENTIALS = True # added 14/07
+
 # Ensure these settings only apply to HTTPS in production
 SESSION_COOKIE_SECURE = 'True'  # Should be True in production with HTTPS
 CSRF_COOKIE_SECURE = 'True'     # Should be True in production with HTTPS
