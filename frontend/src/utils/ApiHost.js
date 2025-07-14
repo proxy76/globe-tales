@@ -1,4 +1,4 @@
-export const BASE_API_HOST = 'http://backend-1318044531:8000/';
+export const BASE_API_HOST = 'https://3fd6dd54-97ff-4674-8370-5e658694e75e-dev.e1-eu-west-cdp.choreoapis.dev/globetales/backend/v1.0';
 
 export const USER_INFO_ENDPOINT_URL = `${BASE_API_HOST}/user_info`
 export const CHECK_LOGIN_ENDPOINT_URL= `${BASE_API_HOST}/check_login`
