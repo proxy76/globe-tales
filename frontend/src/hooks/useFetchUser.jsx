@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { USER_INFO_ENDPOINT_URL } from '../utils/ApiHost.JS';
+import { USER_INFO_ENDPOINT_URL } from '../utils/ApiHost.js';
 
 const useFetchUser = () => {
   const [user, setUser] = useState(null);

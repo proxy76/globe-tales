@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {LOGIN_ENDPOINT_URL} from "../utils/ApiHost";
+import {LOGIN_ENDPOINT_URL} from "../utils/ApiHost.js";
 import axios from 'axios';
 
 const useLogin = ({username, password}) => {
