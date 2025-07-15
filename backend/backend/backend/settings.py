@@ -178,7 +178,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'rediss://red-d1r1a76r433s739o92sg:LQhxpeQ1LLEA6llYZh8dAFeeYXQ00Ft2@frankfurt-keyvalue.render.com:6379',  # Redis database 1 for caching
+        'LOCATION': 'redis://red-d1r1a76r433s739o92sg:6379',  # Redis database 1 for caching
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
             'SOCKET_CONNECT_TIMEOUT': 5,  # Timeout for connecting to Redis
