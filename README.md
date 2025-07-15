@@ -57,13 +57,13 @@ Pentru a facilita comunicarea între front-end (realizat în React) și back-end
 În GlobeTales, aceste endpoint-uri sunt definite în cadrul aplicației Django, iar fiecare dintre ele corespunde unei acțiuni specifice (ex: înregistrare, autentificare, adăugarea unui jurnal sau a unei destinații în wishlist). Datele sunt transmise sub formă de obiecte JSON, ușor de procesat de către React.
 Pentru implementarea logicii REST, am folosit Django REST Framework (DRF), o extensie puternică și flexibilă a Django, care permite definirea rapidă a endpoint-urilor și serializarea obiectelor din baza de date. Folosirea serializerelor asigură validarea și transformarea datelor într-un format standardizat, compatibil cu cerințele front-end-ului.
 Aplicația definește următoarele endpoint-uri principale:
-	- /register – permite înregistrarea unui utilizator nou.
-	- /login – autentifică un utilizator existent.
-	- /logout – încheie sesiunea curentă.	
-	- /user_info – returnează informațiile contului curent.
-	- /check_login – verifică dacă utilizatorul este autentificat.
-  - /add_wishlist – adaugă o locație în lista de dorințe.
-	- /add_journal – salvează un nou jurnal de călătorie.
+- /register – permite înregistrarea unui utilizator nou.
+- /login – autentifică un utilizator existent.
+- /logout – încheie sesiunea curentă.	
+- /user_info – returnează informațiile contului curent.
+- /check_login – verifică dacă utilizatorul este autentificat.
+- /add_wishlist – adaugă o locație în lista de dorințe.
+- /add_journal – salvează un nou jurnal de călătorie.
 Toate aceste rute urmează convențiile REST: se utilizează metode HTTP standard (GET, POST), resursele sunt bine definite, iar răspunsurile serverului sunt concise și predictibile. Această abordare asigură o separare clară între logică (back-end) și interfață (front-end), permițând dezvoltarea modulară și scalabilă a aplicației.
 ## Integrarea API-ului RestCountries
 Pentru a îmbunătăți experiența utilizatorului și a oferi informații geografice utile în cadrul jurnalului de călătorie, aplicația GlobeTales integrează API-ul public REST Countries. Acest API furnizează date actualizate despre toate țările lumii, precum denumirea oficială, codul de țară, limba oficială, moneda, populația, regiunea geografică, steagul și altele.
@@ -77,7 +77,7 @@ Avantajele folosirii acestui API:
 	- Simplifică procesul de introducere a informațiilor, îmbunătățind interacțiunea utilizatorului cu aplicația.
 Prin această integrare, GlobeTales oferă un plus de context și acuratețe jurnalelor de călătorie, contribuind la o experiență mai bogată și mai informativă pentru utilizatori.
  
-###	Autentificare şi securitate
+### Autentificare şi securitate
 Securitatea aplicației GlobeTales este o componentă esențială, mai ales având în vedere faptul că utilizatorii creează conținut personal (jurnale de călătorie) și gestionează date asociate contului lor. Pentru a proteja aceste informații, autentificarea utilizatorilor se face prin intermediul sistemului standard oferit de Django – django.contrib.auth.
 Procesul de autentificare se bazează pe sesiuni, nu pe token-uri externe, ceea ce simplifică implementarea și oferă o protecție eficientă în aplicații web clasice. Odată ce un utilizator se loghează, Django creează automat o sesiune stocată în baza de date, iar identificatorul sesiunii este salvat într-un cookie securizat trimis către client. La fiecare cerere ulterioară, serverul validează acest identificator pentru a confirma identitatea utilizatorului.
 Funcționalitățile principale legate de autentificare sunt:
@@ -88,11 +88,11 @@ Funcționalitățile principale legate de autentificare sunt:
 	- /user_info – oferă date despre utilizatorul curent, doar dacă este autentificat.
 
 ## Pentru protecția datelor și a sesiunilor:
-	Se folosește middleware-ul AuthenticationMiddleware oferit de Django pentru gestionarea stării de autentificare.
-	Parolele sunt criptate automat cu un algoritm (SHA256) înainte de a fi salvate în baza de date.
-	Endpoint-urile sensibile sunt protejate cu decoratori precum @login_required, pentru a preveni accesul neautorizat.
-	Datele trimise de la client sunt validate riguros atât pe front-end (React), cât și pe back-end, folosind serializere DRF.
-Această abordare simplă, dar robustă, asigură un nivel bun de securitate pentru o aplicație de tip jurnal personal, fără a complica inutil arhitectura cu mecanisme avansate de autentificare precum OAuth2 sau JWT, care ar fi supradimensionate pentru scopul aplicației.
+- Se folosește middleware-ul AuthenticationMiddleware oferit de Django pentru gestionarea stării de autentificare.
+- Parolele sunt criptate automat cu un algoritm (SHA256) înainte de a fi salvate în baza de date.
+- Endpoint-urile sensibile sunt protejate cu decoratori precum @login_required, pentru a preveni accesul neautorizat.
+- Datele trimise de la client sunt validate riguros atât pe front-end (React), cât și pe back-end, folosind serializere DRF.
+- Această abordare simplă, dar robustă, asigură un nivel bun de securitate pentru o aplicație de tip jurnal personal, fără a complica inutil arhitectura cu mecanisme avansate de autentificare precum OAuth2 sau JWT, care ar fi supradimensionate pentru scopul aplicației.
 ## Chatbox integrat cu OpenAI
 Componenta de chat a aplicației este construită folosind modelul ChatGPT-4o, oferit de OpenAI, integrat prin API. Scopul principal al acestui chatbox este de a oferi utilizatorilor informații rapide și utile legate de călătorii, precum destinații turistice, sugestii de itinerarii, condiții meteo, documente necesare sau sfaturi privind transportul și cazarea.
 Pentru dezvoltarea rapidă și testarea serviciului de comunicare cu modelul, a fost folosit Replit — o platformă cloud-based care permite rularea și partajarea de cod fără a configura manual un mediu local. Replit a fost utilizat pentru implementarea serviciului backend care primește mesajele de la client, le trimite către GPT-4o și returnează răspunsul într-un format structurat, compatibil cu interfața aplicației.
