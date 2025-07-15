@@ -5,6 +5,7 @@ Pentru o experiență completă, aplicația oferă și o bază de date extinsă 
 Din punct de vedere tehnic, aplicația este construită pe un front-end modern în React, care oferă o interfață fluidă, responsivă și ușor de utilizat pe dispozitive.
 Pe partea de server, back-end-ul este realizat în Python cu framework-ul Django, oferind un sistem robust de gestionare a datelor, autentificare securizată, roluri de utilizatori și API-uri RESTful pentru comunicarea eficientă între front-end și bazele de date. Sistemul de autentificare este securizat prin criptarea parolei.
 „GlobeTales” nu este doar o aplicație, ci un instrument complet de documentare și planificare a experiențelor de călătorie. Printr-o interfață modernă și intuitivă, utilizatorii pot înregistra și organiza amintirile din călătorii, pot urmări obiectivele personale de explorare și pot accesa informații relevante despre destinații din întreaga lume. Platforma reunește funcționalități avansate într-un ecosistem digital coerent, oferind un spațiu personalizat pentru reflecție, inspirație și planificare. Astfel, fiecare călător are la dispoziție un jurnal digital sigur, accesibil și interactiv, care susține și valorifică pasiunea pentru descoperirea lumii.
+<hr>
 
 ## Cerințe
 
@@ -19,7 +20,7 @@ Pe partea de server, back-end-ul este realizat în Python cu framework-ul Django
 - **Frontend**: Vite (React/Vue/etc.)
 - **Cache/Task Queue**: Redis
 - **Build Tools**: Vite, pip, poetry/pipenv (opțional)
-  
+<hr>
 # Documentație tehnică
 ## Arhitectura aplicației
 Aplicația este construită pe o arhitectură clasică de tip client–server, menită să asigure scalabilitate, modularitate și o separare clară a responsabilităților între interfața utilizator și logica de business. La nivel de front-end, utilizăm React, o bibliotecă JavaScript puternică și modernă, recunoscută pentru performanța ridicată și capacitatea de a crea interfețe dinamice, interactive și responsive. Acest front-end consumă date prin intermediul unui set bine structurat de servicii RESTful, puse la dispoziție de un back-end solid dezvoltat în Python, cu ajutorul framework-ului Django.
@@ -108,7 +109,7 @@ Funcționalități cheie
 	Suport pentru structuri de date complexe: liste, seturi, hash-uri, etc.
 	Operații atomice și pub/sub.
 	Utilizare ca cache pentru rezultate de interogări, sesiuni de utilizator, rate limiting, etc.
-
+<hr>
 # Utilizare aplicație
 ## Înregistrare și autentificare
 Accesează /register, completează formularul cu nume, email şi parolă. După validare, vei fi redirecţionat automat către pagina de start.
@@ -120,7 +121,6 @@ Dacă ai deja cont, poți accesa /login, completa formularul, iar apoi vei fi re
 	adaugi o țară la “Vizitate”
 	afli mai multe informații despre țară
 
- 
 ## Gestionarea Bucket List
 În pagina BucketList găseşti toate destinaţiile salvate. Poţi marca o destinaţie ca vizitată, ceea ce o va muta automat în jurnal. De asemenea, poți adăuga o listă cu lucrurile pe care vrei să le faci în țara respectivă. 
  
@@ -130,12 +130,13 @@ Pagina Journal afişează călătoriile finalizate. Fiecare card permite adăuga
 ## Setări cont
 În profil, utilizatorul poate schimba parola şi poate şterge definitiv contul.
 
-## Instalare
+<hr>
+# Instalare
 
 ### 1. Clonarea proiectului
 
 ```bash
-git clone https://github.com/proxy76/world-map
+git clone https://github.com/proxy76/globe-tales.git
 ```
 
 ### 2. Instalare dependențe frontend
