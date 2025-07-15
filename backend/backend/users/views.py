@@ -90,7 +90,7 @@ def user_info(request):
             "profile_picture": user.profile_picture.url if user.profile_picture else None
         }
 
-        cache.set(cache_key, user_data, timeout=60 * 5)  # 5 min cache
+        cache.set(cache_key, user_data, timeout=60 * 5) 
         return JsonResponse(user_data, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
@@ -99,7 +99,6 @@ def user_info(request):
 @csrf_exempt
 def check_login_view(request):
     if request.method == "GET":
-        # short-term caching based on session key
         cache_key = f"login_status:{request.session.session_key}"
         cached_status = cache.get(cache_key)
 
@@ -107,7 +106,7 @@ def check_login_view(request):
             return JsonResponse({"isLogged": cached_status}, status=200)
 
         is_logged = request.user.is_authenticated
-        cache.set(cache_key, is_logged, timeout=30)  # short TTL
+        cache.set(cache_key, is_logged, timeout=30) 
         return JsonResponse({"isLogged": is_logged}, status=200)
     else:
         return JsonResponse({"error": "Invalid request method"}, status=405)
@@ -125,7 +124,6 @@ def add_bucketlist(request):
                 user.countriesWishlist.append(country)
                 user.save()
 
-                # Invalidate user_info cache
                 cache.delete(f"user_info:{user.id}")
 
             return JsonResponse({"isAdded": True}, status=200)
@@ -223,7 +221,6 @@ def add_review(request):
         )
         review.save()
 
-        # Invalidate cache for this country
         cache.delete(f"reviews:{country_name}")
         cache.delete(f"user_reviews:{user.id}:{country_name}")
 

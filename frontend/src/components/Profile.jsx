@@ -15,12 +15,10 @@ const ProfilePage = ({ isLogged }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const BACKEND_BASE_URL = 'https://globe-tales-backend.onrender.com';
- // Dacă nu e logat, arată ErrorPage
     useEffect(() => {
         if (!location.search.includes("reloaded=1")) {
             window.location.replace(location.pathname + "?reloaded=1");
         } else {
-            // Ascunde parametru după reload
             window.history.replaceState({}, "", location.pathname);
         }
     }, [location]);
@@ -49,7 +47,6 @@ const ProfilePage = ({ isLogged }) => {
       .then(() => {getInfo(); window.location.reload()});
   };
 
-  // Toggle Button
   const toggleLang = () => setLang(lang === "ro" ? "en" : "ro");
 
   return (

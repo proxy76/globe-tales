@@ -21,23 +21,16 @@ import dj_database_url
 
 load_dotenv()
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-bsi)fd*6p#(1(=n9ckp%5)-d&$mmfzrp$ph42rm5joylet=(2b'
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['globe-tales-backend.onrender.com', 'globe-tales-frontend.onrender.com']
 
 
-# Application definition
 
 INSTALLED_APPS = [
     'users',
@@ -83,8 +76,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -100,8 +91,7 @@ DATABASES = {
 
 DATABASES['default'] = dj_database_url.parse("postgresql://globetales_db_user:TOblNeHYz4ErdN4BVYibKA2wC7aqZOmu@dpg-d1qipca4d50c739b85p0-a.frankfurt-postgres.render.com/globetales_db")
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -119,8 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -131,13 +119,9 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -159,43 +143,39 @@ DEBUG=True
 
 AUTH_USER_MODEL = 'users.User'
 
-CSRF_TRUSTED_ORIGINS = ['https://globe-tales-frontend.onrender.com']  # Add your frontend domain here
+CSRF_TRUSTED_ORIGINS = ['https://globe-tales-frontend.onrender.com', ]  
 CORS_ALLOW_CREDENTIALS = True
-SESSION_COOKIE_AGE = 1209600  # 2 weeks in seconds
+SESSION_COOKIE_AGE = 1209600  
 CORS_ALLOWED_ORIGINS = [
-    'https://globe-tales-frontend.onrender.com',  # React frontend domain
+    'https://globe-tales-frontend.onrender.com', 
 ]
-SESSION_COOKIE_SAMESITE = 'None'   # Allows cross-origin cookies
-CSRF_COOKIE_SAMESITE = 'None'      # Required for CSRF token to be sent in cross-origin requests
+SESSION_COOKIE_SAMESITE = 'None'   
+CSRF_COOKIE_SAMESITE = 'None'    
 
 ACCESS_CONTROL_ALLOW_CREDENTIALS = True
 
-# Ensure these settings only apply to HTTPS in production
-SESSION_COOKIE_SECURE = True  # Should be True in production with HTTPS
-CSRF_COOKIE_SECURE = True     # Should be True in production with HTTPS
+SESSION_COOKIE_SECURE = True  
+CSRF_COOKIE_SECURE = True    
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Redis Caching Configuration
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://red-d1r1a76r433s739o92sg:6379',  # Redis database 1 for caching
+        'LOCATION': 'redis://red-d1r1a76r433s739o92sg:6379', 
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-            'SOCKET_CONNECT_TIMEOUT': 5,  # Timeout for connecting to Redis
-            'SOCKET_TIMEOUT': 5,  # Timeout for Redis operations
+            'SOCKET_CONNECT_TIMEOUT': 5,  
+            'SOCKET_TIMEOUT': 5,  
         },
-        'KEY_PREFIX': 'worldmap'  # Prefix for cache keys
+        'KEY_PREFIX': 'worldmap' 
     }
 }
 
-# Use Redis for session storage
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 SESSION_CACHE_ALIAS = 'default'
 
-# Optional: Use Redis for Django's default message framework
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 LOGIN_URL = '/login'
@@ -212,7 +192,7 @@ CORS_EXPOSE_HEADERS = ["Content-Type", "X-CSRFToken"]
 CORS_ALLOW_METHODS = [
     "DELETE",
     "GET",
-    "OPTIONS",  # Important
+    "OPTIONS",  
     "PATCH",
     "POST",
     "PUT",

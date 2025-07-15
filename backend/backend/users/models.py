@@ -25,7 +25,7 @@ class User(AbstractUser):
         return {
             "username": self.username,
             "email": self.email,
-            "address": self.user_address,  # Fixed spelling typo
+            "address": self.user_address,  
             "profile_picture": self.profile_picture.url if self.profile_picture else None,
             "countriesVisited": self.countriesVisited,
             "countriesWishlist": self.countriesWishlist

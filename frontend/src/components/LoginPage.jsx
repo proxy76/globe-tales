@@ -19,7 +19,6 @@ const LoginPage = ({ setIsLogged }) => {
         if (!location.search.includes("reloaded=1")) {
             window.location.replace(location.pathname + "?reloaded=1");
         } else {
-            // Ascunde parametru după reload
             window.history.replaceState({}, "", location.pathname);
         }
     }, [location]);
@@ -29,7 +28,6 @@ const LoginPage = ({ setIsLogged }) => {
 
   const login = (e) => {
     setError('');
-    // Permite submit atât la click cât și la Enter
     if (
       (e.target.className && e.target.className.includes('login-button')) ||
       (e.type === "keydown" && (e.code === "Enter" || e.key === "Enter"))
