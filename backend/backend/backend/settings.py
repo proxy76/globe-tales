@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-bsi)fd*6p#(1(=n9ckp%5)-d&$mmfzrp$ph42rm5joylet=(2b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['globe-tales-backend.onrender.com']
+ALLOWED_HOSTS = ['globe-tales-backend.onrender.com', 'globe-tales-frontend.onrender.com']
 
 
 # Application definition
