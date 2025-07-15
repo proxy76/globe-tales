@@ -152,6 +152,15 @@ a {
     width: 125px !important;
     margin-left: -5%;
   }
+  .globeWrapper > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > canvas {
+        height:auto !important;
+        
+    }
+    }
 
 }
 
@@ -159,4 +168,32 @@ a {
     .dropdown {
      min-width: 120px !important;
   }
+}
+
+@media (max-width: 450px) {
+    .globeWrapper > div > canvas {
+        width: 300px !important;
+    }
+
+}
+@media (max-width: 500px) and (min-width:450px){
+    .globeWrapper > div > canvas {
+        width: 375px !important;
+    }
+}
+@media (max-width: 600px) and (min-width:500px){
+    .globeWrapper > div > canvas {
+        width: 450px !important;
+    }
+}
+@media (max-width: 700px) and (min-width:600px){
+    .globeWrapper > div > canvas {
+        width: 600px !important;
+    }
+}
+@media (max-width: 400px) {
+    .globeWrapper > div > canvas {
+        width: 250px !important;
+    }
+
 }
