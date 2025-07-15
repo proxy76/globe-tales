@@ -19,7 +19,7 @@ Pe partea de server, back-end-ul este realizat în Python cu framework-ul Django
 - **Frontend**: Vite (React/Vue/etc.)
 - **Cache/Task Queue**: Redis
 - **Build Tools**: Vite, pip, poetry/pipenv (opțional)
-- 
+  
 # Documentație tehnică
 ## Arhitectura aplicației
 Aplicația este construită pe o arhitectură clasică de tip client–server, menită să asigure scalabilitate, modularitate și o separare clară a responsabilităților între interfața utilizator și logica de business. La nivel de front-end, utilizăm React, o bibliotecă JavaScript puternică și modernă, recunoscută pentru performanța ridicată și capacitatea de a crea interfețe dinamice, interactive și responsive. Acest front-end consumă date prin intermediul unui set bine structurat de servicii RESTful, puse la dispoziție de un back-end solid dezvoltat în Python, cu ajutorul framework-ului Django.
