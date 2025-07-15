@@ -17,6 +17,8 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
+import dj_database_url
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -32,7 +34,7 @@ SECRET_KEY = 'django-insecure-bsi)fd*6p#(1(=n9ckp%5)-d&$mmfzrp$ph42rm5joylet=(2b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['globe-tales-backend.onrender.com']
 
 
 # Application definition
@@ -96,6 +98,7 @@ DATABASES = {
     }
 }
 
+DATABASES['default'] = dj_database_url.parse("postgresql://globetales_db_user:TOblNeHYz4ErdN4BVYibKA2wC7aqZOmu@dpg-d1qipca4d50c739b85p0-a.frankfurt-postgres.render.com/globetales_db")
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
