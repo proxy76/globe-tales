@@ -42,11 +42,11 @@ Această structură modulară și coerentă oferă nu doar o experiență intuit
 ## Integrarea Three.js
 Pentru a crea un impact vizual puternic și a oferi utilizatorului o experiență interactivă încă de la prima interacțiune cu aplicația, front-end-ul integrează un glob 3D rotativ folosind biblioteca three.js, una dintre cele mai populare soluții JavaScript pentru grafica 3D în browser.
 Implementarea se bazează pe inițializarea unei scene 3D standard, formată din următoarele elemente:
-	* THREE.Scene – containerul principal care gestionează toate obiectele 3D.
-	* THREE.PerspectiveCamera – cameră de tip perspectivă care oferă unghiuri realiste de vizualizare.
-	* THREE.WebGLRenderer – motorul de randare care folosește WebGL pentru a desena obiectele 3D în canvas-ul HTML.
-	* Globul propriu-zis este construit dintr-o geometrie de sferă (THREE.SphereGeometry), peste care se aplică o textură de tip hartă a lumii, încărcată cu ajutorul THREE.TextureLoader. Materialul folosit este de tip THREE.MeshBasicMaterial, ideal pentru randări fără surse de lumină, ceea ce asigură performanță bună chiar și pe dispozitive mai modeste.
-	* Obiectul final – globul 3D – este un THREE.Mesh rezultat din combinarea sferei cu materialul texturat. Acesta este adăugat în scenă, iar pentru a genera efectul de rotație continuă, se utilizează o buclă de animație bazată pe requestAnimationFrame.
+	- THREE.Scene – containerul principal care gestionează toate obiectele 3D.
+	- THREE.PerspectiveCamera – cameră de tip perspectivă care oferă unghiuri realiste de vizualizare.
+	- THREE.WebGLRenderer – motorul de randare care folosește WebGL pentru a desena obiectele 3D în canvas-ul HTML.
+	- Globul propriu-zis este construit dintr-o geometrie de sferă (THREE.SphereGeometry), peste care se aplică o textură de tip hartă a lumii, încărcată cu ajutorul THREE.TextureLoader. Materialul folosit este de tip THREE.MeshBasicMaterial, ideal pentru randări fără surse de lumină, ceea ce asigură performanță bună chiar și pe dispozitive mai modeste.
+	- Obiectul final – globul 3D – este un THREE.Mesh rezultat din combinarea sferei cu materialul texturat. Acesta este adăugat în scenă, iar pentru a genera efectul de rotație continuă, se utilizează o buclă de animație bazată pe requestAnimationFrame.
 ## Backend (Python + Django)
 Back-end-ul aplicației este construit folosind Django 4.2, un framework web robust, ideal pentru dezvoltare rapidă și sigură. Django vine cu multe funcționalități incluse, cum ar fi un ORM (Object-Relational Mapper) eficient, care permite lucrul cu baza de date fără a fi nevoie să scrii SQL direct, ceea ce face interacțiunea cu datele mult mai intuitivă.
 Aplicația conține o singură aplicație Django, users, care este responsabilă pentru gestionarea utilizatorilor și autentificarea acestora. Folosind sistemul nativ de django.contrib.auth, autentificarea se face simplu prin sesiuni, fără a fi necesare tokenuri externe (precum JWT). Aceasta asigură o soluție rapidă și securizată pentru autentificarea utilizatorilor, folosind middleware-urile și formele implicite ale framework-ului.
@@ -57,13 +57,13 @@ Pentru a facilita comunicarea între front-end (realizat în React) și back-end
 În GlobeTales, aceste endpoint-uri sunt definite în cadrul aplicației Django, iar fiecare dintre ele corespunde unei acțiuni specifice (ex: înregistrare, autentificare, adăugarea unui jurnal sau a unei destinații în wishlist). Datele sunt transmise sub formă de obiecte JSON, ușor de procesat de către React.
 Pentru implementarea logicii REST, am folosit Django REST Framework (DRF), o extensie puternică și flexibilă a Django, care permite definirea rapidă a endpoint-urilor și serializarea obiectelor din baza de date. Folosirea serializerelor asigură validarea și transformarea datelor într-un format standardizat, compatibil cu cerințele front-end-ului.
 Aplicația definește următoarele endpoint-uri principale:
-	* /register – permite înregistrarea unui utilizator nou.
-	* /login – autentifică un utilizator existent.
-	* /logout – încheie sesiunea curentă.	
-	* /user_info – returnează informațiile contului curent.
-	* /check_login – verifică dacă utilizatorul este autentificat.
-  * /add_wishlist – adaugă o locație în lista de dorințe.
-	* /add_journal – salvează un nou jurnal de călătorie.
+	- /register – permite înregistrarea unui utilizator nou.
+	- /login – autentifică un utilizator existent.
+	- /logout – încheie sesiunea curentă.	
+	- /user_info – returnează informațiile contului curent.
+	- /check_login – verifică dacă utilizatorul este autentificat.
+  - /add_wishlist – adaugă o locație în lista de dorințe.
+	- /add_journal – salvează un nou jurnal de călătorie.
 Toate aceste rute urmează convențiile REST: se utilizează metode HTTP standard (GET, POST), resursele sunt bine definite, iar răspunsurile serverului sunt concise și predictibile. Această abordare asigură o separare clară între logică (back-end) și interfață (front-end), permițând dezvoltarea modulară și scalabilă a aplicației.
 ## Integrarea API-ului RestCountries
 Pentru a îmbunătăți experiența utilizatorului și a oferi informații geografice utile în cadrul jurnalului de călătorie, aplicația GlobeTales integrează API-ul public REST Countries. Acest API furnizează date actualizate despre toate țările lumii, precum denumirea oficială, codul de țară, limba oficială, moneda, populația, regiunea geografică, steagul și altele.
@@ -72,20 +72,20 @@ Exemplu de endpoint utilizat:
 https://restcountries.com/v3.1/name/germany
 Acest endpoint returnează un obiect JSON ce conține informații detaliate despre țara căutată. Răspunsul este procesat pe partea de client și, dacă este necesar, datele pot fi stocate temporar sau asociate cu înregistrările din jurnalul utilizatorului.
 Avantajele folosirii acestui API:
-	* Elimină necesitatea stocării manuale a datelor despre țări în baza de date.
-	* Oferă date actualizate și standardizate, direct dintr-o sursă de încredere.
-	* Simplifică procesul de introducere a informațiilor, îmbunătățind interacțiunea utilizatorului cu aplicația.
+	- Elimină necesitatea stocării manuale a datelor despre țări în baza de date.
+	- Oferă date actualizate și standardizate, direct dintr-o sursă de încredere.
+	- Simplifică procesul de introducere a informațiilor, îmbunătățind interacțiunea utilizatorului cu aplicația.
 Prin această integrare, GlobeTales oferă un plus de context și acuratețe jurnalelor de călătorie, contribuind la o experiență mai bogată și mai informativă pentru utilizatori.
  
 ###	Autentificare şi securitate
 Securitatea aplicației GlobeTales este o componentă esențială, mai ales având în vedere faptul că utilizatorii creează conținut personal (jurnale de călătorie) și gestionează date asociate contului lor. Pentru a proteja aceste informații, autentificarea utilizatorilor se face prin intermediul sistemului standard oferit de Django – django.contrib.auth.
 Procesul de autentificare se bazează pe sesiuni, nu pe token-uri externe, ceea ce simplifică implementarea și oferă o protecție eficientă în aplicații web clasice. Odată ce un utilizator se loghează, Django creează automat o sesiune stocată în baza de date, iar identificatorul sesiunii este salvat într-un cookie securizat trimis către client. La fiecare cerere ulterioară, serverul validează acest identificator pentru a confirma identitatea utilizatorului.
 Funcționalitățile principale legate de autentificare sunt:
-	* /register – înregistrează un nou utilizator, cu validare de date.
-	* /login – creează o sesiune pentru utilizatorul autentificat.
-	* /logout – distruge sesiunea activă și deconectează utilizatorul.
-	* /check_login – verifică dacă utilizatorul este deja logat.
-	* /user_info – oferă date despre utilizatorul curent, doar dacă este autentificat.
+	- /register – înregistrează un nou utilizator, cu validare de date.
+	- /login – creează o sesiune pentru utilizatorul autentificat.
+	- /logout – distruge sesiunea activă și deconectează utilizatorul.
+	- /check_login – verifică dacă utilizatorul este deja logat.
+	- /user_info – oferă date despre utilizatorul curent, doar dacă este autentificat.
 
 ## Pentru protecția datelor și a sesiunilor:
 	Se folosește middleware-ul AuthenticationMiddleware oferit de Django pentru gestionarea stării de autentificare.
