@@ -25,6 +25,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
         if (!location.search.includes("reloaded=1")) {
             window.location.replace(location.pathname + "?reloaded=1");
         } else {
+            // Ascunde parametru după reload
             window.history.replaceState({}, "", location.pathname);
         }
     }, [location]);
@@ -51,6 +52,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                 console.log(error); 
             })
             .finally(() => {
+                // Optional
             });
         window.location.reload();
     };
@@ -105,6 +107,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
         loadFinisherHeader();
     }, []);
 
+    // Voiceflow chat widget
     useEffect(() => {
         (function (d, t) {
             const v = d.createElement(t);
@@ -124,6 +127,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
             s.parentNode.insertBefore(v, s);
         })(document, 'script');
     }, []);
+    //  ceva
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
@@ -139,7 +143,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                         </div>
                         <div
                             onClick={() => {
-                                console.log("Profile picture clicked!"); 
+                                console.log("Profile picture clicked!"); // Debugging
                                 setIsOpened(!isOpened);
                             }}
                             ref={dropdownRef} className="dropdownWrapper" >

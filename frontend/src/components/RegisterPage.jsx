@@ -355,7 +355,6 @@ const styles = {
   },
 };
 
-// Add CSS animations via a style tag
 const styleSheet = document.createElement('style');
 styleSheet.textContent = `
   @keyframes slideUp {

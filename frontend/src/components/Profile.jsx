@@ -9,6 +9,20 @@ import GlobalHeader from './GlobalHeader';
 import { FaWindows } from 'react-icons/fa';
 import ErrorPage from './ErrorPage';
 
+// Add CSS animations
+const style = document.createElement('style');
+style.textContent = `
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+`;
+if (!document.head.querySelector('style[data-profile-animations]')) {
+  style.setAttribute('data-profile-animations', 'true');
+  document.head.appendChild(style);
+}
+
 const ProfilePage = ({ isLogged }) => {
   const { lang, setLang } = useLanguage();
   const [profileInfo, setProfileInfo] = useState({});
@@ -17,14 +31,16 @@ const ProfilePage = ({ isLogged }) => {
   const [animatedStats, setAnimatedStats] = useState({ visited: 0, wishlist: 0 });
   const navigate = useNavigate();
   const location = useLocation();
-  const BACKEND_BASE_URL = 'https://globe-tales-backend.onrender.com';
-    useEffect(() => {
-        if (!location.search.includes("reloaded=1")) {
-            window.location.replace(location.pathname + "?reloaded=1");
-        } else {
-            window.history.replaceState({}, "", location.pathname);
-        }
-    }, [location]);
+  const BACKEND_BASE_URL = 'http://localhost:8000';
+
+  useEffect(() => {
+    if (!location.search.includes("reloaded=1")) {
+      window.location.replace(location.pathname + "?reloaded=1");
+    } else {
+      window.history.replaceState({}, "", location.pathname);
+    }
+  }, [location]);
+
   const getInfo = () => {
     axios
       .get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
@@ -87,41 +103,91 @@ const ProfilePage = ({ isLogged }) => {
   return (
     <>
       <GlobalHeader isLogged={isLogged} />
-      <div style={styles.container}>
-        {/* Enhanced Background Elements */}
-        <div style={styles.backgroundElements}>
-          <div style={{...styles.floatingElement, ...styles.circle1}}></div>
-          <div style={{...styles.floatingElement, ...styles.circle2}}></div>
-          <div style={{...styles.floatingElement, ...styles.circle3}}></div>
-          <div style={{...styles.floatingElement, ...styles.square1}}></div>
-          <div style={{...styles.floatingElement, ...styles.square2}}></div>
-          <div style={{...styles.floatingElement, ...styles.triangle1}}></div>
-          <div style={{...styles.floatingElement, ...styles.triangle2}}></div>
-        </div>
+      <div 
+        style={styles.container} 
+        className="profile-container"
+        onMouseMove={(e) => {
+          const container = e.currentTarget;
+          const rect = container.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          const y = ((e.clientY - rect.top) / rect.height) * 100;
+          
+          container.style.setProperty('--mouse-x', `${x}%`);
+          container.style.setProperty('--mouse-y', `${y}%`);
+          container.classList.add('mouse-active');
+        }}
+        onMouseLeave={(e) => {
+          e.currentTarget.classList.remove('mouse-active');
+        }}
+      >
+        {/* Elemente decorative */}
+        <div style={styles.floatingDecorationExtra}></div>
+        <div style={styles.floatingDecoration1}></div>
+        <div style={styles.floatingDecoration2}></div>
+        <div style={styles.floatingDecoration3}></div>
+        <div style={styles.floatingDecorationAfter}></div>
         
-        {/* Enhanced Card */}
+        {/* Card */}
         <div style={{
           ...styles.card,
           transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(50px) scale(0.9)',
           opacity: isVisible ? 1 : 0,
           transition: 'all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)'
         }}>
-          {/* Glass morphism overlay */}
+          {/* Overlay Sticlos */}
           <div style={styles.cardOverlay}></div>
           
           {/* Language Toggle */}
           <div style={{ display: "flex", justifyContent: "flex-end", width: "100%", position: 'relative', zIndex: 10 }}>
             <button
               onClick={toggleLang}
+              onFocus={(e) => e.target.blur()}
               style={{
                 ...styles.toggleBtn,
                 background: lang === "ro"
-                  ? "linear-gradient(135deg, #0be044 0%, #0777d9 100%)"
-                  : "linear-gradient(135deg, #0777d9 0%, #0be044 100%)",
+                  ? "linear-gradient(135deg, #66ea9b 0%, #208291 100%)"
+                  : "linear-gradient(135deg, #208291 0%, #66ea9b 100%)",
                 color: "#fff",
                 transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.8)',
                 opacity: isVisible ? 1 : 0,
-                transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s'
+                transition: 'all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s',
+                userSelect: 'none',
+                WebkitUserSelect: 'none',
+                MozUserSelect: 'none',
+                msUserSelect: 'none',
+                WebkitTouchCallout: 'none',
+                WebkitTapHighlightColor: 'transparent'
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.background = lang === "ro"
+                  ? "linear-gradient(135deg, #4facfe 0%, #66ea9b 50%, #208291 100%)"
+                  : "linear-gradient(135deg, #208291 0%, #66ea9b 50%, #4facfe 100%)";
+                e.target.style.backgroundSize = "200% 200%";
+                e.target.style.animation = "gradientShift 2s ease infinite";
+                e.target.style.transition = "background 0.3s ease, background-size 0.3s ease";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.background = lang === "ro"
+                  ? "linear-gradient(135deg, #66ea9b 0%, #208291 100%)"
+                  : "linear-gradient(135deg, #208291 0%, #66ea9b 100%)";
+                e.target.style.backgroundSize = "100% 100%";
+                e.target.style.animation = "none";
+                e.target.style.transition = "background 0.3s ease, background-size 0.3s ease";
+              }}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.target.style.background = lang === "ro"
+                  ? "linear-gradient(135deg, #208291 0%, #66ea9b 100%)"
+                  : "linear-gradient(135deg, #66ea9b 0%, #208291 100%)";
+                e.target.style.animation = "none";
+                e.target.style.transition = "background 0.15s ease";
+              }}
+              onMouseUp={(e) => {
+                e.target.style.background = lang === "ro"
+                  ? "linear-gradient(135deg, #4facfe 0%, #66ea9b 50%, #208291 100%)"
+                  : "linear-gradient(135deg, #208291 0%, #66ea9b 50%, #4facfe 100%)";
+                e.target.style.animation = "gradientShift 2s ease infinite";
+                e.target.style.transition = "background 0.3s ease";
               }}
             >
               <span style={{
@@ -140,7 +206,7 @@ const ProfilePage = ({ isLogged }) => {
             </button>
           </div>
           
-          {/* Enhanced Profile Picture */}
+          {/* Profile Picture */}
           <div style={styles.profilePictureContainer}>
             <div style={styles.profilePictureWrapper}>
               <img
@@ -168,7 +234,7 @@ const ProfilePage = ({ isLogged }) => {
             </div>
           </div>
           
-          {/* Enhanced Name */}
+          {/* Name */}
           <h2 style={{
             ...styles.name,
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -178,7 +244,7 @@ const ProfilePage = ({ isLogged }) => {
             {profileInfo.username}
           </h2>
           
-          {/* Enhanced Email */}
+          {/* Email */}
           <p style={{
             ...styles.email,
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -188,7 +254,7 @@ const ProfilePage = ({ isLogged }) => {
             {profileInfo.email}
           </p>
           
-          {/* Enhanced Stats */}
+          {/* Stats */}
           <div style={{
             ...styles.stats,
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -209,7 +275,7 @@ const ProfilePage = ({ isLogged }) => {
             />
           </div>
           
-          {/* Enhanced Upload Container */}
+          {/* Upload Container */}
           <div style={{
             ...styles.uploadContainer,
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -238,7 +304,7 @@ const ProfilePage = ({ isLogged }) => {
             />
           </div>
           
-          {/* Enhanced Navigation Buttons */}
+          {/* Nav Buttons */}
           <div style={{
             ...styles.buttons,
             transform: isVisible ? 'translateY(0)' : 'translateY(30px)',
@@ -263,18 +329,55 @@ const ProfilePage = ({ isLogged }) => {
         </div>
       </div>
       
-      {/* Enhanced CSS Animations */}
+      {/* CSS Animations */}
       <style jsx>{`
+        @keyframes gradientShift {
+          0% {
+            background-position: 0% 50%;
+          }
+          50% {
+            background-position: 100% 50%;
+          }
+          100% {
+            background-position: 0% 50%;
+          }
+        }
+        
         @keyframes float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-15px) rotate(120deg); }
-          66% { transform: translateY(-5px) rotate(240deg); }
+          33% { transform: translateY(-10px) rotate(1deg); }
+          66% { transform: translateY(-5px) rotate(-1deg); }
         }
         
         @keyframes floatReverse {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(10px) rotate(-120deg); }
-          66% { transform: translateY(-20px) rotate(-240deg); }
+          33% { transform: translateY(10px) rotate(-1deg); }
+          66% { transform: translateY(-20px) rotate(1deg); }
+        }
+        
+        .profile-container::before {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: radial-gradient(
+            circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0.25) 20%,
+            rgba(255, 255, 255, 0.15) 40%,
+            rgba(255, 255, 255, 0.08) 60%,
+            transparent 80%
+          );
+          pointer-events: none;
+          z-index: 1;
+          transition: opacity 0.2s ease;
+          opacity: 0;
+        }
+        
+        .profile-container.mouse-active::before {
+          opacity: 1;
         }
         
         @keyframes rotate {
@@ -283,8 +386,14 @@ const ProfilePage = ({ isLogged }) => {
         }
         
         @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 0.8; }
-          50% { transform: scale(1.05); opacity: 1; }
+          0%, 100% { 
+            transform: scale(1); 
+            opacity: 0.6; 
+          }
+          50% { 
+            transform: scale(1.05); 
+            opacity: 0.9; 
+          }
         }
         
         @keyframes glow {
@@ -360,7 +469,6 @@ const EnhancedButton = ({ label, onClick, disabled = false, isVisible, variant =
       return { ...baseStyle, ...styles.buttonDisabled };
     }
     
-    // Variant styles
     switch (variant) {
       case 'primary':
         baseStyle.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
@@ -426,88 +534,76 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #66ea9b 0%, #208291 100%)',
+    background: 'linear-gradient(-45deg, #66ea9b, #208291, #4facfe, #66ea9b, #208291, #4facfe)',
+    backgroundSize: '400% 400%',
+    animation: 'gradientShift 15s ease infinite',
     paddingTop: '50px',
     position: 'relative',
     overflow: 'hidden',
   },
-  backgroundElements: {
+  
+  floatingDecorationExtra: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
+    top: '10%',
+    left: '10%',
+    width: '60px',
+    height: '60px',
+    background: 'rgba(255, 255, 255, 0.12)',
+    borderRadius: '50%',
+    animation: 'float 6s ease-in-out infinite',
     zIndex: 0,
     pointerEvents: 'none',
   },
-  floatingElement: {
+  floatingDecoration1: {
     position: 'absolute',
-    opacity: 0.15,
-  },
-  circle1: {
-    width: '100px',
-    height: '100px',
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
-    borderRadius: '50%',
-    top: '10%',
-    left: '10%',
-    animation: 'float 8s ease-in-out infinite',
-  },
-  circle2: {
+    top: '30%',
+    right: '20%',
     width: '80px',
     height: '80px',
-    background: 'linear-gradient(135deg, #f093fb, #f5576c)',
+    background: 'rgba(255, 255, 255, 0.08)',
     borderRadius: '50%',
+    animation: 'float 7s ease-in-out infinite',
+    animationDelay: '-2s',
+    zIndex: 0,
+    pointerEvents: 'none',
+  },
+  floatingDecoration2: {
+    position: 'absolute',
     top: '60%',
-    right: '15%',
-    animation: 'floatReverse 10s ease-in-out infinite',
-  },
-  circle3: {
-    width: '120px',
-    height: '120px',
-    background: 'linear-gradient(135deg, #4facfe, #00f2fe)',
+    left: '5%',
+    width: '50px',
+    height: '50px',
+    background: 'rgba(255, 255, 255, 0.08)',
     borderRadius: '50%',
-    bottom: '15%',
-    left: '8%',
-    animation: 'float 12s ease-in-out infinite',
+    animation: 'float 7s ease-in-out infinite',
+    animationDelay: '-4s',
+    zIndex: 0,
+    pointerEvents: 'none',
   },
-  square1: {
-    width: '60px',
-    height: '60px',
-    background: 'linear-gradient(135deg, #fa709a, #fee140)',
-    borderRadius: '15px',
-    top: '25%',
-    right: '8%',
-    animation: 'rotate 15s linear infinite',
+  floatingDecoration3: {
+    position: 'absolute',
+    top: '20%',
+    left: '60%',
+    width: '30px',
+    height: '30px',
+    background: 'rgba(255, 255, 255, 0.08)',
+    borderRadius: '50%',
+    animation: 'float 7s ease-in-out infinite',
+    animationDelay: '-6s',
+    zIndex: 0,
+    pointerEvents: 'none',
   },
-  square2: {
+  floatingDecorationAfter: {
+    position: 'absolute',
+    top: '70%',
+    right: '15%',
     width: '40px',
     height: '40px',
-    background: 'linear-gradient(135deg, #a8edea, #fed6e3)',
-    borderRadius: '10px',
-    top: '45%',
-    left: '5%',
-    animation: 'rotate 18s linear infinite reverse',
-  },
-  triangle1: {
-    width: '0',
-    height: '0',
-    borderLeft: '25px solid transparent',
-    borderRight: '25px solid transparent',
-    borderBottom: '45px solid rgba(102, 126, 234, 0.3)',
-    top: '70%',
-    right: '5%',
-    animation: 'bounce 6s ease-in-out infinite',
-  },
-  triangle2: {
-    width: '0',
-    height: '0',
-    borderLeft: '20px solid transparent',
-    borderRight: '20px solid transparent',
-    borderBottom: '35px solid rgba(240, 147, 251, 0.3)',
-    top: '15%',
-    right: '25%',
-    animation: 'bounce 8s ease-in-out infinite reverse',
+    background: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: '50%',
+    animation: 'floatReverse 8s ease-in-out infinite',
+    zIndex: 0,
+    pointerEvents: 'none',
   },
   card: {
     background: 'rgba(255, 255, 255, 0.1)',
@@ -539,48 +635,64 @@ const styles = {
     position: 'relative',
     marginBottom: '30px',
     zIndex: 10,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   profilePictureWrapper: {
     position: 'relative',
-    display: 'inline-block',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '8px',
+    background: 'linear-gradient(135deg, #66ea9b, #208291, #4facfe, #66ea9b)',
+    borderRadius: '50%',
+    backgroundSize: '400% 400%',
+    animation: 'gradientShift 6s ease infinite',
+    width: '156px',
+    height: '156px',
   },
   profilePicture: {
     width: '140px',
     height: '140px',
     borderRadius: '50%',
     objectFit: 'cover',
-    border: '4px solid rgba(255, 255, 255, 0.3)',
+    border: '4px solid rgba(255, 255, 255, 0.9)',
     position: 'relative',
     zIndex: 3,
     cursor: 'pointer',
     transition: 'all 0.3s ease',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.2)',
   },
   profileRing: {
     position: 'absolute',
-    top: '-8px',
-    left: '-8px',
-    width: '156px',
-    height: '156px',
+    top: '50%',
+    left: '50%',
+    width: '180px',
+    height: '180px',
+    transform: 'translate(-50%, -50%)',
     borderRadius: '50%',
-    border: '3px solid rgba(2, 247, 27, 0.5)',
-    animation: 'pulse 3s infinite',
-    zIndex: 2,
+    border: '2px solid rgba(102, 234, 155, 0.4)',
+    animation: 'rotate 20s linear infinite',
+    zIndex: 1,
+    background: 'conic-gradient(from 0deg, transparent, rgba(102, 234, 155, 0.3), transparent)',
   },
   profileGlow: {
     position: 'absolute',
-    top: '-15px',
-    left: '-15px',
-    width: '170px',
-    height: '170px',
+    top: '50%',
+    left: '50%',
+    width: '196px',
+    height: '196px',
+    transform: 'translate(-50%, -50%)',
     borderRadius: '50%',
-    background: 'radial-gradient(circle, rgba(2, 247, 27, 0.3) 0%, transparent 70%)',
-    animation: 'glow 4s ease-in-out infinite',
-    zIndex: 1,
+    background: 'radial-gradient(circle, rgba(102, 234, 155, 0.2) 0%, rgba(32, 130, 145, 0.15) 40%, transparent 70%)',
+    animation: 'pulse 4s ease-in-out infinite',
+    zIndex: 0,
   },
   name: {
     fontSize: '28px',
     fontWeight: '700',
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    background: 'linear-gradient(135deg, #66ea9b, #208291)',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -728,8 +840,8 @@ const styles = {
   },
   toggleBtn: {
     border: 'none',
-    borderRadius: '30px',
-    padding: '12px 24px',
+    borderRadius: '25px',
+    padding: '12px 20px',
     fontWeight: '600',
     fontSize: '14px',
     cursor: 'pointer',
@@ -737,16 +849,50 @@ const styles = {
     outline: 'none',
     display: 'flex',
     alignItems: 'center',
-    gap: '8px',
-    // boxShadow: '0 0 12px rgba(0, 0, 0, 0.2)',
-    backdropFilter: 'blur(10px)',
-    transition: 'all 0.3s ease',
+    gap: '12px',
+    backdropFilter: 'blur(15px)',
+    transition: 'all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    position: 'relative',
+    overflow: 'hidden',
+    userSelect: 'none',
+    WebkitUserSelect: 'none',
+    MozUserSelect: 'none',
+    msUserSelect: 'none',
+    WebkitTapHighlightColor: 'transparent',
+    '&:focus': {
+      outline: 'none',
+      boxShadow: 'none',
+    },
+    '&:active': {
+      outline: 'none',
+      boxShadow: 'none',
+    },
+    minWidth: '100px',
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(255, 255, 255, 0.1)',
+      borderRadius: '25px',
+      opacity: 0,
+      transition: 'opacity 0.3s ease',
+    },
+    '&:hover::before': {
+      opacity: 1,
+    },
+    '&:active': {
+      transform: 'scale(0.95)',
+    }
   },
   langSeparator: {
     width: '2px',
-    height: '16px',
-    background: 'rgba(255, 255, 255, 0.3)',
+    height: '18px',
+    background: 'rgba(255, 255, 255, 0.4)',
     borderRadius: '1px',
+    transition: 'all 0.3s ease',
   },
 };
 

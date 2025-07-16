@@ -11,6 +11,7 @@ import "../styles/map.scss";
 const Menu = lazy(() => import("./Menu"));
 const GEO_URL = "/features.json";
 
+// ISO A3 codes for the 10 largest countries by area
 const largestCountries = [
   "RUS", // Russia
   "CAN", // Canada

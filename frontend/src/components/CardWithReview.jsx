@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/card.scss';
+import '../styles/Card.scss';
 import {
   REMOVE_JOURNAL_ENDPOINT_URL,
   REMOVE_BUCKETLIST_ENDPOINT_URL,
@@ -13,6 +13,7 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
   const [info, setInfo] = useState(null);
   const { lang } = useLanguage();
 
+  // Helper function to get the correct name for RESTCountries API
   const getApiName = (name) => {
     const overrides = {
       'United States': 'usa',
