@@ -18,15 +18,13 @@ const ProfilePage = ({ isLogged }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const BACKEND_BASE_URL = 'https://globe-tales-backend.onrender.com';
-
-  useEffect(() => {
-    if (!location.search.includes("reloaded=1")) {
-      window.location.replace(location.pathname + "?reloaded=1");
-    } else {
-      window.history.replaceState({}, "", location.pathname);
-    }
-  }, [location]);
-
+    useEffect(() => {
+        if (!location.search.includes("reloaded=1")) {
+            window.location.replace(location.pathname + "?reloaded=1");
+        } else {
+            window.history.replaceState({}, "", location.pathname);
+        }
+    }, [location]);
   const getInfo = () => {
     axios
       .get(PROFILE_INFO_ENDPOINT_URL, { withCredentials: true })
