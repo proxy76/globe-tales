@@ -426,7 +426,7 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'flex-start',
     minHeight: '100vh',
-    background: 'linear-gradient(135deg, #2cf5a1 0%, #58d668 75%, #00ff66 100%)',
+    background: 'linear-gradient(135deg, #66ea9b 0%, #208291 100%)',
     paddingTop: '50px',
     position: 'relative',
     overflow: 'hidden',
