@@ -9,14 +9,7 @@ import translations from "../utils/translations";
 const RegisterPage = ({ setIsLogged }) => {
   const navigate = useNavigate();
   const { lang } = useLanguage();
- const location = useLocation();
-    useEffect(() => {
-        if (!location.search.includes("reloaded=1")) {
-            window.location.replace(location.pathname + "?reloaded=1");
-        } else {
-            window.history.replaceState({}, "", location.pathname);
-        }
-    }, [location]);
+
   const location = useLocation();
   
   useEffect(() => {
