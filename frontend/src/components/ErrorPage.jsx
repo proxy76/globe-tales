@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
-import "../styles/ErrorPage.scss";
+import "../styles/errorPage.scss";
 
 const ErrorPage = () => {
   const { lang } = useLanguage();
