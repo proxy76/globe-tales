@@ -8,11 +8,13 @@ import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
 import axios from 'axios';
 
 import "../styles/header.scss";
+import "../styles/globalHeader.scss";
 
 const GlobalHeader = ({ isLogged }) => {
   const { lang } = useLanguage();
   const [profilePic, setProfilePic] = useState('');
   const [isOpened, setIsOpened] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
   const location = useLocation();
 
@@ -22,7 +24,6 @@ const GlobalHeader = ({ isLogged }) => {
       .catch(() => setProfilePic('/anonymous.png'));
   }, []);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {
@@ -41,6 +42,15 @@ const GlobalHeader = ({ isLogged }) => {
       .then(() => window.location.reload());
   };
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
+
+  const isGradientPage = location.pathname.startsWith('/social') || location.pathname === '/map';
   return (
     <div className="headerWrapper">
       <div className="headerText">
@@ -53,12 +63,27 @@ const GlobalHeader = ({ isLogged }) => {
               <a href='/'>GlobeTales.</a>
             </div>
           </div>
-          {/* NU mai afișați selectorul de limbă aici pe pagina de profil */}
-          {location.pathname !== "/profile" && (
-            <div style={{ marginLeft: "auto", marginRight: "1rem" }}>
-              {/* Dacă vrei selector global pe alte pagini, îl poți lăsa aici */}
-            </div>
-          )}
+
+          {/* Desktop Navigation */}
+          <div className="middleSection middleSectionFull">
+            <Link to="/map" className={`middleItem`}>WorldMap</Link>
+            <Link to="/journal" className="middleItem">Journal</Link>
+            <Link to="/bucketlist" className="middleItem">Bucketlist</Link>
+            <Link to="/social" className={`middleItemLarge ${isGradientPage ? 'socialize-gradient' : ''}`}>Socialize</Link> 
+          </div>
+
+          {/* Mobile Hamburger Button */}
+          <button 
+            className="hamburger-btn" 
+            onClick={toggleMobileMenu}
+            aria-label="Toggle mobile menu"
+          >
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
+          </button>
+
+          {/* Profile Dropdown */}
           <div
             onClick={() => setIsOpened(!isOpened)}
             ref={dropdownRef}
@@ -93,6 +118,36 @@ const GlobalHeader = ({ isLogged }) => {
                 )}
               </div>
             )}
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation Menu */}
+      <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={closeMobileMenu}>
+        <div className={`mobile-nav-menu ${isMobileMenuOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
+          <div className="mobile-nav-header">
+            <h3>Navigation</h3>
+            <button className="mobile-nav-close" onClick={closeMobileMenu}>
+              ✕
+            </button>
+          </div>
+          <div className="mobile-nav-links">
+            <Link to="/map" className="mobile-nav-item" onClick={closeMobileMenu}>
+              <span className="nav-icon">🗺️</span>
+              WorldMap
+            </Link>
+            <Link to="/journal" className="mobile-nav-item" onClick={closeMobileMenu}>
+              <span className="nav-icon">📔</span>
+              Journal
+            </Link>
+            <Link to="/bucketlist" className="mobile-nav-item" onClick={closeMobileMenu}>
+              <span className="nav-icon">🎯</span>
+              Bucketlist
+            </Link>
+            <Link to="/social" className="mobile-nav-item socialize-mobile" onClick={closeMobileMenu}>
+              <span className="nav-icon">👥</span>
+              Socialize
+            </Link>
           </div>
         </div>
       </div>

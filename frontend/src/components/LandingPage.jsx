@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+﻿﻿import { useEffect, useRef, useState } from "react";
 import useFetchUser from "../hooks/useFetchUser";
 import Globe from "./Globe.jsx";
 import { FaArrowAltCircleDown } from "react-icons/fa";
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { LOGOUT_ENDPOINT_URL } from '../utils/ApiHost.js';
 import axios from 'axios';
 import { useLocation } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import img1 from "../assets/img1.png";
 import img2 from "../assets/img2.png";
@@ -21,14 +22,15 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
     const dropdownRef = useRef(null);
     const { lang } = useLanguage();
     const location = useLocation();
+    
     useEffect(() => {
         if (!location.search.includes("reloaded=1")) {
             window.location.replace(location.pathname + "?reloaded=1");
         } else {
-            // Ascunde parametru după reload
             window.history.replaceState({}, "", location.pathname);
         }
     }, [location]);
+    
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (e.target.className !== 'dropdownWrapper' && e.target.className !== 'profilePic') {
@@ -46,13 +48,12 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
 
         axios.post(LOGOUT_ENDPOINT_URL, {}, { withCredentials: true })
             .then((response) => {
-                setIsLogged(false); 
+                setIsLogged(false);
             })
             .catch((error) => {
-                console.log(error); 
+                console.log(error);
             })
             .finally(() => {
-                // Optional
             });
         window.location.reload();
     };
@@ -107,7 +108,6 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
         loadFinisherHeader();
     }, []);
 
-    // Voiceflow chat widget
     useEffect(() => {
         (function (d, t) {
             const v = d.createElement(t);
@@ -127,7 +127,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
             s.parentNode.insertBefore(v, s);
         })(document, 'script');
     }, []);
-    //  ceva
+    
     return (
         <div className="pageWrapper">
             <div className="headerWrapper">
@@ -143,7 +143,7 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                         </div>
                         <div
                             onClick={() => {
-                                console.log("Profile picture clicked!"); // Debugging
+                                console.log("Profile picture clicked!"); 
                                 setIsOpened(!isOpened);
                             }}
                             ref={dropdownRef} className="dropdownWrapper" >
@@ -199,16 +199,26 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                 <div
                     ref={headerRef}
                     className="header finisher-header"
-                    style={{ width: "150%", height: "1000px" }}
+                    style={{ width: "100%", height: "1000px" }}
                 >
                 </div>
             </div>
 
-            <div className="globeWrapper">
+            <motion.div 
+                className="globeWrapper"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, ease: "easeOut" }}
+            >
                 <Globe />
-            </div>
+            </motion.div>
 
-            <div className="buttonWrapper">
+            <motion.div 
+                className="buttonWrapper"
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
+            >
                 <div className="txt">
                     <h2>{translations[lang].travelExperience}</h2>
                 </div>
@@ -217,27 +227,106 @@ export default function LandingPage({ profilePic, isLogged, setIsLogged }) {
                     <Link to='journal'><button>{translations[lang].travelJournal}</button></Link>
                     <Link to='bucketlist'><button>{translations[lang].bucketlist}</button></Link>
                 </div>
-            </div>
+                <div className="btns btnsLanding single-btn">
+                    <Link to='social'><button className="wide-btn">{translations[lang].socialFeed}</button></Link>
+                </div>
+            </motion.div>
             <div className="infoWrapper">
-                <div className="info1">
-                    <a id="gen"></a>
-                    <div className="text1">
-                        <h1>{translations[lang].chooseWhere}</h1>
-                        <p>{translations[lang].chooseWhereDesc}</p>
+                <motion.div 
+                    className="infoCard card1"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <div className="cardContent">
+                        <div className="cardImage">
+                            <img src={img1} alt="Travel Planning" />
+                        </div>
+                        <motion.div 
+                            className="cardText"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <h2>{translations[lang].chooseWhere}</h2>
+                            <p>{translations[lang].chooseWhereDesc}</p>
+                        </motion.div>
                     </div>
-                    <div className="img1">
-                        <img src={img1} alt="" />
+                </motion.div>
+
+                <motion.div 
+                    className="infoCard card2"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                >
+                    <div className="cardContent reverse">
+                        <div className="cardImage">
+                            <img src={img2} alt="Interactive Map" />
+                        </div>
+                        <motion.div 
+                            className="cardText"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <h2>{translations[lang].useWhatWeOffer}</h2>
+                            <p>{translations[lang].useWhatWeOfferDesc}</p>
+                        </motion.div>
                     </div>
-                </div>
-                <div className="info2">
-                    <div className="img2">
-                        <img src={img2} alt="" />
+                </motion.div>
+
+                <motion.div 
+                    className="infoCard card3"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+                >
+                    <div className="cardContent">
+                        <div className="cardImage">
+                            <img src={img1} alt="Social Community" />
+                        </div>
+                        <motion.div 
+                            className="cardText"
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <h2>{translations[lang].connectWithTravelers}</h2>
+                            <p>{translations[lang].connectWithTravelersDesc}</p>
+                        </motion.div>
                     </div>
-                    <div className="text2">
-                        <h1>{translations[lang].useWhatWeOffer}</h1>
-                        <p>{translations[lang].useWhatWeOfferDesc}</p>
+                </motion.div>
+
+                <motion.div 
+                    className="infoCard card4"
+                    initial={{ opacity: 0, y: 100 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.3 }}
+                    transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                >
+                    <div className="cardContent reverse">
+                        <div className="cardImage">
+                            <img src={img2} alt="Country Information" />
+                        </div>
+                        <motion.div 
+                            className="cardText"
+                            initial={{ opacity: 0, x: 50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                        >
+                            <h2>{translations[lang].exploreCountries}</h2>
+                            <p>{translations[lang].exploreCountriesDesc}</p>
+                        </motion.div>
                     </div>
-                </div>
+                </motion.div>
             </div>
 
             <div className="footer">

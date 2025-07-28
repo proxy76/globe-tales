@@ -1,19 +1,20 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../styles/card.scss';
+import '../styles/Card.scss';
 import {
   REMOVE_JOURNAL_ENDPOINT_URL,
   REMOVE_BUCKETLIST_ENDPOINT_URL,
   ADD_JOURNAL_ENDPOINT_URL,
+  GET_JOURNAL_POSTS_ENDPOINT_URL,
 } from '../utils/ApiHost';
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
 
-const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page }) => {
+const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page, onCreateItinerary, onViewItineraries }) => {
   const [info, setInfo] = useState(null);
+  const [countryItineraries, setCountryItineraries] = useState([]);
   const { lang } = useLanguage();
 
-  // Helper function to get the correct name for RESTCountries API
   const getApiName = (name) => {
     const overrides = {
       'United States': 'usa',
@@ -34,7 +35,23 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
       }
     };
 
-    if (name) fetchCountryInfo();
+    const fetchCountryItineraries = async () => {
+      try {
+        const response = await axios.get(GET_JOURNAL_POSTS_ENDPOINT_URL, { withCredentials: true });
+        const journalData = response.data.journal;
+        
+        // Filter itineraries for this specific country
+        const itineraries = journalData[name]?.filter(post => post.post_type === 'itinerariu') || [];
+        setCountryItineraries(itineraries);
+      } catch (error) {
+        console.error('Failed to fetch itineraries:', error);
+      }
+    };
+
+    if (name) {
+      fetchCountryInfo();
+      fetchCountryItineraries();
+    }
   }, [name]);
 
   if (!info) return <p>{translations[lang].loading}</p>;
@@ -118,24 +135,42 @@ const CardWithReview = ({ name, setReviewsOpened, refreshData, onRemove, page })
           <p><b>{translations[lang].continent}</b></p>
           <p>{info.continents[0]}</p>
         </div>
+        
         <div className="btns">
           {page === 'bucketlist' ? (
             <>
-              <div className="remove" onClick={handleRemoveFromBucketlist}>{translations[lang].removeBtn}</div>
-              <div
-                className="remove"
-                onClick={async () => {
-                  await handleAddToJournal();
-                  await handleRemoveFromBucketlist();
-                }}
-              >
-                {translations[lang].visitedBtn}
+              <div className="main-actions">
+                <div className="remove" onClick={handleRemoveFromBucketlist}>{translations[lang].removeBtn}</div>
+                <div
+                  className="remove"
+                  onClick={async () => {
+                    await handleAddToJournal();
+                    await handleRemoveFromBucketlist();
+                  }}
+                >
+                  {translations[lang].visitedBtn}
+                </div>
               </div>
+              <div className="create-itinerary" onClick={() => onCreateItinerary?.(name)}>
+                📋 {translations[lang].createItinerary || 'Create Itinerary'}
+              </div>
+              {countryItineraries.length > 0 && (
+                <div className="view-itineraries" onClick={() => onViewItineraries?.(name, countryItineraries)}>
+                  👀 {translations[lang].viewItineraries || 'View Itineraries'} ({countryItineraries.length})
+                </div>
+              )}
             </>
           ) : (
             <>
-              <div className="remove" onClick={handleRemoveFromJournal}>{translations[lang].removeBtn}</div>
-              <div className="review" onClick={openReviews}>{translations[lang].reviewBtn}</div>
+              <div className="main-actions">
+                <div className="remove" onClick={handleRemoveFromJournal}>{translations[lang].removeBtn}</div>
+                <div className="review" onClick={openReviews}>{translations[lang].reviewBtn}</div>
+              </div>
+              {countryItineraries.length > 0 && (
+                <div className="view-itineraries" onClick={() => onViewItineraries?.(name, countryItineraries)}>
+                  👀 {translations[lang].viewItineraries || 'View Itineraries'} ({countryItineraries.length})
+                </div>
+              )}
             </>
           )}
         </div>

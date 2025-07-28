@@ -157,7 +157,6 @@
     background-size: 200% 100%;
     background-clip: text;
     -webkit-background-clip: text;
-    animation: shimmer 3s infinite;
     
     &::after {
       content: '';
@@ -188,7 +187,6 @@
     margin-bottom: 3rem;
   }
 
-  // Enhanced card hover effects
   .content > * {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
@@ -199,7 +197,6 @@
   }
 }
 
-// Responsive design
 @media (max-width: 768px) {
   .journal-bucketlist-container {
     h1 {
@@ -216,7 +213,7 @@
     }
 
     .floating-decoration {
-      display: none; // Hide decorative elements on mobile
+      display: none; 
     }
   }
 }

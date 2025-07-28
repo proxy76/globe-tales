@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';  
 import { useLanguage } from "../context/LanguageContext";
 import translations from "../utils/translations";
-import '../styles/card.scss'; 
+import '../styles/Card.scss'; 
 
 const Card = ({ name }) => {
     const { lang } = useLanguage();
