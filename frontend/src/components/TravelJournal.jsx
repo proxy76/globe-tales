@@ -189,12 +189,10 @@ const TravelJournal = ({ isOpen, onClose }) => {
     countries.forEach((country, countryIndex) => {
       const posts = journalData[country];
       let itineraryPost = null;
-      // Find itinerary post (post_type === 'itinerariu')
       const itineraryIndex = posts.findIndex(p => p.post_type === 'itinerariu');
       if (itineraryIndex !== -1) {
         itineraryPost = posts[itineraryIndex];
       }
-      // Filter out itinerary from normal posts
       const normalPosts = posts.filter((p, idx) => idx !== itineraryIndex);
       let numberedPosts = [];
       if (itineraryPost) {
@@ -226,7 +224,8 @@ const TravelJournal = ({ isOpen, onClose }) => {
                   <span class=\"print-post-title\">${post._isItinerary ? (translations[lang]?.itinerary || 'Itinerary') + ': ' : ''}${post.title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}</span>
                   ${imagesHTML}
                   <div class=\"print-post-content\">
-                    ${post.content.replace(/\n/g, '<br>').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+                    ${String(post.content).replace(/\n/g, '<br>')}
+
                   </div>
                   ${postIndex < numberedPosts.length - 1 ? '<div class=\"print-post-separator\"></div>' : ''}
                 </div>
@@ -280,7 +279,6 @@ const TravelJournal = ({ isOpen, onClose }) => {
     <div className="journal-overlay" onClick={onClose}>
       <div className="journal-container" onClick={(e) => e.stopPropagation()}>
         
-        {/* Closed Book */}
         {!isBookOpen && (
           <div className={`closed-book ${isPopping ? 'popping' : ''}`} onClick={handleBookClick}>
             <div className="book-spine">
@@ -302,7 +300,6 @@ const TravelJournal = ({ isOpen, onClose }) => {
           </div>
         )}
 
-        {/* Open Book */}
         {isBookOpen && (
           <div className={`open-book ${isFlipping ? 'flipping' : ''}`} ref={bookRef}>
             <button className="close-journal" onClick={onClose}>✕</button>
@@ -367,7 +364,6 @@ const TravelJournal = ({ isOpen, onClose }) => {
           </div>
         )}
 
-        {/* Restore Modal */}
         {showRestoreModal && (
           <RestoreModal 
             posts={removedPosts}

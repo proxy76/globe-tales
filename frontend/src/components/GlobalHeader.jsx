@@ -64,15 +64,13 @@ const GlobalHeader = ({ isLogged }) => {
             </div>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="middleSection middleSectionFull">
-            <Link to="/map" className={`middleItem`}>WorldMap</Link>
-            <Link to="/journal" className="middleItem">Journal</Link>
-            <Link to="/bucketlist" className="middleItem">Bucketlist</Link>
-            <Link to="/social" className={`middleItemLarge ${isGradientPage ? 'socialize-gradient' : ''}`}>Socialize</Link> 
+            <Link to="/map" className={`middleItem`}>{translations[lang].worldMap}</Link>
+            <Link to="/journal" className="middleItem">{translations[lang].travelJournal}</Link>
+            <Link to="/bucketlist" className="middleItem">{translations[lang].bucketlist}</Link>
+            <Link to="/social" className={`middleItemLarge ${isGradientPage ? 'socialize-gradient' : ''}`}>{translations[lang].socialFeed}</Link> 
           </div>
 
-          {/* Mobile Hamburger Button */}
           <button 
             className="hamburger-btn" 
             onClick={toggleMobileMenu}
@@ -83,7 +81,7 @@ const GlobalHeader = ({ isLogged }) => {
             <span className={`hamburger-line ${isMobileMenuOpen ? 'active' : ''}`}></span>
           </button>
 
-          {/* Profile Dropdown */}
+
           <div
             onClick={() => setIsOpened(!isOpened)}
             ref={dropdownRef}
@@ -122,7 +120,6 @@ const GlobalHeader = ({ isLogged }) => {
         </div>
       </div>
 
-      {/* Mobile Navigation Menu */}
       <div className={`mobile-nav-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={closeMobileMenu}>
         <div className={`mobile-nav-menu ${isMobileMenuOpen ? 'active' : ''}`} onClick={(e) => e.stopPropagation()}>
           <div className="mobile-nav-header">
@@ -134,19 +131,19 @@ const GlobalHeader = ({ isLogged }) => {
           <div className="mobile-nav-links">
             <Link to="/map" className="mobile-nav-item" onClick={closeMobileMenu}>
               <span className="nav-icon">🗺️</span>
-              WorldMap
+              {translations[lang].worldMap}
             </Link>
             <Link to="/journal" className="mobile-nav-item" onClick={closeMobileMenu}>
               <span className="nav-icon">📔</span>
-              Journal
+              {translations[lang].travelJournal}
             </Link>
             <Link to="/bucketlist" className="mobile-nav-item" onClick={closeMobileMenu}>
               <span className="nav-icon">🎯</span>
-              Bucketlist
+              {translations[lang].bucketlist}
             </Link>
             <Link to="/social" className="mobile-nav-item socialize-mobile" onClick={closeMobileMenu}>
               <span className="nav-icon">👥</span>
-              Socialize
+              {translations[lang].socialFeed}
             </Link>
           </div>
         </div>

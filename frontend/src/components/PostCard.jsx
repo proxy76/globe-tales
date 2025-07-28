@@ -216,7 +216,7 @@ const PostCard = ({ post, isVisible, delay = 0, onStampUpdate }) => {
         <div className="post-header">
           <div className="author-info">
             <img 
-              src={post.author.avatar} 
+              src={getImageUrl(post.author.profile_picture)} 
               alt={post.author.username}
               className="author-avatar"
               onError={(e) => { e.target.src = '/anonymous.png'; }}
@@ -229,7 +229,6 @@ const PostCard = ({ post, isVisible, delay = 0, onStampUpdate }) => {
           <div className="post-type-badge">
             {getPostTypeLabel(post.post_type)}
           </div>
-        {/* Privacy toggle for user's own posts */}
         {post.is_own_post && (
           <button
             className={`privacy-toggle-btn${privacyLoading ? ' loading' : ''}`}
@@ -335,7 +334,6 @@ const PostCard = ({ post, isVisible, delay = 0, onStampUpdate }) => {
             <>
               {post.post_type === 'itinerariu' && post.itinerary_data ? (
                 <div className="itinerary-content">
-                  <p className="post-excerpt">{post.content}</p>
                   <div className="itinerary-details">
                     <div className="itinerary-summary">
                       <div className="summary-stats">

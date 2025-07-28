@@ -23,7 +23,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
 
   useEffect(() => {
     if (isOpen && countryName) {
-      // Set default date to tomorrow
       const tomorrow = new Date();
       tomorrow.setDate(tomorrow.getDate() + 1);
       const defaultDate = tomorrow.toISOString().split('T')[0];
@@ -44,7 +43,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
   if (!isOpen) return null;
 
   const addNewDay = () => {
-    // Calculate next date based on the last day's date
     const lastDay = itinerary.days[itinerary.days.length - 1];
     const lastDate = new Date(lastDay.date || new Date());
     lastDate.setDate(lastDate.getDate() + 1);
@@ -60,7 +58,7 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
       ...prev,
       days: [...prev.days, newDay]
     }));
-  };
+  }; 
 
   const removeDay = (dayIndex) => {
     if (itinerary.days.length <= 1) return;
@@ -99,7 +97,7 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
     const newActivity = {
       id: String(Date.now()),
       name: '',
-      time: null, // Optional time (can be null or a time string)
+      time: null, 
       location: '',
       notes: '',
       website: '',
@@ -175,7 +173,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
     setShowShareOptions(false);
     onClose();
     
-    // Reset the form
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     const defaultDate = tomorrow.toISOString().split('T')[0];
@@ -210,11 +207,9 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
       <div className="itinerary-modal">
         <div className="itinerary-header">
           <h2>{translations[lang]?.createItinerary || 'Create Itinerary'}</h2>
-          <button className="close-btn" onClick={onClose}>×</button>
         </div>
 
         <div className="itinerary-content">
-          {/* Itinerary Basic Info */}
           <div className="itinerary-basic-info">
             <div className="input-group">
               <label>{translations[lang]?.itineraryTitle || 'Itinerary Title'}</label>
@@ -236,7 +231,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
             </div>
           </div>
 
-          {/* Days Navigation */}
           <div className="days-navigation">
             <div className="days-tabs">
               {itinerary.days.map((day, index) => (
@@ -268,7 +262,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
             </div>
           </div>
 
-          {/* Current Day Content */}
           {itinerary.days[currentDay] && (
             <div className="day-content">
               <div className="day-header">
@@ -293,7 +286,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
                 </div>
               </div>
 
-              {/* Activities */}
               <div className="activities-section">
                 <div className="activities-header">
                   <h3>{translations[lang]?.activities || 'Activities'}</h3>
@@ -428,7 +420,6 @@ const ItineraryModal = ({ isOpen, onClose, countryName, onSaveItinerary }) => {
           </button>
         </div>
 
-        {/* Share Options Modal */}
         {showShareOptions && (
           <div className="share-options-overlay">
             <div className="share-options-modal">
