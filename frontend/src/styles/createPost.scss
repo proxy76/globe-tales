@@ -244,6 +244,9 @@
   }
 }
 
+.create-post-modal .modal-content{
+  overflow: scroll !important;
+}
 // Privacy Toggle Styles
 .privacy-toggle {
   .privacy-label {
